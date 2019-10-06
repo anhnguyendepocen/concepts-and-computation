@@ -1,9 +1,0 @@
-\contentsline {chapter}{\numberline {1}Overview}{5}{chapter.1}
-\contentsline {part}{I\hspace {1em}Data Reduction}{7}{part.1}
-\contentsline {chapter}{\numberline {2}Location and Scale}{9}{chapter.2}
-\contentsline {section}{\numberline {2.1}The Intuition}{9}{section.2.1}
-\contentsline {section}{\numberline {2.2}The Usual Measures}{11}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}The Average}{11}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}The Standard Deviation}{12}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}Robust Alternatives}{13}{section.2.3}
-\contentsline {section}{\numberline {2.4}Computation in R}{15}{section.2.4}
