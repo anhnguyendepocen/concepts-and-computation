@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Methods | Concepts and Computation: An Introduction to Political Methodology</title>
+  <title>Chapter 8 The Average | Concepts and Computation: An Introduction to Political Methodology</title>
   <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Methods | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:title" content="Chapter 8 The Average | Concepts and Computation: An Introduction to Political Methodology" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Methods | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta name="twitter:title" content="Chapter 8 The Average | Concepts and Computation: An Introduction to Political Methodology" />
   
   <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-06" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="literature.html"/>
-<link rel="next" href="applications.html"/>
+<link rel="prev" href="measures-of-location-and-scale.html"/>
+<link rel="next" href="robust-measures-of-location-and-scale.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -139,16 +139,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
-<li class="part"><span><b>I Data Reduction</b></span></li>
-<li class="chapter" data-level="7" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>7</b> Location and Scale</a><ul>
-<li class="chapter" data-level="7.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>7.1</b> The Intuition</a></li>
-<li class="chapter" data-level="7.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>7.2</b> The Usual Measures</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>7.2.1</b> The Average</a></li>
-<li class="chapter" data-level="7.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>7.2.2</b> The Standard Deviation</a></li>
+<li class="chapter" data-level="7" data-path="measures-of-location-and-scale.html"><a href="measures-of-location-and-scale.html"><i class="fa fa-check"></i><b>7</b> Measures of Location and Scale</a></li>
+<li class="chapter" data-level="8" data-path="the-average.html"><a href="the-average.html"><i class="fa fa-check"></i><b>8</b> The Average</a><ul>
+<li class="chapter" data-level="8.1" data-path="the-average.html"><a href="the-average.html#the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> The Standard Deviation</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>7.3</b> Robust Alternatives</a></li>
-<li class="chapter" data-level="7.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>7.4</b> Computation in R</a></li>
+<li class="chapter" data-level="9" data-path="robust-measures-of-location-and-scale.html"><a href="robust-measures-of-location-and-scale.html"><i class="fa fa-check"></i><b>9</b> Robust Measures of Location and Scale</a><ul>
+<li class="chapter" data-level="9.1" data-path="robust-measures-of-location-and-scale.html"><a href="robust-measures-of-location-and-scale.html#the-fragility-of-the-average-and-sd"><i class="fa fa-check"></i><b>9.1</b> The Fragility of the Average and SD</a></li>
+<li class="chapter" data-level="9.2" data-path="robust-measures-of-location-and-scale.html"><a href="robust-measures-of-location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>9.2</b> Robust Alternatives</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="location-and-scale-in-r.html"><a href="location-and-scale-in-r.html"><i class="fa fa-check"></i><b>10</b> Location and Scale in R</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -170,18 +169,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="methods" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Methods</h1>
-<p>We describe our methods in this chapter.</p>
-
+<div id="the-average" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> The Average</h1>
+<p>The most common measure of the location of a variable is the average. Suppose we have a variable (a list of numbers) <span class="math inline">\(X = \{x_1, x_2, ..., x_n\)</span>}.</p>
+<p><span class="math display">\[\begin{equation}
+\text{average} = \dfrac{\text{the sum of the list}}{\text{the number of entries in the list}} = \dfrac{\sum_{i = 1}^n x_i}{n} \nonumber
+\end{equation}\]</span></p>
+<p>The average is easy to compute and easy to work with mathematically.</p>
+<p>Unfortunately, the average doesn’t have an easy interpretation. The best interpretation, in my mind, is as the balance-point for the data. If we imagine the left-right axis as a teeter-totter and stack the data along the beam according to their values, then the average is the position of the fulcrum that would balance the data-filled beam.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+<div id="the-standard-deviation" class="section level2">
+<h2><span class="header-section-number">8.1</span> The Standard Deviation</h2>
+<p>The most common measure of scale is the standard deviation (SD). The intuition is subtle, so let’s look a a simple example. Rember, our goal is a "give-or-take number.</p>
+<p>Suppose we have a list of numbers <span class="math inline">\(X = \{1, 2, 3, 4, 5\}\)</span>. The average of this list is 3, so we can compute the <em>deviation from average</em> for each value.</p>
+<p><span class="math display">\[\begin{equation}
+\text{deviation from average} = d = \text{value} - \text{average} \nonumber
+\end{equation}\]</span></p>
+<p>In this case, <span class="math inline">\(d = \{-2, -1, 0, 1, 2\}\)</span>.</p>
+<p>We want to use these deviations to find a give-or-take number.</p>
+<p>Here’s an initial idea. Just take the absolute values <span class="math inline">\(|d| = \{2, 1, 0, 1, 2\}\)</span>. These tell us how far each entry falls away from the average. Then we could average the absolute devations to find how far a typical entries falls away from the average of the list. In this case, we get 1.2. This is reasonable approach and we’ll refer to it as the average absolute devation or a.a.d. (It turns out that the a.a.d. isn’t a common quantity, so I don’t elevate it with an all-caps acronym.)</p>
+<p>The a.a.d. has one big problem–it uses an absolute value. This introduces some computational and mathematical difficulties.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p>So let’s do something similar. Rather than take the absolute value, let’s square the deviations, take the average, and then undo the square at the end, so that <span class="math inline">\(\text{SD} = \sqrt{\text{avg}(d^2)}\)</span>.</p>
+<p>Sometimes taking the (3) square root of (2) the average of (1) the squares is called the RMS. In this case, the <strong>RMS of the deviations from the average is the SD</strong>, so that</p>
+<p><span class="math display">\[\begin{equation}
+\text{SD} = \sqrt{\text{avg}(d^2)} = \sqrt{\dfrac{(x_i - \text{avg}(X))^2}{n}} = \text{RMS of deviations from average}. \nonumber
+\end{equation}\]</span></p>
+<p>The SD moves smoothly as you move around the entries in the list.</p>
+<p>To calculate the SD, first make this little table, with the list of values, the deviations from the average, and the squares of the deviations.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"><span class="math inline">\(X\)</span></th>
+<th align="right"><span class="math inline">\(d\)</span></th>
+<th align="right"><span class="math inline">\(d^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">-2</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>Then compute the average of the squares of the deviations, which in this case is 2. Then take the square root of that average, which in this case is about 1.4. Notice that 1.4 is about 1.2 (the a.a.d.). The SD is bounded (weakly) below by the a.a.s., but they’ll usually be close, so we can think of the SD as how far a typical point falls away from the average.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="literature.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="applications.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="measures-of-location-and-scale.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="robust-measures-of-location-and-scale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
