@@ -280,7 +280,7 @@ The average and SD respond to even a small amount of corrupt data.
 
 As an alternative to the average, we might use the median, which is more robust. The median is the/a number which splits the values in half, so that equal numbers of entries lie above and below the median.
 
-We have two common robust alternatives to the SD. The interquartile range (IQR) is the difference between the 25th and 75th quantiles. The median absolute deviation (MAD) is the median of the absolute values of the deviations from the \textbf{median} (almost the a.a.d., but using the medians in place of averages).
+We have two common robust alternatives to the SD. The interquartile range (IQR) is the difference between the 25th and 75th quantiles. The median absolute deviation (MAD) is the median of the absolute values of the deviations from the \textbf{median} (almost the a.a.d., but using the medians in place of averages). It turns out that multiplying the MAD by 1.4826 makes it similar to the SD in many dataset, so it's common to rescale it.
 
 To illustrate the robustness of each of our measures of location and scale, let's imagine a variable with 10 observations \(X = \{-1.1, 1.5, -1, -0.1, -1.1, 0, -0.4, 0, 0.8, 0.4\}\). Let's see how the measures change as we corrupt more and more of the observations.
 
@@ -369,12 +369,22 @@ We can easily calculate all these measures of location and scale in R.\footnote{
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{mad}\NormalTok{(x)  }\CommentTok{# MAD}
+\KeywordTok{mad}\NormalTok{(x)  }\CommentTok{# MAD, rescaled by 1.4826}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## [1] 1.4826
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mad}\NormalTok{(x, }\DataTypeTok{constant =} \DecValTok{1}\NormalTok{)  }\CommentTok{# MAD, not rescaled}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
 \end{verbatim}
 
 The functions above work nicely for computing on whole variables. But in most cases, we are interested in comparing the summaries across groups.
@@ -439,7 +449,8 @@ After grouping, we use \texttt{summarize()} to create summaries for each group. 
             \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(ideology, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{), }
             \DataTypeTok{median =} \KeywordTok{median}\NormalTok{(ideology, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{), }
             \DataTypeTok{iqr =} \KeywordTok{IQR}\NormalTok{(ideology, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-            \DataTypeTok{mad =} \KeywordTok{mad}\NormalTok{(ideology, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}
+            \DataTypeTok{mad =} \KeywordTok{mad}\NormalTok{(ideology, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+            \DataTypeTok{mad1 =} \KeywordTok{mad}\NormalTok{(ideology, }\DataTypeTok{constant =} \DecValTok{1}\NormalTok{, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  }\CommentTok{# quick look at our work}
 \StringTok{  }\KeywordTok{glimpse}\NormalTok{()}
 \end{Highlighting}
@@ -447,7 +458,7 @@ After grouping, we use \texttt{summarize()} to create summaries for each group. 
 
 \begin{verbatim}
 ## Observations: 32
-## Variables: 7
+## Variables: 8
 ## Groups: party [2]
 ## $ party    <fct> Democrat, Democrat, Democrat, Democrat, Democrat, Dem...
 ## $ congress <int> 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110...
@@ -456,27 +467,28 @@ After grouping, we use \texttt{summarize()} to create summaries for each group. 
 ## $ median   <dbl> -0.3200, -0.3200, -0.3200, -0.3360, -0.3815, -0.3835,...
 ## $ iqr      <dbl> 0.22750, 0.22600, 0.23025, 0.24000, 0.20550, 0.17850,...
 ## $ mad      <dbl> 0.1675338, 0.1719816, 0.1690164, 0.1793946, 0.1490013...
+## $ mad1     <dbl> 0.1130, 0.1160, 0.1140, 0.1210, 0.1005, 0.0895, 0.087...
 \end{verbatim}
 
-We can plot this measures to get a sense of how they change over time.
+We can plot this measures to get a sense of how they change over time. Notice that \texttt{mad} (rescaled by multiplying by 1.4826) closely corresponds to the SD, but \texttt{mad1} (not rescaled) is much smaller.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# wrangle the data for plotting}
 \NormalTok{gg_df <-}\StringTok{ }\NormalTok{smry_df }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(average}\OperatorTok{:}\NormalTok{mad, }\DataTypeTok{names_to =} \StringTok{"measure"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(average}\OperatorTok{:}\NormalTok{mad1, }\DataTypeTok{names_to =} \StringTok{"measure"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{measure_of =} \KeywordTok{ifelse}\NormalTok{(measure }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"average"}\NormalTok{, }\StringTok{"median"}\NormalTok{), }\StringTok{"location"}\NormalTok{, }\StringTok{"scale"}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{glimpse}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Observations: 160
+## Observations: 192
 ## Variables: 5
 ## Groups: party [2]
 ## $ party      <fct> Democrat, Democrat, Democrat, Democrat, Democrat, D...
-## $ congress   <int> 100, 100, 100, 100, 100, 101, 101, 101, 101, 101, 1...
-## $ measure    <chr> "average", "sd", "median", "iqr", "mad", "average",...
+## $ congress   <int> 100, 100, 100, 100, 100, 100, 101, 101, 101, 101, 1...
+## $ measure    <chr> "average", "sd", "median", "iqr", "mad", "mad1", "a...
 ## $ value      <dbl> -0.3092901, 0.1653092, -0.3200000, 0.2275000, 0.167...
 ## $ measure_of <chr> "location", "scale", "location", "scale", "scale", ...
 \end{verbatim}

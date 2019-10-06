@@ -255,7 +255,7 @@ The average and SD respond to even a small amount of corrupt data.
 
 As an alternative to the average, we might use the median, which is more robust. The median is the/a number which splits the values in half, so that equal numbers of entries lie above and below the median.
 
-We have two common robust alternatives to the SD. The interquartile range (IQR) is the difference between the 25th and 75th quantiles. The median absolute deviation (MAD) is the median of the absolute values of the deviations from the **median** (almost the a.a.d., but using the medians in place of averages).
+We have two common robust alternatives to the SD. The interquartile range (IQR) is the difference between the 25th and 75th quantiles. The median absolute deviation (MAD) is the median of the absolute values of the deviations from the **median** (almost the a.a.d., but using the medians in place of averages). It turns out that multiplying the MAD by 1.4826 makes it similar to the SD in many dataset, so it's common to rescale it.
 
 To illustrate the robustness of each of our measures of location and scale, let's imagine a variable with 10 observations $X = \{-1.1, 1.5, -1, -0.1, -1.1, 0, -0.4, 0, 0.8, 0.4\}$. Let's see how the measures change as we corrupt more and more of the observations. 
 
@@ -335,7 +335,8 @@ mean(x)  # average
 sd(x) # SD; see sidenote
 median(x)  # median
 IQR(x)  # IQR
-mad(x)  # MAD
+mad(x)  # MAD, rescaled by 1.4826
+mad(x, constant = 1)  # MAD, not rescaled
 ```
 
 The functions above work nicely for computing on whole variables. But in most cases, we are interested in comparing the summaries across groups.
@@ -380,17 +381,18 @@ smry_df <- df %>%
             sd = sd(ideology, na.rm = TRUE), 
             median = median(ideology, na.rm = TRUE), 
             iqr = IQR(ideology, na.rm = TRUE),
-            mad = mad(ideology, na.rm = TRUE)) %>%
+            mad = mad(ideology, na.rm = TRUE),
+            mad1 = mad(ideology, constant = 1, na.rm = TRUE)) %>%
   # quick look at our work
   glimpse()
 ```
 
-We can plot this measures to get a sense of how they change over time.
+We can plot this measures to get a sense of how they change over time. Notice that `mad` (rescaled by multiplying by 1.4826) closely corresponds to the SD, but `mad1` (not rescaled) is much smaller.
 
 ```{r}
 # wrangle the data for plotting
 gg_df <- smry_df %>%
-  pivot_longer(average:mad, names_to = "measure") %>%
+  pivot_longer(average:mad1, names_to = "measure") %>%
   mutate(measure_of = ifelse(measure %in% c("average", "median"), "location", "scale")) %>%
   glimpse()
 
