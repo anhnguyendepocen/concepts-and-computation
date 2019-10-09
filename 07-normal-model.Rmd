@@ -1,0 +1,296 @@
+
+# The Normal Model
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+doc_theme <- ggplot2::theme_bw()
+```
+
+## The Intuition
+
+Last week, we used the average and SD to reduce and entire variable to two summaries. We use the average and SD to fill in the following sentence: "The values are about ________, give or take ________ or so."
+
+This week, we add an additional assumption. This week, we also say that the histogram of the variable follows the normal curve. The normal curve is a bell-shaped curve with a particular equation. There are two varieties. There is a general, parameterized normal distibution that can move left and right (i.e., change location) and grow wider or taller (i.e., change scale)
+
+## The Normal Curve(s)
+
+There are two particular normal curves that we care about
+
+1. **the normal curve**, which has a location and scale parameter that we can specify: $f(x | \mu, \sigma) = \phi(x | \mu, \sigma) = \frac{1}{{\sigma \sqrt {2\pi } }}e^\frac{{ - \left( {x - \mu } \right)^2 }}{2\sigma ^2 }$
+2. **the *standard* normal curve**, with the location and scale parameters fixed: $f(x | \mu = 0, \sigma = 1) = \phi(x | \mu = 0, \sigma = 1) = \frac{1}{{\sqrt {2\pi } }}e^\frac{{ -  x ^2 }}{2}$
+
+These equations are complicated. Instead of memorizing them or working carefully through the math, just understand (for now) that the normal curve has an equation that exactly characterizes it. The figure below shows the *standard* normal curve ($\mu = 0$ and $\sigma = 1$) and several other paramaterizations.
+
+```{r echo=FALSE, fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+mu <- c(0, -2, -4, 0)
+sigma <- c(1, 1, 1/2, 2)
+par_df <- tibble(mu, sigma) %>%
+  mutate(id = 1:n())
+
+gg_df <- par_df %>%
+  split(.$id) %>%
+  map(~ tibble(mu = .$mu, 
+               sigma = .$sigma,
+               x = seq(-7, 5, by = 0.01),
+               density = dnorm(x, mean = .$mu, sd = .$sigma))) %>%
+  bind_rows() %>%
+  mutate(par = paste0("list(mu == ", mu, ", sigma == ", sigma, ")"))
+
+lab_df <- gg_df %>%
+  group_by(par) %>%
+  filter(density == max(density)) 
+
+ggplot(gg_df, aes(x = x, y = density, color = par)) + 
+  geom_line() + 
+  geom_label(data = lab_df, aes(y = density + 0.04, label = par), 
+             parse = TRUE, size = 3) + 
+  doc_theme + theme(legend.position="none")
+
+```
+
+
+## The Empirical Rule
+
+It turns out that many variable's have a histogram that resembles the normal curve. Because of this, the normal curve can sometimes serve as an effective model for these variables.
+
+For example, NOMINATE ideology scores for Republicans in the 115th Congress roughly follow the normal curve.
+
+```{r message=FALSE, warning=FALSE, fig.height=4, fig.width=6}
+df <- read_rds("data/nominate.rds") %>%
+  filter(party == "Democrat", congress == 115) 
+
+ggplot(df, aes(x = ideology)) + 
+  geom_histogram() 
+```
+
+However, the ideology scores for both Republicans and Democrats together does not follow a normal curve.
+
+```{r message=FALSE, warning=FALSE, fig.height=4, fig.width=6}
+df <- read_rds("data/nominate.rds")
+
+ggplot(df, aes(x = ideology)) + 
+  geom_histogram() 
+```
+
+The histograms of ENEP by electoral system and social heterogeneity deviate slightly from the normal curve.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+df <- read_rds("data/parties.rds")
+
+min <- min(df$enep)
+max <- max(df$enep)
+
+curve_df <- df %>%
+  split(paste0(.$electoral_system, "; ", .$social_heterogeneity)) %>%
+  imap(~ tibble(x = seq(min, max, by = 0.1),
+               density = dnorm(x, mean = mean(.x$enep), sd = sd(.x$enep)), 
+               id = .y)) %>%
+  bind_rows %>%
+  separate(id, c("electoral_system", "social_heterogeneity"), sep = "; ") %>%
+  mutate(electoral_system = factor(electoral_system, levels = levels(df$electoral_system)),
+         social_heterogeneity = factor(social_heterogeneity, levels = levels(df$social_heterogeneity))) %>%
+  glimpse()
+
+ggplot(df, aes(x = enep)) +
+  facet_grid(rows = vars(social_heterogeneity), 
+             cols = vars(electoral_system), 
+             scales = "free_y") + 
+  geom_histogram(aes(, y = ..density..), fill = "grey50", color = NA) +
+  geom_line(data =curve_df, aes(x = x, y = density), color = scales::muted("red")) + 
+  doc_theme
+```
+
+If the variable seems to follow the normal curve, then we have the following rules:
+
+- About *68%* of the data (i.e., "most") fall within **1 SD** of the average.
+- About *95%* of the data (i.e., "almost all") fall within **2 SDs** of the average.
+
+We can evaluate this rule with the parties data above. Some of the nine hisgrams follow the normal curve quite well (e.g., lower-left). Other's seem to meaningfully deviate from the normal curve (e.g., middle-left).
+
+The table below shows the actual percent of the variable that falls within one and two SDs of the average for each histogram. As you can see, for the lower-left panel (SMD, Top 3rd), the empircal rule of 68% and 95% matches the actual values of 74% and 98% fairly well. For the middle-left panel (SMD, Middle 3rd), the empirical rule matches the actual values of 87% and 93% less well.
+
+Across all histograms, it seems fair that the empirical rule works as a rough approximation, even for histograms that meaningfully deviate from the normal curve.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+library(kableExtra)
+df %>%
+  group_by(electoral_system, social_heterogeneity) %>%
+  summarize(frac1 = mean((enep > mean(enep) - sd(enep)) & 
+                           (enep < mean(enep) + sd(enep))),
+            frac2 = mean((enep > mean(enep) - 2*sd(enep)) & 
+                           (enep < mean(enep) + 2*sd(enep)))) %>%
+  mutate(frac1 = scales::percent(frac1, accuracy = 1),
+         frac2 = scales::percent(frac2, accuracy = 1)) %>%
+  rename(`Electoral System` = electoral_system,
+         `Social Heterogeneity` = social_heterogeneity,
+         `within 1 SD` = frac1, `within 2 SDs` = frac2) %>%
+  kable(format = "markdown")
+```
+
+## The Normal Approximation
+
+If our normal model summarizes a histogram well, then we can use the model to estimate the percent of the observations that fall in a given range. There are two approaches:
+
+Just like we add up the area of the bars to compute percentages with a histogram, **we add up the area under the normal curve to approximate percentages.**
+
+1. Use a normal table from a textbook. Because the table is for the standard normal curve, we need to **re-locate and re-scale the data to fit the standard normal curve**.
+1. Use the `pnorm()` function in R. Because this function is parameterized with location and scale, we can simple **re-locate and re-scale the curve to fit the data**.
+
+### Normal Table
+
+Normal tables offer an antiquated method to use the normal distribution to approximate percentages. Because we cannot have a normal table for all possible locations and scales, we have one: the standard normal table, which works for a variable with an average of zero and an SD of one. 
+
+This seems limiting, but it turns out that we can easily re-locate and re-scale any value to match the standard normal curve. We simply subtract the average and divide by the SD. We call this new value a *z*-score.
+
+$z\text{-score} = \dfrac{\text{value} - \text{average}}{\text{SD}}$
+
+FSuppose we have the list $X = \{1, 2, 3, 4, 5\}$. Then the average is 3, and the SD is about 1.26. We can compute the *z*score for the first entry 1 as $\frac{1 - 3}{1.25} \approx -1.58$. Similarly, we can convert the entire list to *z*-scores and get $Z = \{1.59, -0.79,  0.00,  0.79,  1.59\}$. If you compute the average and SD of the list $Z$, you will find zero and one, respectively.
+
+We can then use a normal table to compute areas under the normal curve between (or above or below) these values of $z$. There are two types of normal tables.
+
+1. Some tables report the percent (or proportion) of the normal curve **below** a particular value $z$.
+1. Other tables report the percent (or proportion) of the normal curve **between** a particular value $z$ and $-z$. (The normal table on p. A-104 of FPP works this way.)
+
+```{r echo=FALSE, fig.height=2.5, fig.width=5, message=FALSE, warning=FALSE}
+ggplot(NULL, aes(c(-3,3))) +
+  geom_area(stat = "function", fun = dnorm, fill = scales::muted("red"), xlim = c(-3, 1.65)) +
+  geom_area(stat = "function", fun = dnorm, fill = "grey80", xlim = c(1.65, 3)) +
+  labs(x = "z", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = 1.65) + 
+  doc_theme + 
+  labs(title = "Area Below a Particular Value")
+```
+
+```{r echo=FALSE, fig.height=2.5, fig.width=5, message=FALSE, warning=FALSE}
+ggplot(NULL, aes(c(-3,3))) +
+  geom_area(stat = "function", fun = dnorm, fill = scales::muted("red"), xlim = c(-1.65, 1.65)) +
+  geom_area(stat = "function", fun = dnorm, fill = "grey80", xlim = c(1.65, 3)) +
+  geom_area(stat = "function", fun = dnorm, fill = "grey80", xlim = c(-1.65, -3)) +
+  labs(x = "z", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(1.65, -1.65)) + 
+  doc_theme + 
+  labs(title = "Area Between a Particular Value and Its Opposite")
+```
+
+Either table works, but you must know what type of table you are working with. Depending on the question, one type might offer a more direct solution.
+
+Here's a small normal table for a few values of $z$ that uses both approaches.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+tibble(z = c(0, .1, .2, .3, .4, .5, .75, 1, 1.5, 1.64, 1.96, 2, 3),
+       `*z*` = z, 
+       `% less than *z*` = scales::percent(pnorm(z), accuracy = 1),
+       `% between *-z* and *z*` = scales::percent(pnorm(z) - pnorm(-z), accuracy = 1)) %>%
+  mutate(Status = ifelse(z %in% c(1, 2, 1.64, 1.96), "Important", "")) %>%
+  select(-z) %>%
+  kable(format = "markdown")
+```
+
+In order to use the table to find the area between any two values, you need to use the following three rules in combination.
+
+1. The normal table gives the area (i) below $z$ or (ii) between $-z$ and $z$.
+1. The area under the entire normal curve is 1 or 100%.
+1. The normal curve is symetric, so that the area to the right of $z$ equals the area to the left of $-z$.
+
+### `pnorm()`
+
+The `pnorm()` function in R return the area under the normal curve less than $z$. By default, it uses the standard normal curve, but you can specify a `mean` and `sd` if you prefer to re-locate and/or re-scale the curve to fit your values.
+
+```{r}
+# area under the std. normal curve less than 1
+pnorm(1)
+
+# area under the a normal curve (with average of 1 and SD of 4) less than 1
+pnorm(1, mean = 1, sd = 4)
+
+# area between -1.64 and 1.64
+pnorm(1.64) - pnorm(-1.64)
+```
+
+### Exactly Percentages
+
+To actually compute percentages, we can create a function that works just like `pnorm()`, but it returns the percent *of the data* that fall below a particular value. The most convenient method is to create an "empirical cumulative distribution function*. 
+
+This function is somewhat confusing. The `ecdf()` function does not return the proportion below its argument. Instead, it creates a function that returns the percent below its argument. If we have a numeric vector `x`, then `ecdf(x)` is a function! Let that settle in... both `ecdf` and `ecdf(x)` are function. The function `ecdf` (I'm dropping the `()` for clarity) is a function *that creates a function*, and `ecdf(x)()` (I'm including the `()`, as usual, for clarity) is a function that returns the percent below. 
+
+```{r}
+df <- read_rds("data/nominate.rds") %>%
+  filter(party == "Democrat", congress == 115) 
+
+# normal approximation for % of Democrats less than -0.05
+avg <- mean(df$ideology)
+sd <- sd(df$ideology)
+pnorm(-0.5, mean = avg, sd = sd)
+
+# exact % of Democrats less than -0.05
+ecdf(df$ideology)(-0.5)
+```
+
+We can also plot the ECDF with ggplot2.
+
+```{r echo=FALSE, fig.height=2, fig.width=3, message=FALSE, warning=FALSE}
+ggplot(df, aes(x = ideology)) +
+  stat_ecdf()
+```
+
+## Review Exercises
+
+The plot below show the histograms for the ideology of legislators in the U.S. House by party.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+df <- read_rds("data/nominate.rds") %>%
+  filter(congress == 115)
+
+min <- min(df$ideology)
+max <- max(df$ideology)
+
+curve_df <- df %>%
+  split(paste0(.$party)) %>%
+  imap(~ tibble(x = seq(min, max, by = 0.01),
+               density = dnorm(x, mean = mean(.x$ideology), sd = sd(.x$ideology)), 
+               party = .y)) %>%
+  bind_rows()
+
+ggplot(df, aes(x = ideology)) +
+  facet_grid(rows = vars(party)) + 
+  geom_histogram(aes(, y = ..density..), fill = "grey50", color = NA) +
+  geom_line(data =curve_df, aes(x = x, y = density), color = scales::muted("red")) + 
+  doc_theme + 
+  labs(x = "Ideology", 
+       y = "Density")
+```
+
+We can compute the average and SD by party.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+df %>%
+  group_by(party) %>%
+  summarize(Average = mean(ideology, na.rm = TRUE),
+            SD = sd(ideology, na.rm = TRUE)) %>%
+  rename(Party = party) %>%
+  kable(format = "markdown", digits = 2)
+```
+
+The table below lists some of the leaders of each party and their ideology score. For each leader, use our three approaches to compute the percent of the party that is "more extreme" than their leader: inspect the histogram, use the normal approximation, and use R to compute the answer exactly.
+
+```{r echo=FALSE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+tribble(~name, ~position,
+  "RYAN, Paul D.",   "Speaker of the House",
+  "MCCARTHY, Kevin",   "Majority Leader",
+  "SCALISE, Steve",   "Majority Whip",
+  "McMORRIS RODGERS, Cathy", "Conference Chair",
+  "PELOSI, Nancy",  "Minority Leader",
+  "HOYER, Steny Hamilton", "Minority Whip",
+  "CLYBURN, James Enos", "Assistant Democratic Leader",
+  "LEWIS, John R.", "Senior Chief Deputy Minority Whip") %>%
+  left_join(df) %>%
+  select(Name = name, Party = party, Position = position, `Ideology Score` = ideology) %>%
+  mutate(`Inspect Histogram` = "", 
+         `Normal Approximation` = "",
+         Actual = "") %>%
+  kable(format = "markdown", digits = 2)
+```

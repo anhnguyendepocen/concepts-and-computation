@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-10-06}
+    \date{2019-10-09}
 
 \usepackage{booktabs}
 
@@ -254,12 +254,12 @@ Summary & Average & SD\tabularnewline
 \endhead
 Actual Data Set & 0.42 & 0.70\tabularnewline
 First entry of \(X\) replaced with 1 & 0.60 & 0.71\tabularnewline
-\ldots with 5 & 1.40 & 1.92\tabularnewline
-\ldots with 10 & 2.40 & 3.86\tabularnewline
-\ldots with 50 & 10.40 & 19.81\tabularnewline
-\ldots with 100 & 20.40 & 39.81\tabularnewline
-\ldots with 500 & 100.40 & 199.80\tabularnewline
-\ldots with 1,000 & 200.40 & 399.80\tabularnewline
+\ldots{}with 5 & 1.40 & 1.92\tabularnewline
+\ldots{}with 10 & 2.40 & 3.86\tabularnewline
+\ldots{}with 50 & 10.40 & 19.81\tabularnewline
+\ldots{}with 100 & 20.40 & 39.81\tabularnewline
+\ldots{}with 500 & 100.40 & 199.80\tabularnewline
+\ldots{}with 1,000 & 200.40 & 399.80\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -503,6 +503,431 @@ We can plot this measures to get a sense of how they change over time. Notice th
 \end{Shaded}
 
 \includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{the-normal-model}{%
+\chapter{The Normal Model}\label{the-normal-model}}
+
+\hypertarget{the-intuition-1}{%
+\section{The Intuition}\label{the-intuition-1}}
+
+Last week, we used the average and SD to reduce and entire variable to two summaries. We use the average and SD to fill in the following sentence: ``The values are about \_\_\_\_\_\_\_\_, give or take \_\_\_\_\_\_\_\_ or so.''
+
+This week, we add an additional assumption. This week, we also say that the histogram of the variable follows the normal curve. The normal curve is a bell-shaped curve with a particular equation. There are two varieties. There is a general, parameterized normal distibution that can move left and right (i.e., change location) and grow wider or taller (i.e., change scale)
+
+\hypertarget{the-normal-curves}{%
+\section{The Normal Curve(s)}\label{the-normal-curves}}
+
+There are two particular normal curves that we care about
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{the normal curve}, which has a location and scale parameter that we can specify: \(f(x | \mu, \sigma) = \phi(x | \mu, \sigma) = \frac{1}{{\sigma \sqrt {2\pi } }}e^\frac{{ - \left( {x - \mu } \right)^2 }}{2\sigma ^2 }\)
+\item
+  \textbf{the \emph{standard} normal curve}, with the location and scale parameters fixed: \(f(x | \mu = 0, \sigma = 1) = \phi(x | \mu = 0, \sigma = 1) = \frac{1}{{\sqrt {2\pi } }}e^\frac{{ - x ^2 }}{2}\)
+\end{enumerate}
+
+These equations are complicated. Instead of memorizing them or working carefully through the math, just understand (for now) that the normal curve has an equation that exactly characterizes it. The figure below shows the \emph{standard} normal curve (\(\mu = 0\) and \(\sigma = 1\)) and several other paramaterizations.
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\hypertarget{the-empirical-rule}{%
+\section{The Empirical Rule}\label{the-empirical-rule}}
+
+It turns out that many variable's have a histogram that resembles the normal curve. Because of this, the normal curve can sometimes serve as an effective model for these variables.
+
+For example, NOMINATE ideology scores for Republicans in the 115th Congress roughly follow the normal curve.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"data/nominate.rds"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(party }\OperatorTok{==}\StringTok{ "Democrat"}\NormalTok{, congress }\OperatorTok{==}\StringTok{ }\DecValTok{115}\NormalTok{) }
+
+\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ideology)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+However, the ideology scores for both Republicans and Democrats together does not follow a normal curve.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"data/nominate.rds"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ideology)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+The histograms of ENEP by electoral system and social heterogeneity deviate slightly from the normal curve.
+
+\begin{verbatim}
+## Observations: 1,161
+## Variables: 4
+## $ x                    <dbl> 1.23, 1.33, 1.43, 1.53, 1.63, 1.73, 1.83,...
+## $ density              <dbl> 0.02616495, 0.02960818, 0.03338541, 0.037...
+## $ electoral_system     <fct> Large-Magnitude PR, Large-Magnitude PR, L...
+## $ social_heterogeneity <fct> Bottom 3rd of ENEG, Bottom 3rd of ENEG, B...
+\end{verbatim}
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+If the variable seems to follow the normal curve, then we have the following rules:
+
+\begin{itemize}
+\tightlist
+\item
+  About \emph{68\%} of the data (i.e., ``most'') fall within \textbf{1 SD} of the average.
+\item
+  About \emph{95\%} of the data (i.e., ``almost all'') fall within \textbf{2 SDs} of the average.
+\end{itemize}
+
+We can evaluate this rule with the parties data above. Some of the nine hisgrams follow the normal curve quite well (e.g., lower-left). Other's seem to meaningfully deviate from the normal curve (e.g., middle-left).
+
+The table below shows the actual percent of the variable that falls within one and two SDs of the average for each histogram. As you can see, for the lower-left panel (SMD, Top 3rd), the empircal rule of 68\% and 95\% matches the actual values of 74\% and 98\% fairly well. For the middle-left panel (SMD, Middle 3rd), the empirical rule matches the actual values of 87\% and 93\% less well.
+
+Across all histograms, it seems fair that the empirical rule works as a rough approximation, even for histograms that meaningfully deviate from the normal curve.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Electoral System & Social Heterogeneity & within 1 SD & within 2 SDs\tabularnewline
+\midrule
+\endhead
+Single-Member District & Bottom 3rd of ENEG & 87\% & 96\%\tabularnewline
+Single-Member District & Middle 3rd of ENEG & 87\% & 93\%\tabularnewline
+Single-Member District & Top 3rd of ENEG & 74\% & 98\%\tabularnewline
+Small-Magnitude PR & Bottom 3rd of ENEG & 68\% & 97\%\tabularnewline
+Small-Magnitude PR & Middle 3rd of ENEG & 73\% & 96\%\tabularnewline
+Small-Magnitude PR & Top 3rd of ENEG & 76\% & 93\%\tabularnewline
+Large-Magnitude PR & Bottom 3rd of ENEG & 80\% & 98\%\tabularnewline
+Large-Magnitude PR & Middle 3rd of ENEG & 77\% & 96\%\tabularnewline
+Large-Magnitude PR & Top 3rd of ENEG & 65\% & 97\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{the-normal-approximation}{%
+\section{The Normal Approximation}\label{the-normal-approximation}}
+
+If our normal model summarizes a histogram well, then we can use the model to estimate the percent of the observations that fall in a given range. There are two approaches:
+
+Just like we add up the area of the bars to compute percentages with a histogram, \textbf{we add up the area under the normal curve to approximate percentages.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use a normal table from a textbook. Because the table is for the standard normal curve, we need to \textbf{re-locate and re-scale the data to fit the standard normal curve}.
+\item
+  Use the \texttt{pnorm()} function in R. Because this function is parameterized with location and scale, we can simple \textbf{re-locate and re-scale the curve to fit the data}.
+\end{enumerate}
+
+\hypertarget{normal-table}{%
+\subsection{Normal Table}\label{normal-table}}
+
+Normal tables offer an antiquated method to use the normal distribution to approximate percentages. Because we cannot have a normal table for all possible locations and scales, we have one: the standard normal table, which works for a variable with an average of zero and an SD of one.
+
+This seems limiting, but it turns out that we can easily re-locate and re-scale any value to match the standard normal curve. We simply subtract the average and divide by the SD. We call this new value a \emph{z}-score.
+
+\(z\text{-score} = \dfrac{\text{value} - \text{average}}{\text{SD}}\)
+
+FSuppose we have the list \(X = \{1, 2, 3, 4, 5\}\). Then the average is 3, and the SD is about 1.26. We can compute the \emph{z}score for the first entry 1 as \(\frac{1 - 3}{1.25} \approx -1.58\). Similarly, we can convert the entire list to \emph{z}-scores and get \(Z = \{1.59, -0.79, 0.00, 0.79, 1.59\}\). If you compute the average and SD of the list \(Z\), you will find zero and one, respectively.
+
+We can then use a normal table to compute areas under the normal curve between (or above or below) these values of \(z\). There are two types of normal tables.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Some tables report the percent (or proportion) of the normal curve \textbf{below} a particular value \(z\).
+\item
+  Other tables report the percent (or proportion) of the normal curve \textbf{between} a particular value \(z\) and \(-z\). (The normal table on p.~A-104 of FPP works this way.)
+\end{enumerate}
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+Either table works, but you must know what type of table you are working with. Depending on the question, one type might offer a more direct solution.
+
+Here's a small normal table for a few values of \(z\) that uses both approaches.
+
+\begin{longtable}[]{@{}rlll@{}}
+\toprule
+\emph{z} & \% less than \emph{z} & \% between \emph{-z} and \emph{z} & Status\tabularnewline
+\midrule
+\endhead
+0.00 & 50\% & 0\% &\tabularnewline
+0.10 & 54\% & 8\% &\tabularnewline
+0.20 & 58\% & 16\% &\tabularnewline
+0.30 & 62\% & 24\% &\tabularnewline
+0.40 & 66\% & 31\% &\tabularnewline
+0.50 & 69\% & 38\% &\tabularnewline
+0.75 & 77\% & 55\% &\tabularnewline
+1.00 & 84\% & 68\% & Important\tabularnewline
+1.50 & 93\% & 87\% &\tabularnewline
+1.64 & 95\% & 90\% & Important\tabularnewline
+1.96 & 98\% & 95\% & Important\tabularnewline
+2.00 & 98\% & 95\% & Important\tabularnewline
+3.00 & 100\% & 100\% &\tabularnewline
+\bottomrule
+\end{longtable}
+
+In order to use the table to find the area between any two values, you need to use the following three rules in combination.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The normal table gives the area (i) below \(z\) or (ii) between \(-z\) and \(z\).
+\item
+  The area under the entire normal curve is 1 or 100\%.
+\item
+  The normal curve is symetric, so that the area to the right of \(z\) equals the area to the left of \(-z\).
+\end{enumerate}
+
+\hypertarget{pnorm}{%
+\subsection{\texorpdfstring{\texttt{pnorm()}}{pnorm()}}\label{pnorm}}
+
+The \texttt{pnorm()} function in R return the area under the normal curve less than \(z\). By default, it uses the standard normal curve, but you can specify a \texttt{mean} and \texttt{sd} if you prefer to re-locate and/or re-scale the curve to fit your values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# area under the std. normal curve less than 1}
+\KeywordTok{pnorm}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8413447
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# area under the a normal curve (with average of 1 and SD of 4) less than 1}
+\KeywordTok{pnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# area between -1.64 and 1.64}
+\KeywordTok{pnorm}\NormalTok{(}\FloatTok{1.64}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\FloatTok{1.64}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8989948
+\end{verbatim}
+
+\hypertarget{exactly-percentages}{%
+\subsection{Exactly Percentages}\label{exactly-percentages}}
+
+To actually compute percentages, we can create a function that works just like \texttt{pnorm()}, but it returns the percent \emph{of the data} that fall below a particular value. The most convenient method is to create an "empirical cumulative distribution function*.
+
+This function is somewhat confusing. The \texttt{ecdf()} function does not return the proportion below its argument. Instead, it creates a function that returns the percent below its argument. If we have a numeric vector \texttt{x}, then \texttt{ecdf(x)} is a function! Let that settle in\ldots{} both \texttt{ecdf} and \texttt{ecdf(x)} are function. The function \texttt{ecdf} (I'm dropping the \texttt{()} for clarity) is a function \emph{that creates a function}, and \texttt{ecdf(x)()} (I'm including the \texttt{()}, as usual, for clarity) is a function that returns the percent below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"data/nominate.rds"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(party }\OperatorTok{==}\StringTok{ "Democrat"}\NormalTok{, congress }\OperatorTok{==}\StringTok{ }\DecValTok{115}\NormalTok{) }
+
+\CommentTok{# normal approximation for % of Democrats less than -0.05}
+\NormalTok{avg <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{ideology)}
+\NormalTok{sd <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(df}\OperatorTok{$}\NormalTok{ideology)}
+\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\FloatTok{0.5}\NormalTok{, }\DataTypeTok{mean =}\NormalTok{ avg, }\DataTypeTok{sd =}\NormalTok{ sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1731597
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# exact % of Democrats less than -0.05}
+\KeywordTok{ecdf}\NormalTok{(df}\OperatorTok{$}\NormalTok{ideology)(}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1479592
+\end{verbatim}
+
+We can also plot the ECDF with ggplot2.
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\hypertarget{review-exercises}{%
+\section{Review Exercises}\label{review-exercises}}
+
+The plot below show the histograms for the ideology of legislators in the U.S. House by party.
+
+\includegraphics{concepts-and-computation_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+We can compute the average and SD by party.
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule
+Party & Average & SD\tabularnewline
+\midrule
+\endhead
+Democrat & -0.39 & 0.12\tabularnewline
+Republican & 0.49 & 0.15\tabularnewline
+\bottomrule
+\end{longtable}
+
+The table below lists some of the leaders of each party and their ideology score. For each leader, use our three approaches to compute the percent of the party that is ``more extreme'' than their leader: inspect the histogram, use the normal approximation, and use R to compute the answer exactly.
+
+\begin{longtable}[]{@{}lllrlll@{}}
+\toprule
+\begin{minipage}[b]{0.15\columnwidth}\raggedright
+Name\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Party\strut
+\end{minipage} & \begin{minipage}[b]{0.21\columnwidth}\raggedright
+Position\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedleft
+Ideology Score\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Inspect Histogram\strut
+\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\raggedright
+Normal Approximation\strut
+\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedright
+Actual\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+RYAN, Paul D.\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Republican\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Speaker of the House\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+0.56\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+MCCARTHY, Kevin\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Republican\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Majority Leader\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+0.46\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+SCALISE, Steve\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Republican\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Majority Whip\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+0.56\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+McMORRIS RODGERS, Cathy\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Republican\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Conference Chair\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+0.43\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+PELOSI, Nancy\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Democrat\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Minority Leader\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+-0.49\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+HOYER, Steny Hamilton\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Democrat\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Minority Whip\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+-0.38\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+CLYBURN, James Enos\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Democrat\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Assistant Democratic Leader\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+-0.46\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright
+LEWIS, John R.\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Democrat\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\raggedright
+Senior Chief Deputy Minority Whip\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedleft
+-0.59\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \bibliography{book.bib,packages.bib}
 

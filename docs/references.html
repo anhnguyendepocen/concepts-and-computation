@@ -24,14 +24,14 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-06" />
+<meta name="date" content="2019-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="location-and-scale.html"/>
+<link rel="prev" href="the-normal-model.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,9 +50,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -61,16 +61,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +77,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -141,6 +139,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>2.3</b> Robust Alternatives</a></li>
 <li class="chapter" data-level="2.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>2.4</b> Computation in R</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>3</b> The Normal Model</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-normal-model.html"><a href="the-normal-model.html#the-intuition-1"><i class="fa fa-check"></i><b>3.1</b> The Intuition</a></li>
+<li class="chapter" data-level="3.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>3.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="3.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>3.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="3.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>3.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>3.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>3.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>3.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>3.5</b> Review Exercises</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -166,23 +175,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>References</h1>
 
 </div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>I use these terms intentionally. Later, when we discuss random variables, the terms “location” and “scale” will return (with similar meanings). Indeed, we paramaterize many distributions according to their location and scale. For example, the normal distribution has a location parameter <span class="math inline">\(\mu\)</span> and a scale parameter <span class="math inline">\(\sigma\)</span>.<a href="location-and-scale.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Some people refer to the “average” as the “mean”. I prefer to avoid this because the “mean” might also refer to the expectation of a random variable. I use “average” and “expected value” to differentiate these two meanings.<a href="location-and-scale.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The median, alternatively, is not easy to compute and quite difficult to work with mathematically.<a href="location-and-scale.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Here’s the gist: If you take an entry and slide it up and down (i.e., make it larger or smaller), then the a.a.d. moves up and down as well. This is fine, except the a.a.s. doesn’t respond smoothly. The figure to the right shows what happens as we move the first entry on the list above around–notice the kink! The derivative of the a.a.d. isn’t define here (i.e., there are lots of tangents). This makes things hard mathematically.<a href="location-and-scale.html#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>The mathmatical ease and the substantive fragility are related.<a href="location-and-scale.html#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>For reasons I don’t want to deal with now, R uses the formula <span class="math inline">\(SD = \sqrt{\dfrac{(x_i - \text{avg}(X))^2}{n - 1}}\)</span> rather than <span class="math inline">\(\sqrt{\dfrac{(x_i - \text{avg}(X))^2}{n}}\)</span>. This means that R’s SD will be slightly larger than the SD with my formula. This difference will be tiny in data sets with a typical number of observations.<a href="location-and-scale.html#fnref6" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="location-and-scale.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-normal-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
