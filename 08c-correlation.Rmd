@@ -362,7 +362,7 @@ ggplot(gamson_df, aes(x = seat_share, y = portfolio_share)) +
 </details>
 
 ```{exercise}
-Use `devtools::install_github(pos5737/pos5737data)` to get the latest version of the pos5737 data package. Load the data set `anscombe` into R with `data(anscombe, package = "pos5737"). Use `glimpse(anscombe)` to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.
+Use `devtools::install_github(pos5737/pos5737data)` to get the latest version of the pos5737 data package. Load the data set `anscombe` into R with `data(anscombe, package = "pos5737")`. Use `glimpse(anscombe)` to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.
 
 1. Use a `group_by()` and `summarize()` workflow to compute a correlation coefficient for each of the four datasets. How do they compare? What do they suggest about the strength of the relationship between $x$ and $y$?
 2. Create a scatterplot of $x$ and $y$ with separate panels for each dataset. How do they compare? How would you describe the strength of the relationship between $x$ and $y$ in each panel? Would you say that the correlation coefficient offered a good summary of each dataset?
