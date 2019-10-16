@@ -1,0 +1,237 @@
+# The Scatterplot
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=3, fig.height=2, fig.align = "center",
+                      message=FALSE, warning=FALSE)
+doc_theme <- ggplot2::theme_bw()
+```
+
+The scatterplot is the most powerful tool in statistics. The following comes as close to any rote procedure that I would recommend following:
+
+**Always plot your data using a scatterplot.**
+
+For some combinations of unordered, qualitative variables with a large number of categories, the scatterplot might not offer useful information. However, the plot itself will not mislead the researcher. Therefore, *the scatterplot offers a safe, likely useful starting point for almost all data analysis*.
+
+As an example, here's Sarah's data for the research project. She cares about the difference in ideology self-reports across different study designs. Although this isn't an ideal application for a scatterplot (i.e., two fine-grained measures of x and y), the scatterplot is (1) at least somewhat helpful and (2) certainly not harmful.
+
+```{r echo = FALSE, fig.height= 5, fig.width=9}
+library(tidyverse)
+df <- read_rds("data/sarahs-data.rds") %>%
+  mutate(idscale_n = case_when(idscale_n == -8 ~ 99, 
+                                  idscale_n == -9 ~ 98, 
+                               TRUE ~ idscale_n), 
+         id_label = reorder(id_label, idscale_n), 
+         response_type = ifelse(idscale_n >10 | is.na(id_label), "Nonresponse", "Response"), 
+         study = ifelse(wording == "very", "2016 ANES Pilot", "2016 ANES Time Series"))
+
+ggplot(df, aes(x = id_label, y = study, color = response_type)) + 
+  geom_point(position = "jitter", alpha = 0.2) + 
+  scale_color_manual(values = c(2, 1)) + 
+  theme_bw() + theme(axis.text.x = element_text(angle = 270, vjust = 0.5, hjust = 0),
+                     panel.grid = element_blank()) + 
+  geom_vline(xintercept = 7.5, color = "grey80")
+```
+
+## `geom_point()`
+
+To create scatterplots, we simply use `geom_point()` as the geometry combined with our same approach to data and aesthetics.
+
+Here's a simple example with hypothetical data.
+
+```{r fig.height=2, fig.width=3, message=FALSE, warning=FALSE}
+# create a hypothetical dataset with tribble()
+df <- tribble(
+  ~x,  ~ y,
+  1,   1,
+  2,   2, 
+  3,   6, 
+  1,   3,
+  2.5, 5) %>%
+  glimpse()
+
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point()
+```
+
+Here's a more realistic example.
+
+```{r fig.height=2, fig.width=3}
+gamson_df <- read_rds("data/gamson.rds") %>%
+  glimpse()
+
+ggplot(gamson_df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point()
+```
+
+Because the data are so dense, especially in the lower-left corner of the plot, we might use alpha transparency to make the density easier to see.
+
+```{r fig.height=2, fig.width=3}
+ggplot(gamson_df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(alpha = 0.3)
+```
+
+## Example: `gapminder`
+
+For a dataset with more variables, we can represent a few other variables using aesthetics other than location in space.
+
+For this example, we use country-level data from the gapminder package.
+
+```{r fig.height=4, fig.width=6}
+# load gapminder dataset from gapminder package
+data(gapminder, package = "gapminder")
+
+glimpse(gapminder)
+
+ggplot(gapminder, aes(x = gdpPercap, 
+                      y = lifeExp,
+                      size = pop, 
+                      color = continent)) + 
+  geom_point(alpha = 0.3)
+```
+
+Because GDP per capita is skewed so heavily to the right, we might transform the x-axis from a linear scale (the default) to a log (base-10) scale.
+
+```{r fig.height=4, fig.width=6}
+ggplot(gapminder, aes(x = gdpPercap, 
+                      y = lifeExp,
+                      size = pop, 
+                      color = continent)) + 
+  geom_point(alpha = 0.3) + 
+  scale_x_log10()
+```
+
+Because countries are evolving over time, we can connect the subsequent points using `geom_path()`. Note that `geom_path()` connects points *as they are arranged in the dataset*, so make sure your dataset is arranged properly. Because we want one path per country, we should include the aesthetic `aes(group = country)` as an argument to `geom_path()`.
+
+```{r fig.height=4, fig.width=6}
+# arrange data by year
+gapminder2 <- gapminder %>%
+  arrange(year)
+
+ggplot(gapminder2, aes(x = gdpPercap, 
+                      y = lifeExp,
+                      size = pop, 
+                      color = continent)) + 
+  geom_point(alpha = 0.3) + 
+  geom_path(aes(group = country)) + 
+  scale_x_log10()
+```
+
+This is a little hard to see, so let's clean it up a bit.
+
+```{r fig.height=6, fig.width=10}
+ggplot(gapminder2, aes(x = gdpPercap, 
+                      y = lifeExp,
+                      size = pop, 
+                      color = year)) +
+  geom_path(aes(group = country), size = 0.5, alpha = 0.2) + 
+  geom_point(alpha = 0.3) + 
+  scale_x_log10() + 
+  facet_wrap(vars(continent))
+```
+
+## Example: `voteincome`
+
+```{r fig.height=2, fig.width=3}
+# load voteincome data from Zelig package
+data(voteincome, package = "Zelig")
+
+glimpse(voteincome)
+
+ggplot(voteincome, aes(x = education, 
+                      y = income)) + 
+  geom_point()
+```
+
+Notice three things:
+
+1. The variable `education` is not under control. To see the codings, use `help(voteincome, package = "Zelig")`. Ideally, this variable (i) use qualitative labels rather than numeric placeholders and (ii) be a factor with *reasonably ordered* levels.
+1. There's substantial over-plotting. Dozens of points are right on top of each other, so we cannot tell how many points are at each coordiate.
+
+Let's fix the first issue for `education`, so you can see how. (`income` has many more levels, so let's just get on with the plotting).
+
+```{r}
+voteincome2 <- voteincome %>%
+  mutate(education = fct_recode(as.character(education),
+                                "Less than High School Education" = "1",
+                                "High School Education" = "2",
+                                "College Education" = "3",
+                                "More than a College Education" = "4")) %>%
+  glimpse()
+```
+
+Now let's deal with the overplotting. In general, we have two strategies for dealing with overplotting.
+
+1. alpha transparency
+1. jittering
+
+First, let's try to adjust the alpha transparency.
+
+```{r fig.height=4, fig.width=8}
+ggplot(voteincome2, aes(x = education, 
+                        y = income)) + 
+  geom_point(alpha = 0.2)
+```
+
+This helps, but *only a little*. We can we wher we have many points, where we have just a few, and where we have none. But overall, we still don't have a good sense of the density at each coordinate.
+
+Let's try jittering. To jitter the data, we add a small amount of noise to each point. We add enough noise to separate it from the other points, but not so much noise to distort the position along in the space.
+
+```{r fig.height=4, fig.width=8}
+ggplot(voteincome2, aes(x = education, 
+                        y = income)) + 
+  geom_point(position = "jitter")
+```
+
+
+---
+
+```{exercise}
+Write an R script that uses the parties dataset to create a scatterplot that allows you to evaluate Clark and Golder's (2006) claim: 
+
+> The number of political parties increases as social heterogeity increases, but only under permissive electoral rules.
+
+```
+<details><summary>Hint</summary>
+Perhaps use the following aesthetics: `x = eneg` and `y = enep`. Create individual facets for each `electoral_system`.
+</details>
+<details><summary>Solution</summary>
+```{r echo=TRUE, fig.height=2.5, fig.width=7}
+# load packages
+library(tidyverse)
+
+# load data
+parties_df <- read_rds("data/parties.rds")
+
+# make scatterplot
+ggplot(parties_df, aes(x = eneg, y = enep)) + 
+  geom_point() + 
+  facet_wrap(vars(electoral_system))
+```
+</details>
+
+```{exercise}
+Go to the [Dataverse repository](https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/12130) for Barrilleaux and Rainey (2014) and download the dataset `politics_and_need.csv`. Plot the variable `percent_uninsured` (the percent of each state's population without health insurance) along the horizontal axis and the variable `percent_favorable_aca` (the percent of each state with a favorable attitude toward Obamacare) along the vertical axis. Interpret and speculate about any pattern. I encourage you to represent other variables with other aesthetics.
+```
+
+```{exercise}
+Continuing the exercise above, label each point with the state's two-letter abbreviation. Experiment with the following strategies.
+
+1. `geom_text()` *instead of* `geom_point()`
+1. `geom_label()` *instead of* `geom_point()`
+1. `geom_text_repel()` in the ggrepel package *in addition to* `geom_point()`
+1. `geom_label_repel()` in the ggrepel package *in addition to* `geom_point()`
+
+Hint: Review the help files (e.g., `?geom_text()`) and the contained examples to understand how to use each geom. The variable `state_abbr` contains the two-letter abbreviation, so you'll need to include the aesthetic `label = state_abbr` in the `aes()` function.
+```
+
+--- 
+
+## Resources
+
+- Tufte. 2001. *The Visual Display of Quantitative Information.* 
+- Healy. 2018. *Data Visualization: A Practical Introduction.* [[html](https://socviz.co)]
+- Wickham. *ggplot2: Elegant Graphics for Data Analysis*. [[html for in-progress 3rd e.](https://ggplot2-book.org)]
+- RStudio's ggplot2 cheat sheet [[GitHub](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)]
+- The [help file](https://ggplot2.tidyverse.org/reference/geom_point.html) for `geom_point()` has some examples.
+- The [help file](https://ggplot2.tidyverse.org/reference/geom_path.html) for `geom_path()` might be helpful, especially if you have the same country observed for multiple years and want to connect the subsequent points.
+- The [help file](https://ggplot2.tidyverse.org/reference/geom_text.html) for `geom_text()` might be helpful, especially if you have only a few observations and your readers know something about some of them.

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 The Scatterplot | Concepts and Computation: An Introduction to Political Methodology</title>
+  <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 The Scatterplot | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 The Scatterplot | Concepts and Computation: An Introduction to Political Methodology" />
+  
+  <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+<meta name="author" content="Carlisle Rainey" />
+
+
+<meta name="date" content="2019-10-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="the-x-y-space.html"/>
+<link rel="next" href="correlation-coefficient.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script>
+    $(document).ready(function () {
+        process_solutions();
+    });
+    function process_solutions() {
+        $("div.section[id^='solution']").each(function(i) {
+        var soln_wrapper_id = "cvxr_ex_" + i;
+        var solution_id = $(this).attr('id');
+        var button = $("<button onclick=\"toggle_solution('" + soln_wrapper_id + "')\">Show/Hide</button>");
+        var new_div = $("<div id='" + soln_wrapper_id + "' class='solution' style='display: none;'></div>");
+        var h = $(this).first();
+        var others = $(this).children().slice(1);
+        $(others).each(function() {
+            $(this).appendTo($(new_div));
+        });
+        $(button).insertAfter($(h));
+        $(new_div).insertAfter($(button));
+        })
+    }
+    function toggle_solution(el_id) {
+      $("#" + el_id).toggle();
+    } 
+</script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Concepts and Computation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="part"><span><b>I Data Reduction</b></span></li>
+<li class="chapter" data-level="2" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>2</b> Location and Scale</a><ul>
+<li class="chapter" data-level="2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>2.1</b> The Intuition</a></li>
+<li class="chapter" data-level="2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>2.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>2.2.1</b> The Average</a></li>
+<li class="chapter" data-level="2.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>2.2.2</b> The Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>2.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="2.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>2.4</b> Computation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>3</b> The Normal Model</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-normal-model.html"><a href="the-normal-model.html#the-intuition-1"><i class="fa fa-check"></i><b>3.1</b> The Intuition</a></li>
+<li class="chapter" data-level="3.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>3.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="3.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>3.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="3.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>3.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>3.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>3.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>3.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>3.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>4</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>4.1</b> Points</a></li>
+<li class="chapter" data-level="4.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>4.2</b> Lines</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>4.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="4.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>4.2.2</b> Slope</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>5</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>5.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="5.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>5.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="5.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>5.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="5.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>5.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>6</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="6.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>6.1</b> Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>6.2</b> Computing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>6.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="6.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>6.2.2</b> With R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>6.3</b> Interpreting</a></li>
+<li class="chapter" data-level="6.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>6.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#slope-and-intercept"><i class="fa fa-check"></i><b>7.1</b> Slope and Intercept</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.1.1</b> Multiple Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Concepts and Computation: An Introduction to Political Methodology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-scatterplot" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> The Scatterplot</h1>
+<p>The scatterplot is the most powerful tool in statistics. The following comes as close to any rote procedure that I would recommend following:</p>
+<p><strong>Always plot your data using a scatterplot.</strong></p>
+<p>For some combinations of unordered, qualitative variables with a large number of categories, the scatterplot might not offer useful information. However, the plot itself will not mislead the researcher. Therefore, <em>the scatterplot offers a safe, likely useful starting point for almost all data analysis</em>.</p>
+<p>As an example, here’s Sarah’s data for the research project. She cares about the difference in ideology self-reports across different study designs. Although this isn’t an ideal application for a scatterplot (i.e., two fine-grained measures of x and y), the scatterplot is (1) at least somewhat helpful and (2) certainly not harmful.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-49-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div id="geom_point" class="section level2">
+<h2><span class="header-section-number">5.1</span> <code>geom_point()</code></h2>
+<p>To create scatterplots, we simply use <code>geom_point()</code> as the geometry combined with our same approach to data and aesthetics.</p>
+<p>Here’s a simple example with hypothetical data.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># create a hypothetical dataset with tribble()</span></a>
+<a class="sourceLine" id="cb35-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb35-3" title="3">  <span class="op">~</span>x,  <span class="op">~</span><span class="st"> </span>y,</a>
+<a class="sourceLine" id="cb35-4" title="4">  <span class="dv">1</span>,   <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb35-5" title="5">  <span class="dv">2</span>,   <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb35-6" title="6">  <span class="dv">3</span>,   <span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb35-7" title="7">  <span class="dv">1</span>,   <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb35-8" title="8">  <span class="fl">2.5</span>, <span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb35-9" title="9"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>Observations: 5
+Variables: 2
+$ x &lt;dbl&gt; 1.0, 2.0, 3.0, 1.0, 2.5
+$ y &lt;dbl&gt; 1, 2, 6, 3, 5</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto;" /></p>
+<p>Here’s a more realistic example.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">gamson_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/gamson.rds&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>Observations: 826
+Variables: 2
+$ seat_share      &lt;dbl&gt; 0.02424242, 0.46060607, 0.51515150, 0.47204968, …
+$ portfolio_share &lt;dbl&gt; 0.09090909, 0.36363637, 0.54545456, 0.45454547, …</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-51-1.png" width="288" style="display: block; margin: auto;" /></p>
+<p>Because the data are so dense, especially in the lower-left corner of the plot, we might use alpha transparency to make the density easier to see.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-52-1.png" width="288" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-gapminder" class="section level2">
+<h2><span class="header-section-number">5.2</span> Example: <code>gapminder</code></h2>
+<p>For a dataset with more variables, we can represent a few other variables using aesthetics other than location in space.</p>
+<p>For this example, we use country-level data from the gapminder package.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="co"># load gapminder dataset from gapminder package</span></a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="kw">data</span>(gapminder, <span class="dt">package =</span> <span class="st">&quot;gapminder&quot;</span>)</a>
+<a class="sourceLine" id="cb42-3" title="3"></a>
+<a class="sourceLine" id="cb42-4" title="4"><span class="kw">glimpse</span>(gapminder)</a></code></pre></div>
+<pre><code>Observations: 1,704
+Variables: 6
+$ country   &lt;fct&gt; Afghanistan, Afghanistan, Afghanistan, Afghanistan, Af…
+$ continent &lt;fct&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, …
+$ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, …
+$ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854…
+$ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 148803…
+$ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.…</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </a>
+<a class="sourceLine" id="cb44-2" title="2">                      <span class="dt">y =</span> lifeExp,</a>
+<a class="sourceLine" id="cb44-3" title="3">                      <span class="dt">size =</span> pop, </a>
+<a class="sourceLine" id="cb44-4" title="4">                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb44-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Because GDP per capita is skewed so heavily to the right, we might transform the x-axis from a linear scale (the default) to a log (base-10) scale.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </a>
+<a class="sourceLine" id="cb45-2" title="2">                      <span class="dt">y =</span> lifeExp,</a>
+<a class="sourceLine" id="cb45-3" title="3">                      <span class="dt">size =</span> pop, </a>
+<a class="sourceLine" id="cb45-4" title="4">                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb45-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb45-6" title="6"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Because countries are evolving over time, we can connect the subsequent points using <code>geom_path()</code>. Note that <code>geom_path()</code> connects points <em>as they are arranged in the dataset</em>, so make sure your dataset is arranged properly. Because we want one path per country, we should include the aesthetic <code>aes(group = country)</code> as an argument to <code>geom_path()</code>.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># arrange data by year</span></a>
+<a class="sourceLine" id="cb46-2" title="2">gapminder2 &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(year)</a>
+<a class="sourceLine" id="cb46-4" title="4"></a>
+<a class="sourceLine" id="cb46-5" title="5"><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </a>
+<a class="sourceLine" id="cb46-6" title="6">                      <span class="dt">y =</span> lifeExp,</a>
+<a class="sourceLine" id="cb46-7" title="7">                      <span class="dt">size =</span> pop, </a>
+<a class="sourceLine" id="cb46-8" title="8">                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-10" title="10"><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-11" title="11"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>This is a little hard to see, so let’s clean it up a bit.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </a>
+<a class="sourceLine" id="cb47-2" title="2">                      <span class="dt">y =</span> lifeExp,</a>
+<a class="sourceLine" id="cb47-3" title="3">                      <span class="dt">size =</span> pop, </a>
+<a class="sourceLine" id="cb47-4" title="4">                      <span class="dt">color =</span> year)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">size =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-7" title="7"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(continent))</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-56-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-voteincome" class="section level2">
+<h2><span class="header-section-number">5.3</span> Example: <code>voteincome</code></h2>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="co"># load voteincome data from Zelig package</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="kw">data</span>(voteincome, <span class="dt">package =</span> <span class="st">&quot;Zelig&quot;</span>)</a>
+<a class="sourceLine" id="cb48-3" title="3"></a>
+<a class="sourceLine" id="cb48-4" title="4"><span class="kw">glimpse</span>(voteincome)</a></code></pre></div>
+<pre><code>Observations: 1,500
+Variables: 7
+$ state     &lt;fct&gt; AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR…
+$ year      &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, …
+$ vote      &lt;int&gt; 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ income    &lt;int&gt; 9, 11, 12, 16, 10, 12, 14, 10, 17, 8, 15, 13, 10, 9, 5…
+$ education &lt;int&gt; 2, 2, 2, 4, 4, 3, 4, 1, 2, 1, 3, 3, 2, 2, 2, 3, 2, 1, …
+$ age       &lt;int&gt; 73, 24, 24, 40, 85, 78, 31, 75, 54, 78, 71, 40, 46, 71…
+$ female    &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, …</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="kw">ggplot</span>(voteincome, <span class="kw">aes</span>(<span class="dt">x =</span> education, </a>
+<a class="sourceLine" id="cb50-2" title="2">                      <span class="dt">y =</span> income)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-57-1.png" width="288" style="display: block; margin: auto;" /></p>
+<p>Notice three things:</p>
+<ol style="list-style-type: decimal">
+<li>The variable <code>education</code> is not under control. To see the codings, use <code>help(voteincome, package = "Zelig")</code>. Ideally, this variable (i) use qualitative labels rather than numeric placeholders and (ii) be a factor with <em>reasonably ordered</em> levels.</li>
+<li>There’s substantial over-plotting. Dozens of points are right on top of each other, so we cannot tell how many points are at each coordiate.</li>
+</ol>
+<p>Let’s fix the first issue for <code>education</code>, so you can see how. (<code>income</code> has many more levels, so let’s just get on with the plotting).</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">voteincome2 &lt;-<span class="st"> </span>voteincome <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">education =</span> <span class="kw">fct_recode</span>(<span class="kw">as.character</span>(education),</a>
+<a class="sourceLine" id="cb51-3" title="3">                                <span class="st">&quot;Less than High School Education&quot;</span> =<span class="st"> &quot;1&quot;</span>,</a>
+<a class="sourceLine" id="cb51-4" title="4">                                <span class="st">&quot;High School Education&quot;</span> =<span class="st"> &quot;2&quot;</span>,</a>
+<a class="sourceLine" id="cb51-5" title="5">                                <span class="st">&quot;College Education&quot;</span> =<span class="st"> &quot;3&quot;</span>,</a>
+<a class="sourceLine" id="cb51-6" title="6">                                <span class="st">&quot;More than a College Education&quot;</span> =<span class="st"> &quot;4&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-7" title="7"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>Observations: 1,500
+Variables: 7
+$ state     &lt;fct&gt; AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR, AR…
+$ year      &lt;int&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, …
+$ vote      &lt;int&gt; 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ income    &lt;int&gt; 9, 11, 12, 16, 10, 12, 14, 10, 17, 8, 15, 13, 10, 9, 5…
+$ education &lt;fct&gt; High School Education, High School Education, High Sch…
+$ age       &lt;int&gt; 73, 24, 24, 40, 85, 78, 31, 75, 54, 78, 71, 40, 46, 71…
+$ female    &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, …</code></pre>
+<p>Now let’s deal with the overplotting. In general, we have two strategies for dealing with overplotting.</p>
+<ol style="list-style-type: decimal">
+<li>alpha transparency</li>
+<li>jittering</li>
+</ol>
+<p>First, let’s try to adjust the alpha transparency.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">ggplot</span>(voteincome2, <span class="kw">aes</span>(<span class="dt">x =</span> education, </a>
+<a class="sourceLine" id="cb53-2" title="2">                        <span class="dt">y =</span> income)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb53-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>)</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-59-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>This helps, but <em>only a little</em>. We can we wher we have many points, where we have just a few, and where we have none. But overall, we still don’t have a good sense of the density at each coordinate.</p>
+<p>Let’s try jittering. To jitter the data, we add a small amount of noise to each point. We add enough noise to separate it from the other points, but not so much noise to distort the position along in the space.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">ggplot</span>(voteincome2, <span class="kw">aes</span>(<span class="dt">x =</span> education, </a>
+<a class="sourceLine" id="cb54-2" title="2">                        <span class="dt">y =</span> income)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb54-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</a></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-60-1.png" width="768" style="display: block; margin: auto;" /></p>
+<hr />
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-61" class="exercise"><strong>Exercise 5.1  </strong></span>Write an R script that uses the parties dataset to create a scatterplot that allows you to evaluate Clark and Golder’s (2006) claim:</p>
+<blockquote>
+<p>The number of political parties increases as social heterogeity increases, but only under permissive electoral rules.</p>
+</blockquote>
+</div>
+
+<details>
+<summary>Hint</summary>
+Perhaps use the following aesthetics: <code>x = eneg</code> and <code>y = enep</code>. Create individual facets for each <code>electoral_system</code>.
+</details>
+<details>
+<p><summary>Solution</summary></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="co"># load packages</span></a>
+<a class="sourceLine" id="cb55-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb55-3" title="3"></a>
+<a class="sourceLine" id="cb55-4" title="4"><span class="co"># load data</span></a>
+<a class="sourceLine" id="cb55-5" title="5">parties_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/parties.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb55-6" title="6"></a>
+<a class="sourceLine" id="cb55-7" title="7"><span class="co"># make scatterplot</span></a>
+<a class="sourceLine" id="cb55-8" title="8"><span class="kw">ggplot</span>(parties_df, <span class="kw">aes</span>(<span class="dt">x =</span> eneg, <span class="dt">y =</span> enep)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-10" title="10"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(electoral_system))</a></code></pre></div>
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" />
+</details>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-63" class="exercise"><strong>Exercise 5.2  </strong></span>Go to the <a href="https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/12130">Dataverse repository</a> for Barrilleaux and Rainey (2014) and download the dataset <code>politics_and_need.csv</code>. Plot the variable <code>percent_uninsured</code> (the percent of each state’s population without health insurance) along the horizontal axis and the variable <code>percent_favorable_aca</code> (the percent of each state with a favorable attitude toward Obamacare) along the vertical axis. Interpret and speculate about any pattern. I encourage you to represent other variables with other aesthetics.
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-64" class="exercise"><strong>Exercise 5.3  </strong></span>Continuing the exercise above, label each point with the state’s two-letter abbreviation. Experiment with the following strategies.</p>
+<ol style="list-style-type: decimal">
+<li><code>geom_text()</code> <em>instead of</em> <code>geom_point()</code></li>
+<li><code>geom_label()</code> <em>instead of</em> <code>geom_point()</code></li>
+<li><code>geom_text_repel()</code> in the ggrepel package <em>in addition to</em> <code>geom_point()</code></li>
+<li><code>geom_label_repel()</code> in the ggrepel package <em>in addition to</em> <code>geom_point()</code></li>
+</ol>
+Hint: Review the help files (e.g., <code>?geom_text()</code>) and the contained examples to understand how to use each geom. The variable <code>state_abbr</code> contains the two-letter abbreviation, so you’ll need to include the aesthetic <code>label = state_abbr</code> in the <code>aes()</code> function.
+</div>
+
+<hr />
+</div>
+<div id="resources" class="section level2">
+<h2><span class="header-section-number">5.4</span> Resources</h2>
+<ul>
+<li>Tufte. 2001. <em>The Visual Display of Quantitative Information.</em></li>
+<li>Healy. 2018. <em>Data Visualization: A Practical Introduction.</em> [<a href="https://socviz.co">html</a>]</li>
+<li>Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>. [<a href="https://ggplot2-book.org">html for in-progress 3rd e.</a>]</li>
+<li>RStudio’s ggplot2 cheat sheet [<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf">GitHub</a>]</li>
+<li>The <a href="https://ggplot2.tidyverse.org/reference/geom_point.html">help file</a> for <code>geom_point()</code> has some examples.</li>
+<li>The <a href="https://ggplot2.tidyverse.org/reference/geom_path.html">help file</a> for <code>geom_path()</code> might be helpful, especially if you have the same country observed for multiple years and want to connect the subsequent points.</li>
+<li>The <a href="https://ggplot2.tidyverse.org/reference/geom_text.html">help file</a> for <code>geom_text()</code> might be helpful, especially if you have only a few observations and your readers know something about some of them.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-x-y-space.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlation-coefficient.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["concepts-and-computation.pdf", "concepts-and-computation.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

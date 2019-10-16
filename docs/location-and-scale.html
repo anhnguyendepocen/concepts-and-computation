@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-09" />
+<meta name="date" content="2019-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,6 +47,30 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script>
+    $(document).ready(function () {
+        process_solutions();
+    });
+    function process_solutions() {
+        $("div.section[id^='solution']").each(function(i) {
+        var soln_wrapper_id = "cvxr_ex_" + i;
+        var solution_id = $(this).attr('id');
+        var button = $("<button onclick=\"toggle_solution('" + soln_wrapper_id + "')\">Show/Hide</button>");
+        var new_div = $("<div id='" + soln_wrapper_id + "' class='solution' style='display: none;'></div>");
+        var h = $(this).first();
+        var others = $(this).children().slice(1);
+        $(others).each(function() {
+            $(this).appendTo($(new_div));
+        });
+        $(button).insertAfter($(h));
+        $(new_div).insertAfter($(button));
+        })
+    }
+    function toggle_solution(el_id) {
+      $("#" + el_id).toggle();
+    } 
+</script>
 
 
 <style type="text/css">
@@ -149,6 +173,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>3.4.3</b> Exactly Percentages</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>3.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>4</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>4.1</b> Points</a></li>
+<li class="chapter" data-level="4.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>4.2</b> Lines</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>4.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="4.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>4.2.2</b> Slope</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>5</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>5.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="5.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>5.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="5.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>5.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="5.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>5.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>6</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="6.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>6.1</b> Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>6.2</b> Computing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>6.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="6.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>6.2.2</b> With R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>6.3</b> Interpreting</a></li>
+<li class="chapter" data-level="6.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>6.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#slope-and-intercept"><i class="fa fa-check"></i><b>7.1</b> Slope and Intercept</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.1.1</b> Multiple Regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>

@@ -1,0 +1,369 @@
+
+
+
+# Correlation Coefficient
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=3, fig.height=2, fig.align = "center",
+                      message=FALSE, warning=FALSE)
+doc_theme <- ggplot2::theme_bw()
+```
+
+We've discussed several ways to reduce data--to summarize the key features of many observations using a single (or a few) numbers.
+
+1. A histogram visually shows the **density** in chosen bins.
+1. The **average** tells us the location of a set of observations. Remember the seesaw analogy.
+1. The **SD** tells us the scale (or spread or disperson) of a set of observations. We can describe a list of numbers as being "about [the average] give or take [the SD]."
+
+The **correlation coefficient** allows us to describe the relationship between two variables.
+
+Before, we compared variables by comparing their histograms, averages, or SDs. The correlation coefficient is our first summary that compares two variables directly (rather than summarizing just one).
+
+## Intuition
+
+The correlation coefficient measures how well two variables "go together." 
+
+- "Go together" means "as one goes up, the other goes up [or down]." 
+- "Go together" has linearity built into the meaning. The correlation coefficient does not describe curved relationships.
+
+The figure below shows some scatterplots and how well I might say these variables go together.
+
+```{r echo=FALSE, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(kableExtra)
+
+r_df <- tribble(
+  ~r, ~int,
+  0,   "Not at all",
+  0.3, "Slightly",
+  -0.5, "Somewhat",
+  0.8, "Strongly"
+)
+
+df <- r_df$r %>%
+  imap(~ MASS::mvrnorm(50, mu = c(0,0), Sigma = matrix(c(1, .x, .x, 1), ncol = 2),
+               empirical = TRUE)) %>%
+  imap(~ as_tibble(.x, .name_repair = "unique") %>% 
+        rename(x = ...1, y = ...2) %>%
+        mutate(cor = r_df$r[.y], 
+               cor_label = r_df$int[.y]))  %>%
+  bind_rows()
+
+ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  facet_wrap(vars(cor_label)) + 
+  theme_minimal() + 
+  labs(title = 'How well do x and y "go together"?')
+```
+
+However, I am **firmly** opposed to any rules that link particular correlation coefficients to strength of relationship. 
+
+Imagine the following studies:
+
+1. A study comparing two measures of the same concept.
+1. A study comparing the effect of a dose of vitamin D in the first hour after birth on lifespan.
+
+A "weak" or "small" correlation in the first study would be impossibly large in the second. **The interpretation of the strength of a relationship must be made by a substantive expert in a particular substantive context.**
+
+I use two guidelines to interpret a correlation coefficient:
+
+1. 0.9 seems *a lot* stronger than 0.7, but 0.4 seems barely stronger than 0.2. 
+1. Around 0.4 [-0.4], the a correlation becomes "easily noticeable" without studying the plot carefully. For smaller datasets, this threshold increases toward 1 [-1]; for larger datasets, the threshold shrinks toward 0. 
+
+```{r echo=FALSE, fig.height=6, fig.width=7, message=FALSE, warning=FALSE}
+r <- seq(-1, 1, by = 0.1) %>%
+  c(0.95, 0.99, -0.95, -0.99) %>%
+  sort()
+
+df <- r %>%
+  imap(~ MASS::mvrnorm(50, mu = c(0,0), Sigma = matrix(c(1, .x, .x, 1), ncol = 2),
+               empirical = TRUE)) %>%
+  imap(~ as_tibble(.x, .name_repair = "unique") %>% 
+        rename(x = ...1, y = ...2) %>%
+        mutate(cor = r[.y])) %>%
+  bind_rows() 
+
+ggplot(df, aes(x, y)) + 
+  geom_point(alpha = 0.5) + 
+  facet_wrap(vars(cor)) + 
+  theme_minimal() + 
+  labs(title = "Example Scatterplots for Various Correlation Coefficients",
+       subtitle = "50 Observations")
+```
+
+```{r echo=FALSE, fig.height=6, fig.width=7, message=FALSE, warning=FALSE}
+r <- seq(-1, 1, by = 0.1) %>%
+  c(0.95, 0.99, -0.95, -0.99) %>%
+  sort()
+
+df <- r %>%
+  imap(~ MASS::mvrnorm(1000, mu = c(0,0), Sigma = matrix(c(1, .x, .x, 1), ncol = 2),
+               empirical = TRUE)) %>%
+  imap(~ as_tibble(.x, .name_repair = "unique") %>%
+        rename(x = ...1, y = ...2) %>%
+        mutate(cor = r[.y])) %>%
+  bind_rows()
+
+ggplot(df, aes(x, y)) + 
+  geom_point(alpha = 0.2) + 
+  facet_wrap(vars(cor)) + 
+  theme_minimal() + 
+  labs(title = "Example Scatterplots for Various Correlation Coefficients",
+       subtitle = "1,000 Observations")
+```
+
+```{exercise}
+Guess the correlation coefficient for each scatterplot below.
+```
+
+```{r echo=FALSE, fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+r0 <- seq(-.95, .95, by = 0.05)
+n0 <- c(10, 50, 100, 200, 400, 1000)
+
+set.seed(1789)
+r_df <- crossing(r = r0, n = n0) %>%
+  sample_n(12) %>%
+  mutate(id = 1:nrow(.))
+
+df <- r_df %>%
+  split(.$id) %>%
+  map(~ MASS::mvrnorm(.$n, mu = c(0,0), Sigma = matrix(c(1, .$r, .$r, 1), ncol = 2),
+               empirical = TRUE)) %>%
+  imap(~ as_tibble(.x, .name_repair = "unique") %>%
+        rename(x = ...1, y = ...2) %>%
+        mutate(cor = cor(x, y), 
+               dataset = as.numeric(.y))) %>%
+  bind_rows() %>%
+  mutate(dataset = reorder(paste0("Dataset ", dataset), dataset)) 
+
+ggplot(df, aes(x, y)) + 
+  geom_point(alpha = 0.5) + 
+  facet_wrap(vars(dataset)) + 
+  theme_minimal()
+```
+
+<details><summary>Solution</summary>
+```{r echo = FALSE}
+group_by(df, dataset) %>%
+  summarize(r = median(cor)) %>%
+  kable(format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE,
+                position = "center")
+```
+</details>
+
+## Computing
+
+Suppose we have the dataset below.
+
+```{r echo=FALSE, fig.height=2, fig.width=3}
+df <- tibble(x = c(1, 3, 2, 4, 5), 
+             y = c(10, 15, 12, 13, 18))
+kable(df, format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE,
+                position = "center")
+
+ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+### By Hand
+
+We can compute the correlation coefficient $r$ as follows:
+
+$r = \text{average of} \left[ (x \text{ in standard units}) \times (y \text{ in standard units}) \right]$
+
+Using $\overline(x)$ to represent the average of $x$ and $n$ to represent the number of observations (5, in this case), we have
+
+$r = \dfrac{\frac{(x - \overline{x})}{\sqrt{\frac{(x - \overline{x})^2}{n}}} \times \frac{(y - \overline{y})}{\sqrt{\frac{(y - \overline{y})^2}{n}}}}{n}$.
+
+We can implement this formula by creating the little table below and then averaging the final column of products.
+
+```{r, echo = FALSE}
+n <- nrow(df)
+adj <- sqrt((n-1)/n)
+
+
+sd_x <- sd(df$x)*adj
+sd_y <- sd(df$y)*adj
+
+df2 <- df %>% 
+  mutate(`x in SUs` = (x - mean(x))/sd_x,
+         `y in SUs` = (y - mean(y))/sd_y,
+         product = `x in SUs`*`y in SUs`)
+
+kable(df2, format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE,
+                position = "center")
+```
+
+The average of the final column is `r round(mean(df2$product), 2)`.
+
+### With R
+
+In R, we can compute the corrlation between `x` and `y` using `cor(x, y)`. 
+
+Note that dropping missing values is more complicated for pairs of data. If you want to drop missing values from the calculations, then `cor(x, y, use = pairwise.complete.obs")` is a good choice.
+
+We can use the code below to find the correlation in the example above.
+
+```{r}
+x <- c(1, 3, 2, 4, 5)
+y <- c(10, 15, 12, 13, 18)
+
+cor(x, y)
+```
+
+```{exercise}
+Compute the correlation coefficient between each combination of the four variables below. Check your work with R.
+```
+
+```{r echo = FALSE}
+S <- diag(3)
+S[1, 2] <- S[2, 1] <- 0.3
+S[1, 3] <- S[3, 1] <- 0.5
+S[2, 3] <- S[3, 2] <- 0.8
+S <- S*10
+
+
+MASS::mvrnorm(6, mu = c(5,5,5), Sigma = S) %>%
+  as_tibble(.name_repair = "unique") %>% 
+  rename(x = ...1, y = ...2, z = ...3) %>%
+  mutate_all(~round(., 0)) %>%
+  kable(format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE,
+                position = "center")
+```
+
+## Interpreting
+
+In general, a correlation coefficient is **NOT particularly useful**. I introduce it for two reasons:
+
+1. Other people use it.
+1. We use it to obtain more useful quantities. 
+
+However, the correlation coefficient $r$ has a concrete interpretation: **If $x$ is one SD larger, then $y$ is $r$ SDs larger on average.** 
+
+We might also say that "a one SD increase in $x$ *leads to* an $r$ SD increase in $y$ on average," but we must take care that "leads to" describes a pattern in the data and *does not describe a causal relationship*.
+
+## Example: Clark and Golder (2006)
+
+For a substantive example, consider Clark and Golder's data.
+
+```{r echo=TRUE, fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+# load parties dataset
+parties_df <- read_rds("data/parties.rds") 
+
+# compute correlation between enep and eneg for each electoral system
+cor_df <- parties_df %>%
+  group_by(electoral_system) %>%
+  summarize(cor = cor(enep, eneg))
+```
+
+```{r echo = FALSE}
+kable(cor_df, format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE,
+                position = "center")
+```
+
+```{r echo=TRUE, fig.height=2.5, fig.width=6, message=FALSE, warning=FALSE}
+ggplot(parties_df, aes(x = eneg, y = enep)) + 
+  geom_point(alpha = 0.5) + 
+  facet_wrap(vars(electoral_system)) + 
+  geom_label(data = cor_df, aes(x = Inf, y = Inf, label = paste0("cor = ", round(cor, 2))),
+             hjust = 1.1, vjust = 1.1) + 
+  theme_bw()
+```
+
+As Clark and Golder expect, we get a correlation coefficient near zero in SMD systems. But contrary to their expectation, we also get a correlation coefficient near zero in large-magnitude PR systems.
+
+---
+
+```{exercise}
+Interpret the correlation for small-magnitude PR systems above by filling in the following blanks:
+  
+1. A one **SD** increase in ENEG leads to a _____ **SD** increase in ENEP, on average.
+1. A _____ **unit** increase in ENEG leads to a _____ **unit** increase in ENEP, on average.
+```
+
+<details><summary>Hint</summary>
+How many units is one SD for ENEG? What about for ENEP? Going from SDs to the original units is like going from feet to yards: you just need to know how many feet are in a yard (or how many SDs are in each original unit).
+</details>
+
+---
+
+## Example: Feeling Thermometers
+
+Below, I compute the correlation between feelings toward the Democratic and Republican parties. It makes sense that this correlation should be negative. As respondents' feelings toward the Democratic party grow warmer, their feelings toward the Republican party should grow cooler. We might also expect this correlation to be stronger among more educated respondents and change over time.
+
+The example below uses the therms dataset in the pos5737data package available on GitHub. 
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# get pos5737data (if updated)
+devtools::install_github("pos5737/pos5737data")
+```
+
+```{r echo=TRUE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+# get pos5737data (if updated)
+devtools::install_github("pos5737/pos5737data")
+
+# load data
+data(therms, package = "pos5737data")
+
+# quick look
+glimpse(therms)
+
+# compute correlation between the two feelinging thermometers for 
+#   each year and education level
+smry_df <- therms %>%
+  # drop observations where education is missing
+  drop_na(education) %>%
+  # compute correlation for each year-education subset
+  group_by(year, education) %>%
+  summarize(cor = cor(x = ft_democratic_party, 
+                      y = ft_republican_party, 
+                      use = "pairwise.complete.obs")) %>%
+  # complete dataset by right-joining a dataset that has all years and all education levels combinations
+  right_join(crossing(year = unique(therms$year), 
+                      education = unique(therms$education))) %>%
+  # add a variable for presidential elections--if the year is evenly divisible by 4
+  mutate(election_type = ifelse(test = year %% 4 == 0, 
+                                yes = "Presidential Election", 
+                                no = "Congressional Election")) %>%
+  glimpse()
+
+# plot correlations
+ggplot(smry_df, aes(x = year, y = cor, color = election_type)) + 
+  geom_point() + geom_line() + 
+  facet_wrap(vars(education))
+```
+
+```{exercise}
+Read the excerpt from Clark, Golder, and Golder on [pp. 477-478](https://www.dropbox.com/s/779ahahif8dr15i/gamsons-law.pdf?dl=0). Download the gamson dataset from the [data page](https://pos5737.github.io/data.html). Compute the correlation coefficient $r$ between seat and portfolio shares and create a scatterplot of the two. Comment briefly.
+```
+<details><summary>Solution</summary>
+```{r echo=TRUE, fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+# load data
+gamson_df <- read_rds("data/gamson.rds") 
+
+# compute correlation coefficient
+cor(x = gamson_df$seat_share, gamson_df$portfolio_share)
+
+# create scatterplot
+ggplot(gamson_df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point()
+```
+</details>
+
+```{exercise}
+Use `devtools::install_github(pos5737/pos5737data)` to get the latest version of the pos5737 data package. Load the data set `anscombe` into R with `data(anscombe, package = "pos5737"). Use `glimpse(anscombe)` to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.
+
+1. Use a `group_by()` and `summarize()` workflow to compute a correlation coefficient for each of the four datasets. How do they compare? What do they suggest about the strength of the relationship between $x$ and $y$?
+2. Create a scatterplot of $x$ and $y$ with separate panels for each dataset. How do they compare? How would you describe the strength of the relationship between $x$ and $y$ in each panel? Would you say that the correlation coefficient offered a good summary of each dataset?
+```

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology</title>
+  <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
+  
+  <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+<meta name="author" content="Carlisle Rainey" />
+
+
+<meta name="date" content="2019-10-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="the-normal-model.html"/>
+<link rel="next" href="the-scatterplot.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script>
+    $(document).ready(function () {
+        process_solutions();
+    });
+    function process_solutions() {
+        $("div.section[id^='solution']").each(function(i) {
+        var soln_wrapper_id = "cvxr_ex_" + i;
+        var solution_id = $(this).attr('id');
+        var button = $("<button onclick=\"toggle_solution('" + soln_wrapper_id + "')\">Show/Hide</button>");
+        var new_div = $("<div id='" + soln_wrapper_id + "' class='solution' style='display: none;'></div>");
+        var h = $(this).first();
+        var others = $(this).children().slice(1);
+        $(others).each(function() {
+            $(this).appendTo($(new_div));
+        });
+        $(button).insertAfter($(h));
+        $(new_div).insertAfter($(button));
+        })
+    }
+    function toggle_solution(el_id) {
+      $("#" + el_id).toggle();
+    } 
+</script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Concepts and Computation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="part"><span><b>I Data Reduction</b></span></li>
+<li class="chapter" data-level="2" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>2</b> Location and Scale</a><ul>
+<li class="chapter" data-level="2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>2.1</b> The Intuition</a></li>
+<li class="chapter" data-level="2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>2.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>2.2.1</b> The Average</a></li>
+<li class="chapter" data-level="2.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>2.2.2</b> The Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>2.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="2.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>2.4</b> Computation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>3</b> The Normal Model</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-normal-model.html"><a href="the-normal-model.html#the-intuition-1"><i class="fa fa-check"></i><b>3.1</b> The Intuition</a></li>
+<li class="chapter" data-level="3.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>3.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="3.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>3.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="3.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>3.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>3.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>3.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>3.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>3.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>4</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>4.1</b> Points</a></li>
+<li class="chapter" data-level="4.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>4.2</b> Lines</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>4.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="4.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>4.2.2</b> Slope</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>5</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>5.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="5.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>5.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="5.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>5.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="5.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>5.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>6</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="6.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>6.1</b> Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>6.2</b> Computing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>6.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="6.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>6.2.2</b> With R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>6.3</b> Interpreting</a></li>
+<li class="chapter" data-level="6.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>6.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#slope-and-intercept"><i class="fa fa-check"></i><b>7.1</b> Slope and Intercept</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.1.1</b> Multiple Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Concepts and Computation: An Introduction to Political Methodology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-x-y-space" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> The X-Y Space</h1>
+<div id="points" class="section level2">
+<h2><span class="header-section-number">4.1</span> Points</h2>
+<p>The scatterplot has two key aesthetics: the horizontal and vertical location of points (and lines). We refer to the horizontal location as “x” and the vertical location as “y.” We sometimes refer to this two-dimmensional space (of horizontal-vertical or <em>x</em>-<em>y</em> locations) as the “Cartisian coordinate system.”</p>
+<p>The table below contains five observations. Each observation has values for variables <em>x</em> and <em>y</em>. (In the context of a data analysis, we typically think of <em>x</em> as the key explanatory variable and <em>y</em> as the outcome varaible.)</p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Observation
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+#1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+#2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+#3
+</td>
+<td style="text-align:right;">
+-4
+</td>
+<td style="text-align:right;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+#4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+#5
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>The plot below shows the location of each point in the x-y space.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-31-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr />
+
+<div class="exercise">
+<span id="exr:add-points" class="exercise"><strong>Exercise 4.1  </strong></span>Recreate the x-y space below on a sheet of paper. Add the following points (0, 0), (1, 2), (-3, 4), (2, -3), and (-4, -2).
+</div>
+
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-32-1.png" width="288" style="display: block; margin: auto;" />
+<details>
+<p><summary>Hint</summary>
+The first number in the (x, y) pair represents the “x” or horizontal location. The second number represents the “y” or vertical location. The location of the second point is…</p>
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-33-1.png" width="288" style="display: block; margin: auto;" />
+</details>
+<details>
+<summary>Solution</summary>
+<p>
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-34-1.png" width="288" style="display: block; margin: auto;" />
+</p>
+</details>
+<hr />
+</div>
+<div id="lines" class="section level2">
+<h2><span class="header-section-number">4.2</span> Lines</h2>
+<p>We can also draw lines in the x-y space. Remember, the formula for a line is <span class="math inline">\(y = mx + b\)</span>. Here, <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> represent variables (i.e., locations in the x-y space), <span class="math inline">\(m\)</span> represents the slope of the line, and <span class="math inline">\(b\)</span> represents the intercept.</p>
+<p>Consider the following four examples:</p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Example
+</th>
+<th style="text-align:left;">
+Equation
+</th>
+<th style="text-align:right;">
+Intercept
+</th>
+<th style="text-align:right;">
+Slope
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Example 1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y = x + 0\)</span>
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Example 2
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y = -2x + 2\)</span>
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-2.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Example 3
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y = 0.5x - 1\)</span>
+</td>
+<td style="text-align:right;">
+-1
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Example 4
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y = 3x - 2\)</span>
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+</tr>
+</tbody>
+</table>
+<div id="the-intercept" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> The Intercept</h3>
+<p>The intercept <span class="math inline">\(b\)</span> tells us where the line crosses the vertical slice of the space where <span class="math inline">\(x = 0\)</span>.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
+<hr />
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercise 4.2  </strong></span>For the lines below, identify the intercept <em>visually</em>, if possible.
+</div>
+
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-38-1.png" width="480" style="display: block; margin: auto;" /></p>
+<details>
+<p><summary>Hint</summary>
+All the lines look like 45-degree lines (or 315-degree) because the ranges of the axes are rescaled. This makes the problem a little trickier.</p>
+For each line, identify where the line cross the slide of the space where <span class="math inline">\(x = 0\)</span>. When <span class="math inline">\(x = 0\)</span>, then <span class="math inline">\(y = m \times 0 + b = b\)</span>. Remember that <span class="math inline">\(b\)</span> represents the intercept.
+</details>
+<details>
+<summary>Solution</summary>
+The intercepts are 0, -2, 1, 1.5. You cannot see the third intercept <em>visually</em>, because the slice of the space where <span class="math inline">\(x = 0\)</span> is not included in the plot.
+</details>
+<hr />
+</div>
+<div id="slope" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Slope</h3>
+<p>The slope <span class="math inline">\(m\)</span> tells us how fast the line rises or falls as we move from left-to-right.</p>
+<ul>
+<li>If <span class="math inline">\(m\)</span> is positive, then the line rises.</li>
+<li>If <span class="math inline">\(m\)</span> is negative, then the line falls.</li>
+<li>If <span class="math inline">\(m\)</span> is zero, then the line neither rises nor falls (stays constant at the same height).</li>
+<li>As <span class="math inline">\(m\)</span> gets larger in magnitude, the line rises or falls faster.</li>
+</ul>
+<p>The best way to think about slope is as the “rise over run.”</p>
+<p><span class="math inline">\(\text{slope} = \dfrac{\text{rise}}{\text{run}}\)</span>.</p>
+<p>Take Example 2 from the table above or <span class="math inline">\(y = -2x + 2\)</span>. Consider two scenaarios: one where <span class="math inline">\(x = 0\)</span> and another where <span class="math inline">\(x = 3\)</span>.</p>
+<ul>
+<li>When <span class="math inline">\(x = 0\)</span>, we know that <span class="math inline">\(y = 2\)</span> because the intercept <span class="math inline">\(b\)</span> equals 2.</li>
+<li>When <span class="math inline">\(x = 3\)</span>, we have “run” 3 units to the right (i.e., <span class="math inline">\(\text{run} = \text{2nd value} - \text{1st value} = 3 - 0 = 3\)</span>) and <span class="math inline">\(y = -2 \times 3 + 2 = -6 + 2 = -4\)</span>. When we run 3 units, we rise <span class="math inline">\(-4 - 2 = -6\)</span> units (or fall 6 units).</li>
+</ul>
+<p>The table below summarizes our work.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Scenario
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Scenario 1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scenario 2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-4
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\text{run} = x \text{ in Scenario 2} - x \text{ in Scenario 1} = 3 - 0 = 3\)</span></p>
+<p><span class="math inline">\(\text{rise} = y \text{ in Scenario 2} - y \text{ in Scenario 1} = -4 - 2 = -6\)</span></p>
+<p><span class="math inline">\(\text{slope} = \dfrac{\text{rise}}{\text{run}} = \dfrac{-6}{3} = -2\)</span></p>
+<p>These calculations match the slope we find by inspecting the original equation <span class="math inline">\(y = -2x + 2\)</span>.</p>
+<p>The figure below shows the rise-over-run logic for each of the four example equations.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
+<hr />
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-41" class="exercise"><strong>Exercise 4.3  </strong></span>Add the lines <span class="math inline">\(y = 2x - 1\)</span> and <span class="math inline">\(y = -0.5x + 1\)</span> to the figured you sketched in Exercise <a href="the-x-y-space.html#exr:add-points">4.1</a>.
+</div>
+
+<details>
+<p><summary>Hint</summary>
+Remember that a line is completely defined by only two points. Use this rule to draw the line. Choose two values of <span class="math inline">\(x\)</span> and find the corresponding value of <span class="math inline">\(y\)</span>. Ideally, choose two values of <span class="math inline">\(x\)</span> that are separated by some distance (so long as the resulting x-y pairs remain on our plot). Let’s try the first line using <span class="math inline">\(x = -1\)</span> and <span class="math inline">\(x = 2\)</span>. For the first equation, we have <span class="math inline">\(y = 2 \times -1 -1 = -2 - 1 = -3\)</span> and <span class="math inline">\(y = 2 \times 2 -1 = 4 - 1 = 3\)</span>, respectively. Then our two points are (-1, -3) and (2, 3), respectively. Just add lightly add these two points to the plot and draw a line that goes through both.</p>
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-42-1.png" width="288" style="display: block; margin: auto;" />
+</details>
+<details>
+<p><summary>Solution</summary></p>
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto;" />
+</details>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercise 4.4  </strong></span>What is the slope and intercept of the line below?
+</div>
+
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-45-1.png" width="288" style="display: block; margin: auto;" /></p>
+<details>
+<summary>Hint</summary>
+To find the intercept, find where the line crosses the vertical slide at <span class="math inline">\(x = 0\)</span>. This gives the intercept directly. To find the slope, simple choose two points along the line and find the rise (i.e., the vertical distance between the two points) and the run (i.e., the horizontal distance between the two points). The slope is the rise over the run or <span class="math inline">\(\text{slope} = \dfrac{\text{rise}}{\text{run}}\)</span>.
+</details>
+<details>
+<summary>Solution</summary>
+The intercept is 1 and the slope is 1.5, so the equation for the line is <span class="math inline">\(y = 1.5x + 1\)</span>.
+</details>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-46" class="exercise"><strong>Exercise 4.5  </strong></span>What is the slope and intercept of the line below?
+</div>
+
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-47-1.png" width="288" style="display: block; margin: auto;" />
+<details>
+<summary>Solution</summary>
+The intercept is 1 and the slope is -0.5, so the equation for the line is <span class="math inline">\(y = -0.5x + 1\)</span>.
+</details>
+<hr />
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-normal-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-scatterplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["concepts-and-computation.pdf", "concepts-and-computation.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
