@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Regression | Concepts and Computation: An Introduction to Political Methodology</title>
   <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Regression | Concepts and Computation: An Introduction to Political Methodology" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-16" />
+<meta name="date" content="2019-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -74,9 +77,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -85,14 +88,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -101,9 +106,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -198,8 +203,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
-<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#slope-and-intercept"><i class="fa fa-check"></i><b>7.1</b> Slope and Intercept</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.1.1</b> Multiple Regression</a></li>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>7.1</b> The <strong>Conditional</strong> Average</a></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>7.2</b> The “Best” Line</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="regression.html"><a href="regression.html#adequancy-of-a-line"><i class="fa fa-check"></i><b>7.2.1</b> Adequancy of a Line</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>7.3</b> A Warning</a></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#slope-and-intercept"><i class="fa fa-check"></i><b>7.4</b> Slope and Intercept</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.4.1</b> Multiple Regression</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -225,15 +235,113 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="regression" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Regression</h1>
+<div id="the-conditional-average" class="section level2">
+<h2><span class="header-section-number">7.1</span> The <strong>Conditional</strong> Average</h2>
+<p>Have a look at the scatterplot below. What’s the portfolio share of a party in a coalition government with a seat share of 25%?</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-87-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Your eyes probably immediately begin examining a vertical strip above 25%.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-88-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>You probably estimate the average is a little more than 25%… call it 27%. You can see that the SD is about 10% because you’d need to go out about 10 percentage points above and below the average to grab about 2/3rds of the data.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-89-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Now you’re informed by the data and ready to answer the question.</p>
+<ul>
+<li>Q: What’s the portfolio share of a party in a coalition government with a seat share of 25%?</li>
+<li>A: It’s about 28% give or take 10 percentage points or so.</li>
+</ul>
+<p>Notice that if we break the data into many small windows, we can visually create an average (and an SD) for each. Freedman, Pisani, and Purves (2008) refer to this as a “graph of averages.” It’s a conceptual tool to help us understand regression.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-90-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>For some datasets, these averages will fall roughly along a line. In that case, we can described the average value of <span class="math inline">\(y\)</span> for each value of <span class="math inline">\(x\)</span>–that is, the <em>conditional</em> average of <span class="math inline">\(y\)</span>–with a line.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-91-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-best-line" class="section level2">
+<h2><span class="header-section-number">7.2</span> The “Best” Line</h2>
+<p>So far, we’ve made comparison between sets of measurements by…</p>
+<ol style="list-style-type: decimal">
+<li>Comparing the histograms of the sets of measurements (e.g., the ideologies of representatives from the 100th and 115th Congresses).</li>
+<li>Comparing the average or SD of sets of the measurements (e.g., the ideologies of representatives from the 100th and 115th Congresses).</li>
+<li>Computing the correlation coefficient between two sets of measurements (e.g., the portfolio share and the seat share for coalition governments)</li>
+</ol>
+<p>Regression allows us to extend the correlation coefficient–a measure of how well two variables “go together”–into a more inutitive, informative quantity.</p>
+<p>Regression allows us to answer the question “What is the average of <span class="math inline">\(y\)</span>?” for many different values of <span class="math inline">\(x\)</span>. Rather than compare a small number of scenarios (e.g., the 100th and 115th Congresses), the regression line allows us to compare the average of <span class="math inline">\(y\)</span> as <span class="math inline">\(x\)</span> varies continuously.</p>
+<p>In short, we describe the average value of <span class="math inline">\(y\)</span> as a linear function of <span class="math inline">\(x\)</span>, so that</p>
+<p><span class="math inline">\(\text{the average of } Y = mX + b\)</span>.</p>
+<div id="adequancy-of-a-line" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Adequancy of a Line</h3>
+<p>In some cases, a line can describe the average value <span class="math inline">\(y\)</span> quite well. In other cases, a line describles the data poorly.</p>
+<p>Rememeber, the regression line describes the average value of <span class="math inline">\(y\)</span> <em>for different values of <span class="math inline">\(x\)</span></em>. In the figure below, the left panel shows a dataset in which a line does not (and cannot) adequately describe the average values of <span class="math inline">\(y\)</span> for describe low, middle, and high values (at least ad the same time). The right panel shows a data in which a line can adequantely describe how the average value of <span class="math inline">\(y\)</span> changes with <span class="math inline">\(x\)</span>. We can see that when <span class="math inline">\(x \approx -2\)</span>, then <span class="math inline">\(y \approx 0\)</span>. Similarly, when <span class="math inline">\(x \approx 0\)</span>, then <span class="math inline">\(y \approx 4\)</span>. A line can describe the average value of <span class="math inline">\(y\)</span> for varying values of <span class="math inline">\(x\)</span> when the average of <span class="math inline">\(y\)</span> changes <em>linearly</em> with <span class="math inline">\(x\)</span>.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-92-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>A line does a great job of describing the relationship between seat shares and portfolio shares in government coalitions.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-93-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>A line poorly describes the relationship between Polity IV’s DEMOC measure and GDP per capita.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-94-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>When we have variable that’s skewed heavily to the right, we can sometimes more easily describe the <em>log</em> of the variable. For this dataset, the line poorly describes the average logged GDP per capita for the various democracy scores.</p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-95-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="a-warning" class="section level2">
+<h2><span class="header-section-number">7.3</span> A Warning</h2>
+<p>When we simply describe a single set of measurements with a histogram or an average, then we intuitively remain in the world of description. Indeed, making a causal claim requires a comparing factual and counterfactual scenarios. In the case of a single histogram or average we only have one scenario.</p>
+<p>When we have descriptions of multiple sets of measurements, say the average life expectancy for democracies and the average life expectancy for autocracies, we an easily interpret one scenario as factual and the other as counterfactual. On its face, though, both scenarios are factual. We can comfortably say that democracies have healthier populations than autocracies without claim that the regime type causes this difference. But it is oh so tempting.</p>
+<p>Regression models, by design, describe data in a range of scenarios. The temptation to treat these neatly arranged scenarios as factual and counterfactual grows even stronger. But as a default, statistical models describe the factual world.</p>
+<blockquote>
+<p>With few exceptions, statistical data analysis describes teh outcomes of real social processes and not the processes themselves. It is therefore important to attend to the descriptive accuracy of statistical models, and to refrain from reifying them. —Fox (2008, p.3)</p>
+</blockquote>
+<p>Note that some methodologists claim that their statistical models can obtain estimates of the causal effects. These models might actually succeed on occasion. However, the researcher should carefully avoid seeing counterfactual worlds from regression models.</p>
+<p>Usually, credible causal inferences come from careful design in the data collection stage, not from complicated conditioning at the modeling stage.</p>
+</div>
 <div id="slope-and-intercept" class="section level2">
-<h2><span class="header-section-number">7.1</span> Slope and Intercept</h2>
+<h2><span class="header-section-number">7.4</span> Slope and Intercept</h2>
 <p>Take a look at the scatterplot below. It shows several potential lines to describe the relationship between x and y. Indeed, each of these lines seems reasonable. We can imagine many more reasonable lines.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-87-1.png" width="288" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="regression.html#cb68-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb68-2"><a href="regression.html#cb68-2"></a><span class="kw">library</span>(broom)</span>
+<span id="cb68-3"><a href="regression.html#cb68-3"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">10</span>), </span>
+<span id="cb68-4"><a href="regression.html#cb68-4"></a>             <span class="dt">y =</span> x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(x)))</span>
+<span id="cb68-5"><a href="regression.html#cb68-5"></a></span>
+<span id="cb68-6"><a href="regression.html#cb68-6"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> df)</span>
+<span id="cb68-7"><a href="regression.html#cb68-7"></a>draws &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> <span class="dv">9</span>,</span>
+<span id="cb68-8"><a href="regression.html#cb68-8"></a>                       <span class="dt">mu =</span> <span class="kw">coef</span>(fit), </span>
+<span id="cb68-9"><a href="regression.html#cb68-9"></a>                       <span class="dt">Sigma =</span> <span class="kw">vcov</span>(fit))</span>
+<span id="cb68-10"><a href="regression.html#cb68-10"></a></span>
+<span id="cb68-11"><a href="regression.html#cb68-11"></a>pred_df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span></span>
+<span id="cb68-12"><a href="regression.html#cb68-12"></a><span class="st">  </span><span class="kw">augment</span>(fit, <span class="dt">data =</span> .) <span class="op">%&gt;%</span></span>
+<span id="cb68-13"><a href="regression.html#cb68-13"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<pre><code>Observations: 10
+Variables: 8
+$ x          &lt;dbl&gt; -2.0000000, -1.5555556, -1.1111111, -0.6666667, -0.22…
+$ y          &lt;dbl&gt; -2.5249137, -2.0937822, -2.1500948, -0.1535250, -0.74…
+$ .fitted    &lt;dbl&gt; -2.5640924, -1.9934756, -1.4228589, -0.8522421, -0.28…
+$ .resid     &lt;dbl&gt; -0.03917865, 0.10030655, 0.72723590, -0.69871708, 0.4…
+$ .std.resid &lt;dbl&gt; 0.07351885, -0.17566273, -1.21609365, 1.13548468, -0.…
+$ .hat       &lt;dbl&gt; 0.3454545, 0.2484848, 0.1757576, 0.1272727, 0.1030303…
+$ .sigma     &lt;dbl&gt; 0.7039309, 0.7028094, 0.6357594, 0.6449334, 0.6789218…
+$ .cooksd    &lt;dbl&gt; 0.001426325, 0.005101424, 0.157675106, 0.094013314, 0…</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="regression.html#cb70-1"></a><span class="kw">library</span>(ggrepel)</span>
+<span id="cb70-2"><a href="regression.html#cb70-2"></a>gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(pred_df) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-3"><a href="regression.html#cb70-3"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">xend =</span> x, <span class="dt">y =</span> y, <span class="dt">yend =</span> .fitted), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-4"><a href="regression.html#cb70-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-5"><a href="regression.html#cb70-5"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> .fitted)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-6"><a href="regression.html#cb70-6"></a><span class="st">  </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, </span>
+<span id="cb70-7"><a href="regression.html#cb70-7"></a>                 <span class="dt">y =</span> (y <span class="op">+</span><span class="st"> </span>.fitted)<span class="op">/</span><span class="dv">2</span>, </span>
+<span id="cb70-8"><a href="regression.html#cb70-8"></a>                 <span class="dt">label =</span> <span class="kw">round</span>(.resid, <span class="dv">2</span>)), </span>
+<span id="cb70-9"><a href="regression.html#cb70-9"></a>             <span class="dt">size =</span> <span class="dv">3</span>, </span>
+<span id="cb70-10"><a href="regression.html#cb70-10"></a>             <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb70-11"><a href="regression.html#cb70-11"></a>             <span class="dt">min.segment.length =</span> <span class="fl">0.0</span>, </span>
+<span id="cb70-12"><a href="regression.html#cb70-12"></a>             <span class="dt">segment.size =</span> <span class="fl">0.2</span>, </span>
+<span id="cb70-13"><a href="regression.html#cb70-13"></a>             <span class="dt">label.padding =</span> <span class="fl">0.15</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-14"><a href="regression.html#cb70-14"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span>
+<span id="cb70-15"><a href="regression.html#cb70-15"></a></span>
+<span id="cb70-16"><a href="regression.html#cb70-16"></a>gg2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(pred_df) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-17"><a href="regression.html#cb70-17"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-18"><a href="regression.html#cb70-18"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> .fitted)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb70-19"><a href="regression.html#cb70-19"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span>
+<span id="cb70-20"><a href="regression.html#cb70-20"></a></span>
+<span id="cb70-21"><a href="regression.html#cb70-21"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(gg2, gg1, <span class="dt">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-96-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>But what is the <strong>best</strong> line?</p>
 <p>Least squares offers <em>one</em> principle way to choose the best line.</p>
 <p>The least squares principles says to choose the line that minimizes the RMS of of the residuals.</p>
 <div id="multiple-regression" class="section level3">
-<h3><span class="header-section-number">7.1.1</span> Multiple Regression</h3>
+<h3><span class="header-section-number">7.4.1</span> Multiple Regression</h3>
 
 </div>
 </div>
@@ -249,11 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
