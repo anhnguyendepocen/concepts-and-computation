@@ -1,0 +1,556 @@
+
+# Regression
+
+```{r, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(broom)
+library(ggrepel)
+knitr::opts_chunk$set(echo = TRUE, fig.width=5, fig.height=3, fig.align = "center",
+                      message=FALSE, warning=FALSE)
+doc_theme <- ggplot2::theme_bw()
+```
+
+Social scientists use the term "regression" imprecisely. In one case, they might use "regression" to refer to a broad class of models. In another case, they might use it to refer to the particular model discussed below. So watch out for inconsistent meanings, but the context should make the meaning clear.
+
+## The Equation for a Scatterplot
+
+Let's start by describing a scatterplot using a line.
+
+First, let's agree that we won't encounter a scatterplot where all the points $(x_i, y_i)$ fall exactly along a line. As such, we need a notation that allows us to distinguish the the line from the observed values. 
+
+We commonly refer to the values along the line as the "predicted values" or "predictions" and the observations themselves as the "observed values" or "observations."
+
+We use $y_i$ to denote the $i$th observation of $y$ and use $\hat{y}_i$ to denote the prediction (usually give $x_i$). 
+
+We write the equation for the line as $\hat{y} = \alpha + \beta x$ and the individual predictions as $\hat{y}_i = \alpha + \beta x_i$.
+
+We refer to the difference between the observed value $y_i$ and $\hat{y}_i = \alpha + \beta x_i$ as as the **residual** $r_i = y_i - \hat{y}_i$. 
+
+Thus, for *any* $\alpha$ and $\beta$, we can write $y_i = \alpha + \beta x_i + r_i$ for the observations $i = \{1, 2, ..., n\}$. 
+
+Notice that we can break each $y_i$ into two pieces components
+
+1. the linear function of $x$: $\alpha + \beta x_i$
+1. the residual $r_i$.
+
+In short, we can describe any scatterplot using the model $y_i = \alpha + \beta x_i + r_i$. 
+
+1. The black points show the individual observations $(x_i, y_i)$,
+1. The green line shows the equation $\hat{y} = \alpha + \beta x$.
+1. The purple star shows the prediction $\hat{y}_i$ for $x = x_i$.
+1. The orange vertical line shows the residual $r_i = y_i - \hat{y}_i$.
+
+```{r echo=FALSE, fig.height=5, fig.width=6}
+set.seed(50478)
+b <- -3
+m <- 0.2
+df <- tibble(x = -5:5) %>%
+  mutate(y = x + round(rnorm(nrow(.), sd = 3)), 
+         y_hat = m*x + b)
+
+ggplot(df, aes(x, y)) + 
+  theme_minimal() + 
+  # label line
+  geom_abline(intercept = b, slope = m, 
+              color = "#1b9e77") + 
+  annotate("segment", x = 2.5, y = -4, xend = 2, yend = -3, 
+           arrow = arrow(length = unit(0.08, "inches")), 
+           color = "#1b9e77") +
+  annotate("label", x = 2.5, y = m*2.5 + b - 2, 
+           label = "hat(y) == alpha + beta *x", 
+           parse = TRUE, 
+           color = "#1b9e77") + 
+  # label point
+  annotate("segment", x = -1, y = 3, xend = -1.9, yend = 2.1, 
+           arrow = arrow(length = unit(0.08, "inches"))) +
+  annotate("label", x = -1, y = 3, 
+           label = "list(x[i], y[i])", 
+           parse = TRUE) + 
+  # residual
+  annotate("segment", x = -2, xend = -2, y = 2, yend = m*(-2)+b,
+           linetype = "dotted", color = "#d95f02") + 
+  annotate("label", x = -2, y = -0.5, 
+           label = "r[i]", 
+           parse = TRUE, 
+           color = "#d95f02") + 
+  # label prediction
+  annotate("segment", x = -3, y = -6, xend = -2.2, yend = -3.8, 
+           arrow = arrow(length = unit(0.08, "inches")),
+           color = "#7570b3") +
+  annotate("label", x = -3, y = -6, 
+           label = "hat(y)[i] == alpha + beta *x[i]", 
+           parse = TRUE, color = "#7570b3") + 
+  annotate("point", x = -2, m*(-2)+b, shape = 8, fill = "white",
+           color = "#7570b3", size = 3) + 
+  # add points
+    geom_point()
+```
+
+Of course, the line above isn't a very good line. And using the approach above, we can describe any scatterplot using any line. 
+
+How can we go about finding a *good* line?
+
+```{exercise}
+Before we talk about a good *line*, let's talk about a good *point*. Suppose you have a dataset $y = \{y_1, y_2, ... , y_n\}$ and you want to predict these observations with a single point $\theta$. Use calculus to find the $\theta$ that minimizes the r.m.s. of the residuals $r_i = y_i - \theta$ or that minimizes $f(\theta) = \sqrt{\dfrac{(y_i - \theta)^2}{n}}$.
+```
+<details><summary>Hint</summary>
+1. Realize that the $theta$ that minimizes $f(\theta) = \sqrt{\dfrac{\displaystyle \sum_{i = 1}^n (y_i - \theta)^2}{n}}$ also minimizes $g(\theta) = \dfrac{\displaystyle \sum_{i = 1}^n(y_i - \theta)^2}{n}$. We know this because the square root function is monotonic and preserves the order of observations. In other words, the $\theta$ that produces the smallest r.m.s. of the residuals also produces the smallest m.s. of the residuals.
+1. Realize that the $theta$ that minimizes $g(\theta) = \dfrac{\displaystyle \sum_{i = 1}^n(y_i - \theta)^2}{n}$ also minimizes $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$. Removing a constant just shifts the curve up or down, but it does not change the $\theta$ that mimimizes the curve. So work with $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$.
+1. To make things easier, expand $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$ to $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i^2 - 2\theta y_i + \theta^2)$.
+1. Distribute the summation operator to obtain $h(\theta) = \displaystyle \sum_{i = 1}^n y_i^2 - 2 \theta \sum_{i = 1} y_i + n\theta^2$.
+1. Now take the derivative of $h(\theta)$ w.r.t. $\theta$, set that derivative equal to zero, and solve for $\theta$. The result should be familiar. 
+</details>
+
+## The **Conditional** Average
+
+Have a look at the scatterplot below. What's the portfolio share of a party in a coalition government with a seat share of 25%?
+
+
+```{r, echo = FALSE}
+df <- read_rds("data/gamson.rds") 
+ggplot(df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(alpha = 0.5) + 
+  theme_minimal() + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share")
+```
+
+Your eyes probably immediately begin examining a vertical strip above 25%. 
+
+```{r, echo = FALSE}
+df_grey <- df %>%
+  filter(seat_share < 0.22 | seat_share > 0.28)
+df_color <- df %>%
+  filter(seat_share >= 0.22 & seat_share <= 0.28)
+
+ggplot(df_color, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(data = df_grey, alpha = 0.5) + 
+  geom_point(color = "#d95f02", alpha = 0.5) + 
+  theme_minimal() + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share")
+```
+
+You probably estimate the average is a little more than 25%... call it 27%. You can see that the SD is about 10% because you'd need to go out about 10 percentage points above and below the average to grab about 2/3rds of the data. 
+
+```{r, echo = FALSE}
+
+df_sum <- df_color %>%
+  summarize(y = mean(portfolio_share),
+            ymin = mean(portfolio_share) - sd(portfolio_share),
+            ymax = mean(portfolio_share) + sd(portfolio_share)) %>%
+  mutate(x = 0.25)
+
+lab_df <- tribble(
+  ~x, ~y, ~label ,
+  df_sum$x,   df_sum$y, "average in window is about 27%",
+  df_sum$x,   df_sum$ymax, "SD is about 10 percentage points"
+)
+
+  
+
+ggplot(df_color, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(data = df_grey, alpha = 0.2) + 
+  geom_point(color = "#d95f02", alpha = 0.2) + 
+    geom_label_repel(data = lab_df, aes(x = x, y = y, label = label), 
+                   xlim = c(0.29, 1), size = 3,
+                   segment.color = "grey50", segment.size = 0.3) + 
+  geom_point(data = df_sum, aes(x = x, y = y, ymin = ymin, ymax = ymax), size = 3) + 
+  geom_errorbar(data = df_sum, aes(x = x, y = y, ymin = ymin, ymax = ymax), 
+                width = 0.02, size = 1) + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  theme_minimal() + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share")
+```
+
+Now you're informed by the data and ready to answer the question.
+
+- Q: What's the portfolio share of a party in a coalition government with a seat share of 25%?
+- A: It's about 28% give or take 10 percentage points or so.
+
+Notice that if we break the data into many small windows, we can visually create an average (and an SD) for each. Freedman, Pisani, and Purves (2008) refer to this as a "graph of averages." Fox (2008) calls this "naive nonparametric regression." It's a conceptual tool to help us understand regression.
+
+```{r, echo = FALSE}
+window_df <- df %>%
+  mutate(window = cut_width(seat_share, width = 0.05, boundary = 0)) %>% 
+  mutate(window_color = factor(as.numeric(window) %% 2))
+
+windowsum_df <- window_df %>%
+  separate(window, c("lwr", "upr"), sep = ",", remove = FALSE) %>%
+  mutate(lwr = str_remove(lwr, "\\["),
+         lwr = str_remove(lwr, "\\("),
+         upr = str_remove(upr, "\\]"),
+         upr = str_remove(upr, "\\)"),
+         lwr = as.numeric(lwr),
+         upr = as.numeric(upr),
+         mid = (lwr + upr)/2) %>%
+  group_by(window, window_color, mid, upr, lwr) %>%
+  summarize(avg = mean(portfolio_share),
+            sd = sd(portfolio_share),
+            upr0 = avg + sd,
+            lwr0 = avg - sd) 
+
+ggplot(window_df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(alpha = 0.15, aes(color = window_color)) + 
+  theme_minimal() + 
+  scale_color_manual(values = c("1" = "#d95f02", "0" = "#1b9e77")) + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  geom_point(data = windowsum_df, aes(x = mid, y = avg, color = window_color), size = 2) + 
+    geom_errorbar(data = windowsum_df, aes(x = mid, y = avg, 
+                                           ymin = lwr0, ymax = upr0, 
+                                           color = window_color), 
+                width = 0.02, size = 1) + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share") + 
+  theme(legend.position = "none")
+```
+
+For some datasets, these averages will fall roughly along a line. In that case, we can described the average value of $y$ for each value of $x$--that is, the *conditional* average of $y$--with a line.
+
+
+```{r, echo = FALSE}
+ggplot(window_df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(alpha = 0.15, aes(color = window_color)) + 
+  theme_minimal() + 
+  scale_color_manual(values = c("1" = "#d95f02", "0" = "#1b9e77")) + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  geom_point(data = windowsum_df, aes(x = mid, y = avg, color = window_color), size = 2) + 
+    geom_errorbar(data = windowsum_df, aes(x = mid, y = avg, ymin = lwr0, ymax = upr0, color = window_color), 
+                width = 0.02, size = 1) + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share") + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") + 
+  theme(legend.position = "none")
+```
+
+## The "Best" Line
+
+So far, we have to results:
+
+1. The average is the point that minimizes the r.m.s. of the residuals.
+1. We want a line that captures the conditional average.
+
+This suggests that our line should minimize the r.m.s. of the residuals as well, and that's exactly the line that we'll use. 
+
+We want the pair $(\hat{\alpha}, \hat{\beta})$ that minimizes the r.m.s. of the residuals.
+
+$\DeclareMathOperator*{\argmin}{arg\,min}$
+
+$\displaystyle \argmin_{( \alpha, \, \beta ) \, \in \, \mathbb{R}^2} \sqrt{\frac{r_i^2}{n}}$
+
+### Grid Search
+
+Because we're looking for the pair $(\hat{\alpha}, \hat{\beta})$ that minimize the sum of the RMS residuals, we could simply check lots of different values. In some applications, this is a reasonable optimization routine. (It is not reasonable in the context of regression, where we have much faster and accuracy tools.)
+
+The figure below shows the result of a grid search.
+
+- In the top-left panel, we see the line and the residuals for each intercept-slope pair. The size of the points indicates the residual *squared*. Notice that some lines make big errors and other lines make small errors. 
+- In the top-right panel, we see a histogram of the squared residuals.
+- In the lower-left panel, each point in the grid shows a intercept-slope pair. The label, color, and size indicate the RMS of the residuals. As we move around the grid, the RMS changes--we're looking for the smallest.
+- In the lower-right panel, the three lines show the evolution of the intercept, slope, and RMS of the residuals, respectively. Again, we're looking for the pair that produces the smallest RMS of the residuals.
+
+For this search, the intercept -0.36 and the slope 0.89 produce the smallest RMS of the residuals (of the combinations we considered).
+
+![](img/scatterplots/grid-search.gif)
+
+### Numerical Optimization
+
+Remember that we simply need to minimize the function 
+
+$f(\alpha, \beta) = \displaystyle \sqrt{\frac{\sum_{i = 1}^n r_i^2}{n}} = \sqrt{\frac{\sum_{i = 1}^n (y_i - \hat{y}_i)^2}{n}} = \sqrt{\frac{ \sum_{i = 1}^n [y_i - (\alpha + \beta x_i)]^2}{n}}$, 
+
+shown below.
+
+```{r, echo = FALSE, fig.height=6, fig.width = 7}
+
+df <- tribble(
+    ~x,   ~y,
+    -1, -0.2,
+   1.1, -0.2,
+  -1.1, -2.9,
+  -0.2, -0.2,
+  -0.5, -1.4,
+   1.9,  2.2,
+   1.2,  0.9,
+   0.1, -0.5,
+   0.7, -0.4,
+  -1.3, -1.8,
+   2.3,  2.5,
+   0.4, -0.9,
+     1,    2,
+  -0.9, -0.1,
+  -0.1,  1.4,
+  -1.2, -1.3,
+   0.9,    1,
+     0, -0.6,
+  -0.6, -0.6,
+  -0.3, -2.2,
+   1.4,  1.2,
+   1.8,  1.2,
+   1.6, -0.2,
+   2.2,  1.4,
+  -0.7, -0.7,
+   0.6, -0.4,
+   0.8,  0.6
+  )
+
+f <- function(par, data) {
+  alpha <- par[1]
+  beta <- par[2]
+  y_hat <- alpha + beta*data$x
+  r <- data$y - y_hat
+  rms <- sqrt(mean(r^2))
+  return(rms)
+}
+
+slope     <- seq(-3, 3, by = 0.1)
+intercept <- seq(-3, 3, by = 0.1)
+
+rms <- matrix(NA, nrow = length(slope), ncol = length(intercept))
+for (i in 1:length(slope)) {
+  for (j in 1:length(intercept)) {
+    rms[i, j] <- f(c(intercept[j], slope[i]), data = df)
+  }
+}
+
+library(plotly)
+plot_ly(x = ~ slope, y = ~ intercept, z = ~ rms) %>% 
+  add_surface(showscale = FALSE) %>%
+  layout(
+    scene = list(
+      xaxis = list(title = "Slope"),
+      yaxis = list(title = "Intercept"),
+      zaxis = list(title = "RMS of Residuals")))
+```
+
+Hill-climbing algorithms, such as Newton-Raphson, find the optimum *numerically* by investigating the shape of $f$ at its current location, taking a step uphill, and then repeating. When no step leads uphill, the algorithm has found the optimum. Under meaningful restrictions (e.g., no local optima), these algorithms find the *global* optimum.
+
+First, let's add the data from the grid search example above using `tribble()`.
+
+```{r}
+df <- tribble(
+    ~x,   ~y,
+    -1, -0.2,
+   1.1, -0.2,
+  -1.1, -2.9,
+  -0.2, -0.2,
+  -0.5, -1.4,
+   1.9,  2.2,
+   1.2,  0.9,
+   0.1, -0.5,
+   0.7, -0.4,
+  -1.3, -1.8,
+   2.3,  2.5,
+   0.4, -0.9,
+     1,    2,
+  -0.9, -0.1,
+  -0.1,  1.4,
+  -1.2, -1.3,
+   0.9,    1,
+     0, -0.6,
+  -0.6, -0.6,
+  -0.3, -2.2,
+   1.4,  1.2,
+   1.8,  1.2,
+   1.6, -0.2,
+   2.2,  1.4,
+  -0.7, -0.7,
+   0.6, -0.4,
+   0.8,  0.6
+  )
+```
+
+Now let's create a function that takes the parameters (to be optimized over) as the first argument. 
+
+
+```{r}
+f <- function(par, data) {
+  alpha <- par[1]
+  beta <- par[2]
+  y_hat <- alpha + beta*data$x
+  r <- data$y - y_hat
+  rms <- sqrt(mean(r^2))
+  return(rms)
+}
+```
+
+Now we can optimze this function `f()` using `optim()`. The default `method` is `"Nelder-Mead"`, which works similarly to the Newton-Raphson algorithm you might have seen before.
+
+```{r}
+results <- optim(
+  par = c(0, 0),    # initial slope and intercept
+  fn = f,           # function to optimize
+  data = df         # dataset for f()
+  )
+
+results$par
+results$value
+```
+
+The Nelder-Mead optimization routine finds that and intercept of -0.36 and a slope of 0.94 result in the smallest RMS of the residuals 0.84.
+
+This somewhat agrees with the results from the coarse grid search. If the grid search were more fine-grained, we could easily obtain solutions that agree to two decimal places.
+
+
+
+
+
+
+
+So far, we've made comparison between sets of measurements by...
+
+1. Comparing the histograms of the sets of measurements (e.g., the ideologies of representatives from the 100th and 115th Congresses).
+1. Comparing the average or SD of sets of the measurements (e.g., the ideologies of representatives from the 100th and 115th Congresses).
+1. Computing the correlation coefficient between two sets of measurements (e.g., the portfolio share and the seat share for coalition governments)
+
+Regression allows us to extend the correlation coefficient--a measure of how well two variables "go together"--into a more inutitive, informative quantity.
+
+Regression allows us to answer the question "What is the average of $y$?" for many different values of $x$. Rather than compare a small number of scenarios (e.g., the 100th and 115th Congresses), the regression line allows us to compare the average of $y$ as $x$ varies continuously.
+
+In short, we describe the average value of $y$ as a linear function of $x$, so that
+
+$\text{the average of } Y = mX + b$.
+
+### Adequacy of a Line
+
+In some cases, a line can describe the average value $y$ quite well. In other cases, a line describles the data poorly. 
+
+Rememeber, the regression line describes the average value of $y$ *for different values of $x$*. In the figure below, the left panel shows a dataset in which a line does not (and cannot) adequately describe the average values of $y$ for describe low, middle, and high values (at least ad the same time). The right panel shows a data in which a line can adequantely describe how the average value of $y$ changes with $x$. We can see that when $x \approx -2$, then $y \approx 0$. Similarly, when $x \approx 0$, then $y \approx 4$. A line can describe the average value of $y$ for varying values of $x$ when the average of $y$ changes *linearly* with $x$.
+
+```{r echo=FALSE, fig.height=3, fig.width=7}
+n <- 100
+well <- tibble(x = runif(n, -2, 2)) %>%
+  mutate(y = 4 + 2*x + rnorm(n), 
+         descr = "A Line Works Well")
+
+poorly <- tibble(x = rnorm(n)) %>%
+  mutate(y = x^2 + x + rnorm(n, sd = 0.5),
+         descr = "A Line Works Poorly")
+
+df <- bind_rows(well, poorly)
+
+ggplot(df, aes(x, y)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") + 
+  facet_wrap(vars(descr), scales = "free") + 
+  theme_minimal()
+```
+
+A line does a great job of describing the relationship between seat shares and portfolio shares in government coalitions. 
+
+```{r, echo = FALSE}
+df <- read_rds("data/gamson.rds") 
+ggplot(df, aes(x = seat_share, y = portfolio_share)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") + 
+  theme_minimal() + 
+  labs(x = "Seat Share",
+       y = "Portfolio Share")
+```
+
+A line poorly describes the relationship between Polity IV's DEMOC measure and GDP per capita.
+
+```{r echo = FALSE}
+df <- read_csv("https://raw.githubusercontent.com/pos5737/democracy-life/master/data/democracy-life.csv") 
+
+ggplot(df, aes(x = democ, y = gdp_per_capita)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") + 
+  theme_minimal() + 
+  labs(x = "Democracy Score",
+       y = "GDP Per Capita")
+```
+
+When we have variable that's skewed heavily to the right, we can sometimes more easily describe the *log* of the variable. For this dataset, the line poorly describes the average logged GDP per capita for the various democracy scores.
+
+```{r echo = FALSE}
+ggplot(df, aes(x = democ, y = gdp_per_capita)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "black") + 
+  theme_minimal() + 
+  scale_y_log10(labels = scales::comma) + 
+  labs(x = "Democracy Score",
+       y = "Log of GDP Per Capita")
+```
+
+## A Warning
+
+When we simply describe a single set of measurements with a histogram or an average, then we intuitively remain in the world of description. Indeed, making a causal claim requires a comparing factual and counterfactual scenarios. In the case of a single histogram or average we only have one scenario.
+
+When we have descriptions of multiple sets of measurements, say the average life expectancy for democracies and the average life expectancy for autocracies, we an easily interpret one scenario as factual and the other as counterfactual. On its face, though, both scenarios are factual. We can comfortably say that democracies have healthier populations than autocracies without claim that the regime type causes this difference. But it is oh so tempting. 
+
+Regression models, by design, describe data in a range of scenarios. The temptation to treat these neatly arranged scenarios as factual and counterfactual grows even stronger. But as a default, statistical models describe the factual world. 
+
+> With few exceptions, statistical data analysis describes teh outcomes of real social processes and not the processes themselves. It is therefore important to attend to the descriptive accuracy of statistical models, and to refrain from reifying them. ---Fox (2008, p.3)
+
+Note that some methodologists claim that their statistical models can obtain estimates of the causal effects. These models might actually succeed on occasion. However, the researcher should carefully avoid seeing counterfactual worlds from regression models.
+
+Usually, credible causal inferences come from careful design in the data collection stage, not from complicated conditioning at the modeling stage.
+
+
+## Slope and Intercept
+
+Take a look at the scatterplot below. It shows several potential lines to describe the relationship between x and y. Indeed, each of these lines seems reasonable. We can imagine many more reasonable lines.
+
+
+```{r}
+library(tidyverse)
+library(broom)
+df <- tibble(x = seq(-2, 2, length.out = 10), 
+             y = x + rnorm(length(x)))
+
+fit <- lm(y ~ x, data = df)
+draws <- MASS::mvrnorm(n = 9,
+                       mu = coef(fit), 
+                       Sigma = vcov(fit))
+
+pred_df <- df %>%
+  augment(fit, data = .) %>%
+  glimpse()
+
+library(ggrepel)
+gg1 <- ggplot(pred_df) + 
+  geom_segment(aes(x = x, xend = x, y = y, yend = .fitted), color = "red", size = 0.5) + 
+  geom_point(aes(x = x, y = y), size = 2) + 
+  geom_line(aes(x = x, y = .fitted)) + 
+  geom_label_repel(aes(x = x, 
+                 y = (y + .fitted)/2, 
+                 label = round(.resid, 2)), 
+             size = 3, 
+             color = "red", 
+             min.segment.length = 0.0, 
+             segment.size = 0.2, 
+             label.padding = 0.15) + 
+  theme_minimal()
+
+gg2 <- ggplot(pred_df) + 
+  geom_point(aes(x = x, y = y), size = 2) + 
+  geom_line(aes(x = x, y = .fitted)) + 
+  theme_minimal()
+
+gridExtra::grid.arrange(gg2, gg1, ncol = 2)
+```
+
+
+
+But what is the **best** line? 
+
+Least squares offers *one* principle way to choose the best line.
+
+The least squares principles says to choose the line that minimizes the RMS of of the residuals.
+
+```{exerise}
+Get another perspective. Read Lewis-Beck's *Applied Regression* pp. 9-25.
+```
+
+### Multiple Regression
+

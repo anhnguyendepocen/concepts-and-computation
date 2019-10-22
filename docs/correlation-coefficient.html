@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-20" />
+<meta name="date" content="2019-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -800,7 +800,7 @@ $ election_type &lt;chr&gt; &quot;Congressional Election&quot;, &quot;Congressio
 </details>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-85" class="exercise"><strong>Exercise 6.5  </strong></span>Use <code>devtools::install_github("pos5737/pos5737data")</code> to get the latest version of the pos5737 data package. Load the data set <code>anscombe</code> into R with <code>data(anscombe, package = "pos5737")</code>. Use <code>glimpse(anscombe)</code> to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.</p>
+<p><span id="exr:unnamed-chunk-85" class="exercise"><strong>Exercise 6.5  </strong></span>Use <code>devtools::install_github("pos5737/pos5737data")</code> to get the latest version of the pos5737 data package. Load the data set <code>anscombe</code> into R with <code>data(anscombe, package = "pos5737data")</code>. Use <code>glimpse(anscombe)</code> to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.</p>
 <ol style="list-style-type: decimal">
 <li>Use a <code>group_by()</code> and <code>summarize()</code> workflow to compute a correlation coefficient for each of the four datasets. How do they compare? What do they suggest about the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>?</li>
 <li>Create a scatterplot of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with separate panels for each dataset. How do they compare? How would you describe the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in each panel? Would you say that the correlation coefficient offered a good summary of each dataset?
