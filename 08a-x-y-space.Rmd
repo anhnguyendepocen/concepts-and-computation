@@ -307,7 +307,7 @@ ggplot() +
 To find the intercept, find where the line crosses the vertical slide at $x = 0$. This gives the intercept directly. To find the slope, simple choose two points along the line and find the rise (i.e., the vertical distance between the two points) and the run (i.e., the horizontal distance between the two points). The slope is the rise over the run or $\text{slope} = \dfrac{\text{rise}}{\text{run}}$.
 </details>
 <details><summary>Solution</summary>
-The intercept is 1 and the slope is 1.5, so the equation for the line is $y = 1.5x + 1$.
+The intercept is -1 and the slope is 1.5, so the equation for the line is $y = 1.5x - 1$.
 </details>
 
 ```{exercise}

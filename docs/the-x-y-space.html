@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-22" />
+<meta name="date" content="2019-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,13 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 <script>
     $(document).ready(function () {
         process_solutions();
@@ -201,6 +208,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>6.3</b> Interpreting</a></li>
 <li class="chapter" data-level="6.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>6.4</b> Example: Clark and Golder (2006)</a></li>
 <li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>7.1</b> Review</a></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>7.2</b> The Equation</a></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>7.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>7.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>7.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="7.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>7.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="7.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>7.4.3</b> Analytical Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>7.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="7.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>7.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="7.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>7.6.1</b> Adequacy of a Line</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>7.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>7.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="7.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>7.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="7.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>7.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="7.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>7.7.4</b> Post-Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>7.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="7.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>7.9</b> A Warning</a></li>
+<li class="chapter" data-level="7.10" data-path="regression.html"><a href="regression.html#review-exercises-1"><i class="fa fa-check"></i><b>7.10</b> Review Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -514,7 +544,7 @@ To find the intercept, find where the line crosses the vertical slide at <span c
 </details>
 <details>
 <summary>Solution</summary>
-The intercept is 1 and the slope is 1.5, so the equation for the line is <span class="math inline">\(y = 1.5x + 1\)</span>.
+The intercept is -1 and the slope is 1.5, so the equation for the line is <span class="math inline">\(y = 1.5x - 1\)</span>.
 </details>
 
 <div class="exercise">
