@@ -631,7 +631,7 @@ Now we can use Lemmas \@ref(lem:sum-of-dev-prods) and \@ref(lem:sum-of-squared-d
 Denote the SD of $x$ as $\text{SD}_x$ and the the SD of $y$ as $\text{SD}_y$. Multiply the top and bottom by $\frac{1}{n \times \text{SD}_x^2 \times \text{SD}_y}$ and rearrange strategically.
 
 \begin{align}
-\hat{\beta} &=\dfrac{\dfrac{\sum_{i = 1}^n \left(\frac{x_i - \overline{x}}{\text{SD}_x} \right)\left(\frac{y_i - \overline{y}}{\text{SD}_y} \right)}{n} \times \frac{1}{\text{SD}_x}} \\
+\hat{\beta} &=\frac{\frac{\sum_{i = 1}^n \left(\frac{x_i - \overline{x}}{\text{SD}_x} \right)\left(\frac{y_i - \overline{y}}{\text{SD}_y} \right)}{n} \times \frac{1}{\text{SD}_x}}{ \frac{1}{n \times \text{SD}_x^2 \times \text{SD}_y} \times \sum_{i = 1}^n (x_i - \overline{x})^2} \\
 \end{align}
 
 Now we recognize that the left term $\dfrac{\sum_{i = 1}^n \left(\frac{x_i - \overline{x}}{\text{SD}_x} \right)\left(\frac{y_i - \overline{y}}{\text{SD}_y} \right)}{n}$ in the numerator is simply the correlation coefficient $r$ between $x$ and $y$.
