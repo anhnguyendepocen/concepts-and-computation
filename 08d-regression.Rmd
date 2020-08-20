@@ -895,13 +895,13 @@ We don't understand many of these (yet, see `?glance.lm` for the definitions), s
 
 ```{r}
 fit_summary <- glance(fit) %>%
-  select(r.squared, sigma, nobs) %>%
+  select(r.squared, sigma) %>%  # this used to have nobs, but not any more
   glimpse()
 ```
 
 - `r.squared` is the $R^2$ statistic.
 - `sigma` is the RMS of the residuals.
-- `nobs` is the number of observations.
+- `nobs` is the number of observations (see note above).
 
 #### `tidy()`
 

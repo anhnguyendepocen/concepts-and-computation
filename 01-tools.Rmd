@@ -1,0 +1,463 @@
+# (PART) The Language of Social Science {-}
+
+# Tools
+
+Modern social science relies heavily on computational tools (i.e., software) to implement the ideas we will learn this semester. In my view, concepts (i.e., knowledge statistical theory) and computation (i.e., understanding how to use statistical software) are *both* critical. You cannot become a competent and capable empirical research without both.
+
+If you find a problem with this assignment, then please start a discussion in our [Slack workspace](http://pos5737.slack.com), especially if the instructions don't work or you find them confusing. **This is important.** This assignment can be particularly frustrating, so if the instructions are unclear, inaccurate, or incomplete, let me know so that I can update them and save others some frustration.
+
+This chapter walks you through installing a bunch of software, creating a couple of accounts, and making sure things work as expected. You don't need to understand everything that's happening. Unless you bring some outside know, you'll sometimes have no ideas what's happening. That's expected and okay. You'll learn more about these tools later in the semester.
+
+## My Tools
+
+Here are the tools I use (with macOS):
+
+- **RStudio** for data management and manipulation (e.g., tidyverse), plotting (e.g., ggplot2), and modeling (e.g., rstan).
+- LaTeX through **TeXShop** (for documents), **BibDesk** (for bibliographies), and **LaTeXiT** (for single equations). 
+- **R Markdown** for simple reports (e.g., peer reviews)
+- git and GitHub through **GitHub Desktop** for version control.
+- **GNU Make** for defining dependencies and reproducing projects.
+
+You can obtain the same properties more easily (but sacrifice a bit of power), but combining text and code in an R Markdown document.
+
+If you get an error following the steps below, *please* post to Slack so that I have a record of your difficultly, even if you figure it out relatively quickly. That helps me maintain high-quality materials that work for users with a range of abilities. Definitely seek help before you get frustrated. This is not a course in installing software--we just need to get it working for you.
+
+---
+
+## Reading
+
+Read the following:
+
+* Healy. 2014. *Choosing Your Workflow Applications.* [[pdf](http://kieranhealy.org/files/misc/workflow-apps.pdf)]. Note that RStudio and GitHub Desktop are sufficient for data analysis, document preparation, and version control in this course. I do not use Emacs, which the author recommends. 
+
+I **recommend** reading the following: 
+
+* Healy. 2018. *The Plain Person's Guide to Plain Text Social Science.* [[pdf](https://kieranhealy.org/files/papers/plain-person-text.pdf)]
+* Bryan. 2018. "Excuse Me, Do You Have a Moment to Talk About Version Control?" [[pdf](https://peerj.com/preprints/3159.pdf)]
+* Rainey. "Bare Basics Introduction to GNU Make." [[web](bb-make.html)]
+
+
+--- 
+
+## Slack
+
+**Choose an e-mail address that you'd like to associate with your Slack account.** I recommend using an e-mail account that you have control over (e.g., gmail), because you'll eventually lose your FSU e-mail account. (It seems that Slack does not allow you to associate multiple e-mail addresses with the same account.) Just e-mail me ([crainey@fsu.edu](mailto:crainey@fsu.edu) the address you prefer, and I'll invite you.
+
+**Register a Slack account.** I'll send you an invitation to join our workspace. Accept the invite and fill out your profile, including (i) a profile picture and (ii) the "What I do" box. 
+
+**Familiarize yourself with Slack.** We use Slack as an alternative to e-mail and Canvas because (i) it's better and (ii) it's a tool you might encounter in industry. They have some [simple introductory videos](https://www.youtube.com/watch?v=EYqxQGmQkVw&list=PLWlXaxtQ7fUY6nF1dWTTBpe23rGv879_V) and an excellent [help center](https://get.slack.help/hc/en-us/categories/360000049043). I might check my e-mail once per day. I am on Slack whenever I'm working. 
+
+**Consider getting the desktop and mobile apps.** They allow you to fine-tune notifications. For example, you can turn off notifications from 8pm to 8am. 
+
+**Try out the #playground.** I created the #playground channel to experiment. Go there and try out a few features that you want to read about. Try something fun `(/giphy [emotion here])` and something more serious.
+
+**Think about integrations.** If you are a productivity ninja that uses services like Evernote and Todoist, you can integrate those with Slack. 
+
+---
+
+## GitHub
+
+**Register a GitHub account.** Read the [advice](http://happygitwithr.com/github-acct.html) from Jenny Bryan about choosing a username and then use your .edu e-mail address to sign up for an account on [github.com](https://github.com). You can associate multiple e-mail accounts with GitHub, so feel free to add in the primary account that you have permanent control over.
+
+**Apply for a [Student Developer Pack](https://education.github.com/pack).** This gives you private repos for free.
+
+**Follow me on GitHub.** I'm [carlislerainey](https://github.com/carlislerainey). Follow [TA]. Once you follow me, I'll add you to our [POS 5737](https://github.com/pos5737) or ([POS 3713 - Research Intensive](https://github.com/pos3713ri)) private GitHub Organization.
+
+**Browse some repos on GitHub.** See [an ongoing project of mine](https://github.com/carlislerainey/latent-dissent) of mine, [a finished project](https://github.com/carlislerainey/transformation-induced-bias) of mine, and Josh Alley's [cool dissertation project](https://github.com/joshuaalley/arms-allies) (that I made a [small contribution](https://github.com/joshuaalley/arms-allies/pull/2/commits/e6b73e67c1139a1eb3b0339ae4e32239bb6b0f78) to). Remember that most GitHub repos contain software, not research projects. For examples, see the [Linux OS](https://github.com/torvalds/linux), [my website](https://github.com/carlislerainey/carlislerainey.github.io), and the [ggplot2](https://github.com/tidyverse/ggplot2) R package.
+
+---
+
+## Ask a Question
+
+At some point in this assignment (not necessary now), find something that you don't completely understand. Start a discussion in our Slack workspace and ask your question. Also, respond to someone else's question. This should be an **actual question** (be aware of what you don't understand) and an actual response to someone else's question (share what you **do** understand). 
+Maybe a question about the course? Syllabus? Software?
+
+---
+
+## Set Up Your Computer for Computing
+
+To make things a little easier throughout the process, we want to do four things:
+
+1. Show hidden files.
+1. Show file extensions.
+1. Make it easy to open a terminal at a folder.
+1. Make your terminal look nice (on macOS).
+
+### Show Hidden Files
+
+Typically, files that start with `.`, like `.gitignore`, are hidden from the user's view. Hidden files, like `.DS_Store` and `.git`, are hidden for a reason, but you'll sometimes want to access them, especially `.gitignore`.
+
+**On Windows**, see the instructions [here](https://support.microsoft.com/en-us/help/14201/windows-show-hidden-files).
+
+**On macOS**, simply press `command + shift + .` to show these hidden files. This shows hidden files until you restart finder (e.g., log off, restart your computer, etc). If you don't want to always see hidden files, this offers a convenient toggle. 
+
+If you always want to see hidden files, then you can run `defaults write com.apple.finder AppleShowAllFiles YES` in a terminal. You can still use the toggle, but Finder now defaults to showing hidden files.
+
+### Show File Extensions
+
+For reasons I don't understand, neither macOS nor Windows shows file extensions by default. (That's the `.docx` bit of the Word file `Essay for English 1101.docx`.)
+
+**On Windows**, see the instructions [here](https://www.thewindowsclub.com/show-file-extensions-in-windows).
+
+**On macOS**, open Finder. Click *Finder* > *Preferences...* Select *Advanced* tab and check the box to *Show all filename extensions*.
+
+### Enable the "New Terminal at Folder" on macOS
+
+**On Windows** 7/8/10, you don't need to do anything. When you need a command line at a folder, simply hold down the shift key and right-click a folder. The context menu contains an entry, *Open command window here*. (Later, once you've installed Git for Windows, you'll have the option to open a Git Bash terminal as well.)
+
+**On macOS**, make it easy to open a terminal in a specific directory by enabling *New Terminal at Folder*. Open Finder. Click *Finder* > *Services* > *Services Preferences...*. In the right box, navigate past *Pictures*, *Messaging*, and *Development* to *Files and Folders*. Check the box for *New Terminal at Folder*. Now right-click on a folder and you should see the option (near the bottom) to open a new terminal at that folder.
+
+### Customize Your Terminal Prompt on macOS
+
+This is for **macOS only**.
+
+The command prompt on macOS doesn't look nice by default.
+
+You probably don't have the file `~/.bash_profile`, but you need to check. Open a terminal and run the command `open -a TextEdit ~/.bash_profile`. If you don't have it, you'll get a message saying so. If you already have it, just add the line `export PS1="\W > "` to the file on a new, separate line.
+
+If you don't have it, then you need to create it. Run `echo 'export PS1="\W > "' > ~/.bash_profile`. Open a new terminal. The prompt should look nicer.
+
+---
+
+## R and RStudio
+
+**Install (or Update) R.** Choose the appropriate OS from [CRAN](https://cloud.r-project.org/) and follow the instructions. On Windows, you get two versions of R: i386 and x64. This is normal. These are 32- and 64-bit versions We only use R indirectly through RStudio, so we never choose between the two. (But both work!)
+
+**Install (or Update) RStudio.** You may choose either the [preview version](https://www.rstudio.com/products/rstudio/download/preview/) or the latest [stable version](https://www.rstudio.com/products/rstudio/download/#download). I use the preview version. The lab computers have the latest stable version. The preview version has new features; the latest stable version is (I suppose) more robust. Choose a version, select your OS, and follow the instructions.
+
+If you already have R installed, **update your packages** if you already had R installed. Just open R or RStudio and run `update.packages(ask = FALSE, checkBuilt = TRUE)`.
+
+**Adjust One (Bad) Default.**  Click *Tools* > *Global Options...*. Select *General*. Under *Workspace*, set *Save workspace to .RData on exit:* to *Never*. Uncheck the box for *Restore .RData into workspace at startup.*
+
+**Install the tidyverse package.** In the lower-right pane, click the *Packages* tab to show the *Packages* window. You see a list of available packages. Click the *Install* button at the top of the *Packages* window, type "tidyverse" in the middle box, and click *Install*. Make sure that tidyverse installs successfully by entering the command `library(tidyverse)` in the console in the lower-left pane.
+
+Comment: Other instructors might suggest the equivalent approach of entering the command `install.packages("tidyverse")` in the console, but I recommend the point-and-click method. It's easier and packages only need to be installed once per computer.
+
+Comment: R packages allow software developers to distribute additional functionality to users. For example, you'll use the ggplot2 package to create graphs. [Hadley Wickham](http://hadley.nz) wrote ggplot2 as part of his dissertation in the statistics department at Iowa State. That was [version 0.0.7](https://github.com/tidyverse/ggplot2/tree/ggplot2-0.7) and we're now on [version 3.0.0](https://github.com/tidyverse/ggplot2/tree/v3.0.0). I'm excited for the next release because of [this annoying bug](https://github.com/tidyverse/ggplot2/issues/2787). 
+
+Comment: When you run `library(tidyverse)`, you get the output below, which is both expected and desirable.
+
+```{r}
+library(tidyverse)
+```
+
+**Run an R script.** To start a new R script, open RStudio and click *File* > *New File* > *R Script*. This opens a blank R script in the upper-left pane. Copy-and-paste the code below into the R script. Use your mouse to highlight all eight lines (or press command + a) and then click *Run*  (or press command + enter) at the upper-right of the script window. Make sure a scatterplot appears in the *Plot* tab of the lower-right pane. If so, you've got R and RStudio working.
+
+```
+# simple example script
+
+# load packages
+library(tidyverse)
+
+# create two vectors of data
+x <- c(2, 3, 5, 4, 1)  # x "gets" a "collection" of 5 numbers
+y <- c(4, 2, 1, 5, 6)  # y "gets" a "collection" of 5 numbers
+
+# plot x and y
+qplot(x, y)
+```
+
+---
+
+## Text Editor
+
+If you already have a favorite, that's fine. Use it.
+
+For **Windows**, I recommend downloading [Sublime Text 3](http://www.sublimetext.com/3). Follow the instructions.
+
+For **macOS**, I recommend downloading [Atom](https://atom.io). Follow the instructions.
+
+---
+
+## Git
+
+### Setup Git
+
+**Install git.** **For macOS**, open a terminal and run `xcode-select --install`. This installs Xcode command line tools, which includes git. (Note that you can also install all of Xcode, but all of Xcode is a much larger installation. You only need Xcode command line tools.) **For Windows**, download [Git for Windows](https://git-scm.com/downloads) and follow the instructions.
+
+**Install GitHub Desktop.** Download [GitHub Desktop](https://desktop.github.com) and follow the instructions.
+
+Comment: There are three ways you can interact with git: (1) command line, (2) RStudio, and (3) a client like GitHub Desktop. RStudio gives you an easy, but limited, way to interact with git. The command line is complete, but complex. GitHub Desktop is the best of both worlds.
+
+**Introduce yourself to git.** (Only do this on your personal computer.) At some point, you'll want to use git from the terminal/Git Bash. Go ahead and let git know who you are. In a terminal (**macOS**) or Git Bash (**Windows**), run `git config --global user.name 'Jane Doe'` and `git config --global user.email 'jdoe@fsu.edu'`--be sure to use the e-mail associated with your GitHub account. Run `git config --global --list` to verify the settings.
+
+**Associate your text editor with git.** For **macOS**, run `git config --global core.editor "atom --wait"` in a terminal. For **Windows**, run `git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"` in Git Bash.
+
+Comment: When using git from the command line, it sometimes pops open a text editor. By default, git uses vim. Vim is a strange, scary place to wind up. If you find yourself in vim, you might never escape. Avoid that possibility entirely by associating a friendly text editor with git. 
+
+### Use Git with GitHub
+
+There are three similarly-named things here:
+
+1. **git**: that's the underlying version-control software.
+1. **GitHub Desktop**: that's the visual interface that you use to interact with git.
+1. **GitHub**: that's the website that allows you to easily browse repos' histories and share work.
+
+#### Start a Repo with GitHub Desktop
+
+Open GitHub Desktop. Click *File*, *New Repository...*. Name the repo `test-github` and set the local path to your computer's desktop. Initialize the repo with a README. Click the blue *Create repository* button.
+
+This first repo is just for practice--you'll delete it later.
+
+Click the button *Publish repository* at the top. Supply your GitHub username and password. Again, lick the button *Publish repository.* (Note that the local directory and the GitHub repo do not necessarily share their name, but I recommend you keep them the same.) Click the blue *Publish repository* button.
+
+Comment: In my work, I associate one repo with a single research project (i.e., usually one manuscript). See my [repos](https://github.com/carlislerainey?tab=repositories). Throughout the semester, you'll associate one single repo for all homework assignments (i.e., 1 total, not 15) and one repo for the research project. 
+
+#### Change-Review-Commit-Push
+
+When students first start to develop projects with git and GitHub, I recommend a change-review-commit-push model. Choose a manageable change you'd like to make to the project (like "Rewrite the introduction" or "Add code to make scatterplot"), then make, review, commit, and push the change. Git and GitHub are extremely complicated, but powerful tools. Don't jump all in on git and GitHub immediately (and maybe not ever). Keep it simple for a while with change-review-commit-push.
+
+First, **edit the file `README.md` locally**. You should find a new folder `test-github` on the Desktop. Open the file `README.md` with Atom (**macOS**) or Sublime Text 3 (**Windows**). Make some change to the file and save it.
+
+Comment: GitHub treats the file `README.md` specially--it displays it on the repo's main page. I have a detailed `README.md` for my [latent-dissent project](https://github.com/carlislerainey/latent-dissent), for example. Because `README.md` is a Markdown file, you can use [Markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to style the document.
+
+Second, **review your change**. Go back to GitHub Desktop, which shows you a list of changed files. This list should include `README.md` because you changed it. This list should *only* include `README.md` because it's the only file you changed (it's also the only file in the repo). If you click the entry for `README.md`, you can see the changes you made to that file.
+
+Third, **commit your change**. (Remember, a commit is like a snapshot of your files.) Once you're happy with the changes, you want to commit those changes. Ideally, a commit is a three step process:
+
+1. *Stage the files.* Check the boxes next to the changed files you want to commit.
+1. *Write a commit message.* Type a short description of your change in the *Summary* box and a longer description in the *Description* box. This commit message reminds you what you did and why. I like Chris Beam's [discussion](https://chris.beams.io/posts/git-commit/) of a good commit message. 
+1. *Commit the change*. Click the blue *Commit to master* button to commit the changes. 
+
+Comment: Committing is like taking a snapshot of the directory. You already have one snapshot from when you initially created the repo on GitHub. When you made a change to `README.md`, you took another snapshot. This allows you to return to these exact files later, as needed. For an example, look at the [commits](https://github.com/carlislerainey/priors-for-separation/commits/master) for my recent paper in *Political Analysis*.
+       
+Fourth, **push these changes up to GitHub**. Click *Push origin* in upper-right corner. This simply passes the update along to GitHub, which safely stores it for backup, browsing, and sharing. 
+
+Comment: You've got three things going on now--keep them separate in your mind. You have the *local files* that you see on your computer. You have a *local history* of the project (each commit) stored in the file `.git`. You have a *copy* of the `.git` file hosted on GitHub for safe storage and others to access.
+
+Comment: If multiple users are pushing commits to the same repo on GitHub, then you need a workflow that pulls changes down from GitHub in addition to pushing them up. There are lots of options, but you need a strategy. It should involve pulling down and pushing up changes often.
+
+Lastly, **confirm the local change propagated to the GitHub remote.** In a web browser, navigate to your repo on GitHub. See that the changes you made to the README are there.
+
+### Do It Again
+ 
+**Make another change.** Make a local change and save it, then stage it, commit it, and push it. Maybe try adding a file.
+
+**Delete.** When you are done, delete your local directory and the GitHub repo. You can do this from GitHub Desktop by clicking *Repository* > *Remove*. Check the box *Also move to trash* and click *Remove*. This stops GitHub Desktop from monitoring the local directory and moves the local directory to the trash.
+
+If you used a community computer, log out of GitHub Desktop when you are done. Be sure to both sign out of your GitHub.com account and remove your *Name* and *Email* from the Git tab. This keeps others from making changes as you (bad) and pushing to GitHub as you (worse).
+
+### Avoid typing your username and password every time.
+
+(Only do this on your personal computer!). Follow these [instructions](http://happygitwithr.com/credential-caching.html).
+
+---
+
+## LaTeX
+
+### Install LaTeX
+
+For **macOS**, I recommend [MacTeX](http://www.tug.org/mactex/). Download and follow the instructions. It includes the following:
+
+1. TeXShop: editor, used to write LaTeX files.
+1. BibDesk: reference manager, used to manage bibliography databases.
+1. LaTeXiT: used to create images of equations.
+
+For **Windows**, I recommend [MiKTeX](https://miktex.org/download), [TeXstudio](https://www.texstudio.org), and [JabRef](http://www.jabref.org). Download and follow the instructions. Hopefully, the installer asks you if you would like MiKTeX to install missing packages on-the-fly. Choose *Yes* rather than *Ask Me*. (See [here](https://yihui.name/en/2018/03/miktex-auto-install/) for the details). In this setup, you have the following:
+
+1. TeXstudio: editor, used to write LaTeX files. 
+1. JabRef: reference manager, used to manage bibliography databases.
+
+### Check LaTeX from RStudio
+
+Open RStudio. Click *File* >  *New File* > *Text File*. Save as `latex-test.tex`. Create a new folder on the Desktop and save it there. Copy-and-paste the LaTeX code below into `latex-test.tex`. Click *Compile PDF*. Check that this creates the pdf you expect. Delete the pdf file.
+
+```
+% a minimal latex document
+\documentclass{article}
+
+\begin{document}
+First document. If this compiles into a pdf, then LaTeX seems to work.
+\end{document}
+```
+
+### Check LaTeX from Your Editor
+
+Open `latex-test.tex` with your preferred editor. Right-click on `latex-test.tex`, select *Open with*, and choose your editor TeXShop (**macOS**) or TeXstudio (**Windows**). In TeXShop, click the *Typeset* button in the upper-left corner to compile into a pdf. In TeXstudio, click the green play button. Check that this creates the pdf you expect. Delete the `.pdf` file.
+
+At times, you might find it more convenient to develop `.tex` files from a dedicated editor like TeXShop for its features. Other times, you might choose to develop `.tex` files in RStudio to use a single interface.
+
+---
+
+## R Markdown
+
+Open RStudio. Click *File* > *New File* > *R Markdown*. Install any suggested packages. Fill in the *Title* and *Author* boxes however you like. Make sure the *HTML* bubble is selected (the default). This initiates an R Markdown document that serves as a helpful template. 
+
+Notice that the R Markdown file contains a mix of R code and Markdown syntax. Don't sweat the details.
+
+Save the file as `rmarkdown-test.Rmd` to the Desktop.
+
+Click the *Knit* button to knit the `.Rmd` into an `.html` file, which you can view with a web browser.
+
+Check that you can also knit to a pdf (and maybe Word) document by clicking the tiny triangle next to the Knit button and then clicking *Knit to PDF* or *Knit to Word*. (If you don't have Word, this won't work. Don't worry about it. You should be able to knit to pdf, because you have LaTeX working.) 
+
+Sometimes, **on Windows**, R Markdown and MiKTeX will not work together properly. If R Markdown fails to generate the pdf, then [let MiKTeX install missing LaTeX packages automatically](https://yihui.name/en/2018/03/miktex-auto-install/). This might fix the problem.
+
+When you are sure that R Markdown works for you, delete `rmarkdown-test.Rmd` from the Desktop and all the associated files that knitr generated.
+
+---
+
+## GNU Make
+
+For **macOS**, you already have Make installed (through Xcode command line tools).
+
+For **Windows**, download the latest [Rtools](https://cran.r-project.org/bin/windows/Rtools/) and follow the instructions. **IMPORTANT**: Make sure to check to have the installer edit your PATH.
+
+To start a new RStudio project, click *File* > *New Project...*. Click *New Directory* and then *New Project*. Name the directory `test-make` and create the project as a subdirectory of the desktop (use the *Browse* button). Click *Create Project*.
+
+To show whitespace characters on **macOS**, click *RStudio* > *Preferences...*. Then select *Code* on the left and select *Display* at the top. Check the box for *Show whitespace characters*. On **Windows** click, *Tools* > *Global Options...* > *Code* > *Display*. Check the box for *Show whitespace characters*.
+
+Click *File*, *New File*, and *Text File*. Click *File* > *Save*. Save as `Makefile`. Notice that there is no extension. Copy-and-paste code below into the Makefile. Check that tabs (not spaces) precede `@echo` on lines 2 and 5. 
+
+Comment: By default, RStudio replaces tabs with two spaces--this is the convention for R code. However, RStudio treats files named `Makefile` specially and doesn't convert tabs to spaces.
+
+```
+all:
+	@echo Build all works! Build all usually makes sure that every file in the project is up-to-date! But for this special Makefile, it just makes this announcement.
+
+clean:
+	@echo Clean works! Clean all usually deletes all output files so you can start fresh. But for this special Makefile, it just makes this announcement.
+```
+
+### Make with RStudio
+
+Click *Build* > *Configure Build Tools...*. Click Okay. To reload RStudio, simply right-click and select *Reload*. You now have a Build tab in the upper-right corner. 
+
+Click the *Build* tab. Click *Build All*. You should get a message confirming what happened.
+
+Click *More* > *Clean All*. You should get a message confirming what happened.
+
+### Make with Terminal
+
+In RStudio, click *Tools* > *Terminal* > *New Terminal*. Enter the command `make`. (That's the equivalent of clicking *Build All*). Enter the command `make clean`. (That's the equivalent of clicking *More* > *Clean All*).
+
+---
+
+## Test a Complete Workflow
+
+The steps below make up your graded homework for the week and allow you to see how we use R, LaTeX, GNU Make, and git to form a coherent, reliable, reproducible workflow.
+
+### Start New Project
+
+Open RStudio. Click *File* > *New Project*. Then click *New Directory* and *New Project*. Check the boxes for *Create git repository* and *Open in new session*. Name the directory `hw01`. Create the project as a subdirectory of wherever you like (perhaps as a subdirectory of `pos5737/homework/` for example).
+
+### Make Your First Commit
+
+Open `hw01` in GitHub Desktop by clicking *File* > *Add local repository* and selecting `hw01`. 
+
+You've just initialized everything, so type "Initialize project" in the summary. Stage both `.gitignore` and `hw01.Rproj` by checking the boxes next to those files. Commit these changes by clicking the blue *Commit to master* button near the bottom. That's your first commit. Yay!
+
+### Create a GitHub Repo
+
+Click the *Publish to GitHub* button in the upper-right corner. In the *Name* box, type `hw01-jane-doe`, replacing `jane` with your first name and `doe` with your last name. Check the box to *Keep this code private.* For organization, choose pos5737. (Note that if I haven't added you to the pos5737 organization on GitHub, you won't have this option yet. If that's so, then please wait until I add you--perhaps send me a reminder on Slack.) Click the blue *Publish Repository* button. 
+
+You've just created a repo on GitHub and pushed your local files there. You should be able to find your two files on GitHub now. Yay!
+
+### Write an R Script
+
+In RStudio, with the homework project open, click *File* > *New File* > *R Script*. Copy-and-paste the script below into the file and click the save button. Save the file as `create-plot.R` in `hw01`. **File names must be exactly right.** 
+
+Run the code (in pieces if you want to see how it works).
+
+```
+# create-plot.R: minimal R code to make a plot
+
+# load packages
+library(tidyverse)
+
+# create variables x and y
+x <- c(1, 2, 4, 6, 3)
+y <- c(6, 2, 3, 1, 4)
+
+# plot x and y
+qplot(x, y)
+
+# save plot in png format
+ggsave("plot.png", height = 3, width = 4)
+```
+
+Remember that our workflow is change-review-commit-push. You just made a nice **change**, so open GitHub Desktop back up and **review-commit-push**. Include a nice commit message.
+
+### Write a LaTeX Document with a Figure
+
+In RStudio, with the homework project open, click *File* > *New File* > then *Text File*. Copy-and-paste the LaTeX document below into the file and click the save button. Save the file as `doc.tex` to `hw01`.
+```
+% doc.tex: a code to include a plot
+
+\documentclass{article}
+\usepackage{graphicx} % useful for including graphics
+
+\begin{document}
+
+You should see the figure below.
+
+% add the plot
+\includegraphics[width = 4in]{plot.png}
+
+\end{document}
+
+```
+You can press the *Compile PDF* button if you like. If you ran the file `create-plot.R` in the previous step, it should compile into a pdf with a scatterplot.
+
+Remember that our workflow is change-review-commit-push. You just made a nice change, so open GitHub Desktop back up and review-commit-push. Include a nice commit message.
+
+### Write a Makefile (Optional, Advanced)
+
+In RStudio, with the homework project open, click *File* > *New File* > *Text File*. Copy-and-paste the Makefile below into the file and click the save button. Save the file as `Makefile` (without any extension). remember that Makefiles must use tabs, not spaces. When you paste the Makefile below into RStudio, you might have spaces creating the indents below, not tabs--you must change them to tabs.
+
+```
+# Makefile
+# be careful to use tabs **not spaces**!
+
+# define "all"" as the main pdf
+all: doc.pdf
+
+# compile .tex file to .pdf
+# depends on the tex file and the figure
+doc.pdf: doc.tex plot.png
+	# first, generate the pdf
+	pdflatex doc.tex
+	# then, remove the auxillary files latex generates
+	rm -f *.bbl *.log *.synctex.gz *.aux *.out
+	
+# create .png plot
+# doesn't depend on any other files
+plot.png: create-plot.R
+	# run R code
+	Rscript create-plot.R
+	# remove junk R plot, see https://github.com/tidyverse/ggplot2/issues/2787
+	rm -f Rplots.pdf  
+
+# delete these files to clean
+clean:
+	rm -f plot.png  # deletes plot
+	rm -f doc.pdf  # deletes pdf document
+```
+
+Click *Build* and *Configure Build Tools...*. Click *Okay*. Right-click in RStudio and select *Reload*. 
+
+Click the *Build All* button. This is equivalent to running `make` in the terminal. If you want to delete all the created files, you can click *More* > *Clean All* or run `make clean` in the terminal. (Note that *Build All* or `make` is just re-running all the code to (re)do our analysis.)
+
+Note that if you click *Build All* and none of the dependencies have changed, nothing happens! This is desireable because nothing needs to be re-run. If you click *More* > *Clean All*, then it deleted all the created files and now *Build All* creates action because *everything* needs to be re-run.
+
+Remember that our workflow is change-review-commit-push. You just made a nice change, so open GitHub Desktop back up and review-commit-push. Include a nice commit message.
+
+### Do Something Interesting
+
+Do something interesting with the R script. Use Google to find something cool. Find an interesting R package and use a simple example from the help file. It doesn't need to be fancy, just try something. Feel free to borrow heavily from someone else's work you find online, just explain where you borrowed from and explain what's happening using comments in the R code and prose in the LaTeX document (as best you understand it).
+
+I should be clear that I assume you know nothing about R code at this point. You should just search for some examples on Google, try it, and hope it works. You probably won't understand what's happening. I just want you to experiment a bit. 
+
+Hint: Look through some of the geoms on the ggplot2 [webpage](https://ggplot2.tidyverse.org/reference/index.html) (e.g., `geom_point()`). Try to run some of the example code there. 
+
+Or try [this site](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html).
+
+If you break something beyond repair, you can (permanently) go back to your most recent commit. Close any open files in the project, open GitHub Desktop, right-click a file you've changed, and click *Discard All Changes...* (If it all goes to heck, then hop on Slack and I can help you out.)
+
+Once you've done something interesting, clean and rebuild a final time to make sure it works properly. That's the change. Now just review-commit-push.
+
+Find your repo on GitHub and check that your files appear as you expect. Click the *commits* tab. Browse the previous versions of the project.
+
+## If It Goes Smoothly...
+
+If all goes smoothly, this assignment won't take long. If you have extra time, I suggest you get started on the readings for next week's homework assignment. 

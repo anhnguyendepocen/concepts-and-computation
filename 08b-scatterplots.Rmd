@@ -131,15 +131,17 @@ ggplot(gapminder2, aes(x = gdpPercap,
 
 ## Example: `voteincome`
 
+[This block is currently not working because the Zelig package is out of commission at the moment.]
+
 ```{r fig.height=2, fig.width=3}
 # load voteincome data from Zelig package
-data(voteincome, package = "Zelig")
-
-glimpse(voteincome)
-
-ggplot(voteincome, aes(x = education, 
-                      y = income)) + 
-  geom_point()
+# data(voteincome, package = "Zelig")
+# 
+# glimpse(voteincome)
+# 
+# ggplot(voteincome, aes(x = education, 
+#                       y = income)) + 
+#   geom_point()
 ```
 
 Notice three things:
@@ -150,13 +152,13 @@ Notice three things:
 Let's fix the first issue for `education`, so you can see how. (`income` has many more levels, so let's just get on with the plotting).
 
 ```{r}
-voteincome2 <- voteincome %>%
-  mutate(education = fct_recode(as.character(education),
-                                "Less than High School Education" = "1",
-                                "High School Education" = "2",
-                                "College Education" = "3",
-                                "More than a College Education" = "4")) %>%
-  glimpse()
+# voteincome2 <- voteincome %>%
+#   mutate(education = fct_recode(as.character(education),
+#                                 "Less than High School Education" = "1",
+#                                 "High School Education" = "2",
+#                                 "College Education" = "3",
+#                                 "More than a College Education" = "4")) %>%
+#   glimpse()
 ```
 
 Now let's deal with the overplotting. In general, we have two strategies for dealing with overplotting.
@@ -167,9 +169,9 @@ Now let's deal with the overplotting. In general, we have two strategies for dea
 First, let's try to adjust the alpha transparency.
 
 ```{r fig.height=4, fig.width=8}
-ggplot(voteincome2, aes(x = education, 
-                        y = income)) + 
-  geom_point(alpha = 0.2)
+# ggplot(voteincome2, aes(x = education, 
+#                         y = income)) + 
+#   geom_point(alpha = 0.2)
 ```
 
 This helps, but *only a little*. We can we wher we have many points, where we have just a few, and where we have none. But overall, we still don't have a good sense of the density at each coordinate.
@@ -177,9 +179,9 @@ This helps, but *only a little*. We can we wher we have many points, where we ha
 Let's try jittering. To jitter the data, we add a small amount of noise to each point. We add enough noise to separate it from the other points, but not so much noise to distort the position along in the space.
 
 ```{r fig.height=4, fig.width=8}
-ggplot(voteincome2, aes(x = education, 
-                        y = income)) + 
-  geom_point(position = "jitter")
+# ggplot(voteincome2, aes(x = education, 
+#                         y = income)) + 
+#   geom_point(position = "jitter")
 ```
 
 

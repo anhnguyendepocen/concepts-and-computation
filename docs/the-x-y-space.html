@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology</title>
+  <title>Chapter 5 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology</title>
   <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:title" content="Chapter 5 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta name="twitter:title" content="Chapter 5 The X-Y Space | Concepts and Computation: An Introduction to Political Methodology" />
   
   <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2019-10-30" />
+<meta name="date" content="2020-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <script>
     $(document).ready(function () {
         process_solutions();
@@ -84,9 +85,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -95,14 +96,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -111,9 +114,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -163,72 +166,114 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
-<li class="part"><span><b>I Data Reduction</b></span></li>
-<li class="chapter" data-level="2" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>2</b> Location and Scale</a><ul>
-<li class="chapter" data-level="2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>2.1</b> The Intuition</a></li>
-<li class="chapter" data-level="2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>2.2</b> The Usual Measures</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>2.2.1</b> The Average</a></li>
-<li class="chapter" data-level="2.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>2.2.2</b> The Standard Deviation</a></li>
+<li class="part"><span><b>I The Language of Social Science</b></span></li>
+<li class="chapter" data-level="2" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>2</b> Tools</a><ul>
+<li class="chapter" data-level="2.1" data-path="tools.html"><a href="tools.html#my-tools"><i class="fa fa-check"></i><b>2.1</b> My Tools</a></li>
+<li class="chapter" data-level="2.2" data-path="tools.html"><a href="tools.html#reading"><i class="fa fa-check"></i><b>2.2</b> Reading</a></li>
+<li class="chapter" data-level="2.3" data-path="tools.html"><a href="tools.html#slack"><i class="fa fa-check"></i><b>2.3</b> Slack</a></li>
+<li class="chapter" data-level="2.4" data-path="tools.html"><a href="tools.html#github"><i class="fa fa-check"></i><b>2.4</b> GitHub</a></li>
+<li class="chapter" data-level="2.5" data-path="tools.html"><a href="tools.html#ask-a-question"><i class="fa fa-check"></i><b>2.5</b> Ask a Question</a></li>
+<li class="chapter" data-level="2.6" data-path="tools.html"><a href="tools.html#set-up-your-computer-for-computing"><i class="fa fa-check"></i><b>2.6</b> Set Up Your Computer for Computing</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="tools.html"><a href="tools.html#show-hidden-files"><i class="fa fa-check"></i><b>2.6.1</b> Show Hidden Files</a></li>
+<li class="chapter" data-level="2.6.2" data-path="tools.html"><a href="tools.html#show-file-extensions"><i class="fa fa-check"></i><b>2.6.2</b> Show File Extensions</a></li>
+<li class="chapter" data-level="2.6.3" data-path="tools.html"><a href="tools.html#enable-the-new-terminal-at-folder-on-macos"><i class="fa fa-check"></i><b>2.6.3</b> Enable the “New Terminal at Folder” on macOS</a></li>
+<li class="chapter" data-level="2.6.4" data-path="tools.html"><a href="tools.html#customize-your-terminal-prompt-on-macos"><i class="fa fa-check"></i><b>2.6.4</b> Customize Your Terminal Prompt on macOS</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>2.3</b> Robust Alternatives</a></li>
-<li class="chapter" data-level="2.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>2.4</b> Computation in R</a></li>
+<li class="chapter" data-level="2.7" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.7</b> R and RStudio</a></li>
+<li class="chapter" data-level="2.8" data-path="tools.html"><a href="tools.html#text-editor"><i class="fa fa-check"></i><b>2.8</b> Text Editor</a></li>
+<li class="chapter" data-level="2.9" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>2.9</b> Git</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="tools.html"><a href="tools.html#setup-git"><i class="fa fa-check"></i><b>2.9.1</b> Setup Git</a></li>
+<li class="chapter" data-level="2.9.2" data-path="tools.html"><a href="tools.html#use-git-with-github"><i class="fa fa-check"></i><b>2.9.2</b> Use Git with GitHub</a></li>
+<li class="chapter" data-level="2.9.3" data-path="tools.html"><a href="tools.html#do-it-again"><i class="fa fa-check"></i><b>2.9.3</b> Do It Again</a></li>
+<li class="chapter" data-level="2.9.4" data-path="tools.html"><a href="tools.html#avoid-typing-your-username-and-password-every-time."><i class="fa fa-check"></i><b>2.9.4</b> Avoid typing your username and password every time.</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>3</b> The Normal Model</a><ul>
-<li class="chapter" data-level="3.1" data-path="the-normal-model.html"><a href="the-normal-model.html#the-intuition-1"><i class="fa fa-check"></i><b>3.1</b> The Intuition</a></li>
-<li class="chapter" data-level="3.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>3.2</b> The Normal Curve(s)</a></li>
-<li class="chapter" data-level="3.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>3.3</b> The Empirical Rule</a></li>
-<li class="chapter" data-level="3.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>3.4</b> The Normal Approximation</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>3.4.1</b> Normal Table</a></li>
-<li class="chapter" data-level="3.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>3.4.2</b> <code>pnorm()</code></a></li>
-<li class="chapter" data-level="3.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>3.4.3</b> Exactly Percentages</a></li>
+<li class="chapter" data-level="2.10" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>2.10</b> LaTeX</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="tools.html"><a href="tools.html#install-latex"><i class="fa fa-check"></i><b>2.10.1</b> Install LaTeX</a></li>
+<li class="chapter" data-level="2.10.2" data-path="tools.html"><a href="tools.html#check-latex-from-rstudio"><i class="fa fa-check"></i><b>2.10.2</b> Check LaTeX from RStudio</a></li>
+<li class="chapter" data-level="2.10.3" data-path="tools.html"><a href="tools.html#check-latex-from-your-editor"><i class="fa fa-check"></i><b>2.10.3</b> Check LaTeX from Your Editor</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>3.5</b> Review Exercises</a></li>
+<li class="chapter" data-level="2.11" data-path="tools.html"><a href="tools.html#r-markdown"><i class="fa fa-check"></i><b>2.11</b> R Markdown</a></li>
+<li class="chapter" data-level="2.12" data-path="tools.html"><a href="tools.html#gnu-make"><i class="fa fa-check"></i><b>2.12</b> GNU Make</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="tools.html"><a href="tools.html#make-with-rstudio"><i class="fa fa-check"></i><b>2.12.1</b> Make with RStudio</a></li>
+<li class="chapter" data-level="2.12.2" data-path="tools.html"><a href="tools.html#make-with-terminal"><i class="fa fa-check"></i><b>2.12.2</b> Make with Terminal</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>4</b> The X-Y Space</a><ul>
-<li class="chapter" data-level="4.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>4.1</b> Points</a></li>
-<li class="chapter" data-level="4.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>4.2</b> Lines</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>4.2.1</b> The Intercept</a></li>
-<li class="chapter" data-level="4.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>4.2.2</b> Slope</a></li>
+<li class="chapter" data-level="2.13" data-path="tools.html"><a href="tools.html#test-a-complete-workflow"><i class="fa fa-check"></i><b>2.13</b> Test a Complete Workflow</a><ul>
+<li class="chapter" data-level="2.13.1" data-path="tools.html"><a href="tools.html#start-new-project"><i class="fa fa-check"></i><b>2.13.1</b> Start New Project</a></li>
+<li class="chapter" data-level="2.13.2" data-path="tools.html"><a href="tools.html#make-your-first-commit"><i class="fa fa-check"></i><b>2.13.2</b> Make Your First Commit</a></li>
+<li class="chapter" data-level="2.13.3" data-path="tools.html"><a href="tools.html#create-a-github-repo"><i class="fa fa-check"></i><b>2.13.3</b> Create a GitHub Repo</a></li>
+<li class="chapter" data-level="2.13.4" data-path="tools.html"><a href="tools.html#write-an-r-script"><i class="fa fa-check"></i><b>2.13.4</b> Write an R Script</a></li>
+<li class="chapter" data-level="2.13.5" data-path="tools.html"><a href="tools.html#write-a-latex-document-with-a-figure"><i class="fa fa-check"></i><b>2.13.5</b> Write a LaTeX Document with a Figure</a></li>
+<li class="chapter" data-level="2.13.6" data-path="tools.html"><a href="tools.html#write-a-makefile-optional-advanced"><i class="fa fa-check"></i><b>2.13.6</b> Write a Makefile (Optional, Advanced)</a></li>
+<li class="chapter" data-level="2.13.7" data-path="tools.html"><a href="tools.html#do-something-interesting"><i class="fa fa-check"></i><b>2.13.7</b> Do Something Interesting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.14" data-path="tools.html"><a href="tools.html#if-it-goes-smoothly"><i class="fa fa-check"></i><b>2.14</b> If It Goes Smoothly…</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Reduction</b></span></li>
+<li class="chapter" data-level="3" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>3</b> Location and Scale</a><ul>
+<li class="chapter" data-level="3.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>3.1</b> The Intuition</a></li>
+<li class="chapter" data-level="3.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>3.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>3.2.1</b> The Average</a></li>
+<li class="chapter" data-level="3.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>3.2.2</b> The Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>3.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="3.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>3.4</b> Computation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>4</b> The Normal Model</a><ul>
+<li class="chapter" data-level="4.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>4.1</b> The Intuition</a></li>
+<li class="chapter" data-level="4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>4.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>4.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="4.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>4.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>4.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="4.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>4.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>4.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>4.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>5</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>5.1</b> Points</a></li>
+<li class="chapter" data-level="5.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>5.2</b> Lines</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>5.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="5.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>5.2.2</b> Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>5</b> The Scatterplot</a><ul>
-<li class="chapter" data-level="5.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>5.1</b> <code>geom_point()</code></a></li>
-<li class="chapter" data-level="5.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>5.2</b> Example: <code>gapminder</code></a></li>
-<li class="chapter" data-level="5.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>5.3</b> Example: <code>voteincome</code></a></li>
-<li class="chapter" data-level="5.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>5.4</b> Resources</a></li>
+<li class="chapter" data-level="6" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>6</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="6.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>6.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="6.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>6.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="6.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>6.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="6.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>6.4</b> Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>6</b> Correlation Coefficient</a><ul>
-<li class="chapter" data-level="6.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>6.1</b> Intuition</a></li>
-<li class="chapter" data-level="6.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>6.2</b> Computing</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>6.2.1</b> By Hand</a></li>
-<li class="chapter" data-level="6.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>6.2.2</b> With R</a></li>
+<li class="chapter" data-level="7" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>7</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="7.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>7.1</b> Intuition</a></li>
+<li class="chapter" data-level="7.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>7.2</b> Computing</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>7.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>7.2.2</b> With R</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>6.3</b> Interpreting</a></li>
-<li class="chapter" data-level="6.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>6.4</b> Example: Clark and Golder (2006)</a></li>
-<li class="chapter" data-level="6.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>6.5</b> Example: Feeling Thermometers</a></li>
+<li class="chapter" data-level="7.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>7.3</b> Interpreting</a></li>
+<li class="chapter" data-level="7.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>7.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="7.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>7.5</b> Example: Feeling Thermometers</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Regression</a><ul>
-<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>7.1</b> Review</a></li>
-<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>7.2</b> The Equation</a></li>
-<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>7.3</b> The Conditional Average</a></li>
-<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>7.4</b> The Best Line</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>7.4.1</b> Grid Search</a></li>
-<li class="chapter" data-level="7.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>7.4.2</b> Numerical Optimization</a></li>
-<li class="chapter" data-level="7.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>7.4.3</b> Analytical Optimization</a></li>
+<li class="chapter" data-level="8" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>8</b> Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>8.1</b> Review</a></li>
+<li class="chapter" data-level="8.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>8.2</b> The Equation</a></li>
+<li class="chapter" data-level="8.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>8.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="8.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>8.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>8.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="8.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>8.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="8.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>8.4.3</b> Analytical Optimization</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>7.5</b> The RMS of the Residuals</a></li>
-<li class="chapter" data-level="7.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>7.6</b> <span class="math inline">\(R^2\)</span></a><ul>
-<li class="chapter" data-level="7.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>7.6.1</b> Adequacy of a Line</a></li>
+<li class="chapter" data-level="8.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>8.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="8.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>8.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="8.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>8.6.1</b> Adequacy of a Line</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>7.7</b> Fitting Regression Models</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>7.7.1</b> <code>geom_smooth()</code></a></li>
-<li class="chapter" data-level="7.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>7.7.2</b> <code>lm()</code></a></li>
-<li class="chapter" data-level="7.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>7.7.3</b> Quick Look at the Fit</a></li>
-<li class="chapter" data-level="7.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>7.7.4</b> Post-Processing</a></li>
+<li class="chapter" data-level="8.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>8.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>8.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="8.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>8.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="8.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>8.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="8.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>8.7.4</b> Post-Processing</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>7.8</b> Standard Errors and <em>p</em>-Values</a></li>
-<li class="chapter" data-level="7.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>7.9</b> A Warning</a></li>
-<li class="chapter" data-level="7.10" data-path="regression.html"><a href="regression.html#review-exercises-1"><i class="fa fa-check"></i><b>7.10</b> Review Exercises</a></li>
+<li class="chapter" data-level="8.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>8.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="8.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>8.9</b> A Warning</a></li>
+<li class="chapter" data-level="8.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>8.10</b> Review Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -252,9 +297,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="the-x-y-space" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> The X-Y Space</h1>
+<h1><span class="header-section-number">Chapter 5</span> The X-Y Space</h1>
 <div id="points" class="section level2">
-<h2><span class="header-section-number">4.1</span> Points</h2>
+<h2><span class="header-section-number">5.1</span> Points</h2>
 <p>The scatterplot has two key aesthetics: the horizontal and vertical location of points (and lines). We refer to the horizontal location as “x” and the vertical location as “y.” We sometimes refer to this two-dimmensional space (of horizontal-vertical or <em>x</em>-<em>y</em> locations) as the “Cartisian coordinate system.”</p>
 <p>The table below contains five observations. Each observation has values for variables <em>x</em> and <em>y</em>. (In the context of a data analysis, we typically think of <em>x</em> as the key explanatory variable and <em>y</em> as the outcome varaible.)</p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -330,29 +375,29 @@ y
 </tbody>
 </table>
 <p>The plot below shows the location of each point in the x-y space.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-31-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-32-1.png" width="480" style="display: block; margin: auto;" /></p>
 <hr />
 
 <div class="exercise">
-<span id="exr:add-points" class="exercise"><strong>Exercise 4.1  </strong></span>Recreate the x-y space below on a sheet of paper. Add the following points (0, 0), (1, 2), (-3, 4), (2, -3), and (-4, -2).
+<span id="exr:add-points" class="exercise"><strong>Exercise 5.1  </strong></span>Recreate the x-y space below on a sheet of paper. Add the following points (0, 0), (1, 2), (-3, 4), (2, -3), and (-4, -2).
 </div>
 
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-32-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-33-1.png" width="288" style="display: block; margin: auto;" />
 <details>
 <p><summary>Hint</summary>
 The first number in the (x, y) pair represents the “x” or horizontal location. The second number represents the “y” or vertical location. The location of the second point is…</p>
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-33-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-34-1.png" width="288" style="display: block; margin: auto;" />
 </details>
 <details>
 <summary>Solution</summary>
 <p>
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-34-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-35-1.png" width="288" style="display: block; margin: auto;" />
 </p>
 </details>
 <hr />
 </div>
 <div id="lines" class="section level2">
-<h2><span class="header-section-number">4.2</span> Lines</h2>
+<h2><span class="header-section-number">5.2</span> Lines</h2>
 <p>We can also draw lines in the x-y space. Remember, the formula for a line is <span class="math inline">\(y = mx + b\)</span>. Here, <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> represent variables (i.e., locations in the x-y space), <span class="math inline">\(m\)</span> represents the slope of the line, and <span class="math inline">\(b\)</span> represents the intercept.</p>
 <p>Consider the following four examples:</p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -432,16 +477,16 @@ Example 4
 </tbody>
 </table>
 <div id="the-intercept" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> The Intercept</h3>
+<h3><span class="header-section-number">5.2.1</span> The Intercept</h3>
 <p>The intercept <span class="math inline">\(b\)</span> tells us where the line crosses the vertical slice of the space where <span class="math inline">\(x = 0\)</span>.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercise 4.2  </strong></span>For the lines below, identify the intercept <em>visually</em>, if possible.
+<span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercise 5.2  </strong></span>For the lines below, identify the intercept <em>visually</em>, if possible.
 </div>
 
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-38-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-39-1.png" width="480" style="display: block; margin: auto;" /></p>
 <details>
 <p><summary>Hint</summary>
 All the lines look like 45-degree lines (or 315-degree) because the ranges of the axes are rescaled. This makes the problem a little trickier.</p>
@@ -454,7 +499,7 @@ The intercepts are 0, -2, 1, 1.5. You cannot see the third intercept <em>visuall
 <hr />
 </div>
 <div id="slope" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Slope</h3>
+<h3><span class="header-section-number">5.2.2</span> Slope</h3>
 <p>The slope <span class="math inline">\(m\)</span> tells us how fast the line rises or falls as we move from left-to-right.</p>
 <ul>
 <li>If <span class="math inline">\(m\)</span> is positive, then the line rises.</li>
@@ -514,28 +559,28 @@ Scenario 2
 <p><span class="math inline">\(\text{slope} = \dfrac{\text{rise}}{\text{run}} = \dfrac{-6}{3} = -2\)</span></p>
 <p>These calculations match the slope we find by inspecting the original equation <span class="math inline">\(y = -2x + 2\)</span>.</p>
 <p>The figure below shows the rise-over-run logic for each of the four example equations.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-41" class="exercise"><strong>Exercise 4.3  </strong></span>Add the lines <span class="math inline">\(y = 2x - 1\)</span> and <span class="math inline">\(y = -0.5x + 1\)</span> to the figured you sketched in Exercise <a href="the-x-y-space.html#exr:add-points">4.1</a>.
+<span id="exr:unnamed-chunk-42" class="exercise"><strong>Exercise 5.3  </strong></span>Add the lines <span class="math inline">\(y = 2x - 1\)</span> and <span class="math inline">\(y = -0.5x + 1\)</span> to the figured you sketched in Exercise <a href="the-x-y-space.html#exr:add-points">5.1</a>.
 </div>
 
 <details>
 <p><summary>Hint</summary>
 Remember that a line is completely defined by only two points. Use this rule to draw the line. Choose two values of <span class="math inline">\(x\)</span> and find the corresponding value of <span class="math inline">\(y\)</span>. Ideally, choose two values of <span class="math inline">\(x\)</span> that are separated by some distance (so long as the resulting x-y pairs remain on our plot). Let’s try the first line using <span class="math inline">\(x = -1\)</span> and <span class="math inline">\(x = 2\)</span>. For the first equation, we have <span class="math inline">\(y = 2 \times -1 -1 = -2 - 1 = -3\)</span> and <span class="math inline">\(y = 2 \times 2 -1 = 4 - 1 = 3\)</span>, respectively. Then our two points are (-1, -3) and (2, 3), respectively. Just add lightly add these two points to the plot and draw a line that goes through both.</p>
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-42-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto;" />
 </details>
 <details>
 <p><summary>Solution</summary></p>
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-44-1.png" width="288" style="display: block; margin: auto;" />
 </details>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercise 4.4  </strong></span>What is the slope and intercept of the line below?
+<span id="exr:unnamed-chunk-45" class="exercise"><strong>Exercise 5.4  </strong></span>What is the slope and intercept of the line below?
 </div>
 
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-45-1.png" width="288" style="display: block; margin: auto;" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-46-1.png" width="288" style="display: block; margin: auto;" /></p>
 <details>
 <summary>Hint</summary>
 To find the intercept, find where the line crosses the vertical slide at <span class="math inline">\(x = 0\)</span>. This gives the intercept directly. To find the slope, simple choose two points along the line and find the rise (i.e., the vertical distance between the two points) and the run (i.e., the horizontal distance between the two points). The slope is the rise over the run or <span class="math inline">\(\text{slope} = \dfrac{\text{rise}}{\text{run}}\)</span>.
@@ -546,10 +591,10 @@ The intercept is -1 and the slope is 1.5, so the equation for the line is <span 
 </details>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-46" class="exercise"><strong>Exercise 4.5  </strong></span>What is the slope and intercept of the line below?
+<span id="exr:unnamed-chunk-47" class="exercise"><strong>Exercise 5.5  </strong></span>What is the slope and intercept of the line below?
 </div>
 
-<img src="concepts-and-computation_files/figure-html/unnamed-chunk-47-1.png" width="288" style="display: block; margin: auto;" />
+<img src="concepts-and-computation_files/figure-html/unnamed-chunk-48-1.png" width="288" style="display: block; margin: auto;" />
 <details>
 <summary>Solution</summary>
 The intercept is 1 and the slope is -0.5, so the equation for the line is <span class="math inline">\(y = -0.5x + 1\)</span>.
@@ -584,12 +629,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -601,6 +645,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
