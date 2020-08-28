@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology</title>
+  <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology" />
+  
+  <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+<meta name="author" content="Carlisle Rainey" />
+
+
+<meta name="date" content="2020-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistical-computing-with-r.html"/>
+<link rel="next" href="location-and-scale.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<script>
+    $(document).ready(function () {
+        process_solutions();
+    });
+    function process_solutions() {
+        $("div.section[id^='solution']").each(function(i) {
+        var soln_wrapper_id = "cvxr_ex_" + i;
+        var solution_id = $(this).attr('id');
+        var button = $("<button onclick=\"toggle_solution('" + soln_wrapper_id + "')\">Show/Hide</button>");
+        var new_div = $("<div id='" + soln_wrapper_id + "' class='solution' style='display: none;'></div>");
+        var h = $(this).first();
+        var others = $(this).children().slice(1);
+        $(others).each(function() {
+            $(this).appendTo($(new_div));
+        });
+        $(button).insertAfter($(h));
+        $(new_div).insertAfter($(button));
+        })
+    }
+    function toggle_solution(el_id) {
+      $("#" + el_id).toggle();
+    } 
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Concepts and Computation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html"><i class="fa fa-check"></i><b>2</b> Statistical Computing with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R as a Calculator</a></li>
+<li class="chapter" data-level="2.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#scripts"><i class="fa fa-check"></i><b>2.2</b> Scripts</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#importance"><i class="fa fa-check"></i><b>2.2.1</b> Importance</a></li>
+<li class="chapter" data-level="2.2.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#comments"><i class="fa fa-check"></i><b>2.2.2</b> Comments</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#object-oriented-programming"><i class="fa fa-check"></i><b>2.3</b> Object-Oriented Programming</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#scalars"><i class="fa fa-check"></i><b>2.3.1</b> Scalars</a></li>
+<li class="chapter" data-level="2.3.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#functions"><i class="fa fa-check"></i><b>2.3.2</b> Functions</a></li>
+<li class="chapter" data-level="2.3.3" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>2.3.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#more-information"><i class="fa fa-check"></i><b>2.3.4</b> More Information</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#missing-values"><i class="fa fa-check"></i><b>2.4</b> Missing Values</a></li>
+<li class="chapter" data-level="2.5" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#logical-operators"><i class="fa fa-check"></i><b>2.5</b> Logical Operators</a></li>
+<li class="chapter" data-level="2.6" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#installing-packages"><i class="fa fa-check"></i><b>2.6.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.6.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#loading-packages"><i class="fa fa-check"></i><b>2.6.2</b> Loading Packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html"><i class="fa fa-check"></i><b>3</b> Loading Data into R</a><ul>
+<li class="chapter" data-level="3.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-terms"><i class="fa fa-check"></i><b>3.1</b> The Terms</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#file-types"><i class="fa fa-check"></i><b>3.1.1</b> File Types</a></li>
+<li class="chapter" data-level="3.1.2" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#comma-separated-value-format-.csv"><i class="fa fa-check"></i><b>3.1.2</b> Comma-Separated Value Format (<code>.csv</code>)</a></li>
+<li class="chapter" data-level="3.1.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.3</b> The Working Directory</a></li>
+<li class="chapter" data-level="3.1.4" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-path"><i class="fa fa-check"></i><b>3.1.4</b> The Path</a></li>
+<li class="chapter" data-level="3.1.5" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#determining-the-path"><i class="fa fa-check"></i><b>3.1.5</b> Determining the Path</a></li>
+<li class="chapter" data-level="3.1.6" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#rio"><i class="fa fa-check"></i><b>3.1.6</b> <code>rio</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#data-frames"><i class="fa fa-check"></i><b>3.2</b> Data Frames</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#working-with-variables-in-data-frames"><i class="fa fa-check"></i><b>3.2.1</b> Working with Variables in Data Frames</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#how-well-always-use-r"><i class="fa fa-check"></i><b>3.3</b> How We’ll Always Use R</a></li>
+</ul></li>
+<li class="part"><span><b>I Data Reduction</b></span></li>
+<li class="chapter" data-level="4" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>4</b> Location and Scale</a><ul>
+<li class="chapter" data-level="4.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>4.1</b> The Intuition</a></li>
+<li class="chapter" data-level="4.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>4.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>4.2.1</b> The Average</a></li>
+<li class="chapter" data-level="4.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>4.2.2</b> The Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>4.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="4.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>4.4</b> Computation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>5</b> The Normal Model</a><ul>
+<li class="chapter" data-level="5.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>5.1</b> The Intuition</a></li>
+<li class="chapter" data-level="5.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>5.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="5.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>5.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="5.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>5.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>5.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="5.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>5.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="5.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>5.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>5.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>6</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="6.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>6.1</b> Points</a></li>
+<li class="chapter" data-level="6.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>6.2</b> Lines</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>6.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="6.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>6.2.2</b> Slope</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>7</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>7.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>7.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="7.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>7.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="7.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>7.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>8</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="8.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>8.1</b> Intuition</a></li>
+<li class="chapter" data-level="8.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>8.2</b> Computing</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>8.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>8.2.2</b> With R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>8.3</b> Interpreting</a></li>
+<li class="chapter" data-level="8.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>8.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="8.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>8.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>9.1</b> Review</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>9.2</b> The Equation</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>9.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>9.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>9.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="9.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>9.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="9.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>9.4.3</b> Analytical Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>9.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>9.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="9.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>9.6.1</b> Adequacy of a Line</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>9.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>9.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="9.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>9.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="9.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>9.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="9.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>9.7.4</b> Post-Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>9.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>9.9</b> A Warning</a></li>
+<li class="chapter" data-level="9.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>9.10</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Concepts and Computation: An Introduction to Political Methodology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loading-data-into-r" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Loading Data into R</h1>
+<p>Rather than manually entering data using <code>c()</code> or something else, we’ll want to load data in stored in a data file.</p>
+<div id="the-terms" class="section level2">
+<h2><span class="header-section-number">3.1</span> The Terms</h2>
+<p>There are three important ingredients in loading a data set into R.</p>
+<ol style="list-style-type: decimal">
+<li>The file type, usually indicated by the extension (<code>.rds</code>, <code>.csv</code>, <code>.dta</code>, <code>.xlsx</code>).</li>
+<li>The current working directory.</li>
+<li>The file path (relative to the working directory).</li>
+</ol>
+<div id="file-types" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> File Types</h3>
+<p>In political science, our data sets are usually one of four types:</p>
+<ol style="list-style-type: decimal">
+<li>R data or <code>.rds</code> files. This is the easiest format because it stores factors as factors and all the related information. Read with <code>readr::read_rds()</code>. Note that readr is part of the tidyverse, so <code>library(tidyverse)</code> loads readr. (I explain a “data frame” below, but realize that an <code>.rds</code> file can contain any R object, not just a data frame.)</li>
+<li>comma-separated value or <code>.csv</code> files. This is a common, sharable, robust data file type. You can open these files with any statistical software. GitHub renders these nicely. However, the csv format does not distinguish between factors as character strings, and treats variables as numbers or characters. Read with <code>readr::read_csv()</code>.</li>
+<li>Stata or <code>.dta</code> files. Another common data format because many political scientists use Stata. Read these files into R with <code>haven::read_dta()</code>.</li>
+<li>Excel or <code>.xlsx</code> files. Another common data format because data are easy to enter into spreadsheets like Excel. Read these files into R with <code>readxl::read_excel()</code>.</li>
+</ol>
+</div>
+<div id="comma-separated-value-format-.csv" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Comma-Separated Value Format (<code>.csv</code>)</h3>
+<p>Data can be stored in a wide range of formats. One popular format, for example, is Stata’s proprietary <code>.dta</code> format. I typically use (and encourage you to use) the comma-separated values <code>.csv</code> format. The <code>.csv</code> format is excellent because it is open and simple. This means that anyone can use it without acess to proprietary software. It will also be useble by anyone into the foreseeable future. We can see why <code>.csv</code> files are easy to work with if we open it up the file <code>nominate.csv</code> with a text editor. You’ll see that you–with your eyes–can read the file directly. You don’t really need software at all!</p>
+<div class="figure">
+<img src="03-notes-computing-figures/csv-text-editor.png" alt="" />
+<p class="caption"><code>.csv</code> in a Text Editor</p>
+</div>
+<p>I tried the same thing for a similar <code>.dta</code> file. With your eyes, it looks like nonsense. You’ll definitely need Stata (or other speciallized software) to work with this file.</p>
+<div class="figure">
+<img src="03-notes-computing-figures/dta-text-editor.png" alt="" />
+<p class="caption"><code>.dta</code> in a Text Editor</p>
+</div>
+<p>Also, <code>.csv</code> files are easy to support, so they work in almost all data analysis software. For example, we can open up <code>nominate.csv</code> in Excel. You can see that we have six variables in the columns and many cases in the rows (we don’t know how many because they overflow the screen). In this case, each row represents a particular Congressperson from a particular Congress (with Presidents as well. The second row, for example, is for Rep. Callahan (R) from the 1st Congressional District of Alabama. During the 100th Congress, Rep. Calahan has a ideology score of 0.358, which means he’s conservative, but not as conservative as Pres. Reagan, who has a score of 0.747. We’ll work with these data a lot thoughout the semester, so we’ll have plenty of time for closer examination.</p>
+<div class="figure">
+<img src="03-notes-computing-figures/csv-excel.png" alt="" />
+<p class="caption"><code>.csv</code> in Excel</p>
+</div>
+</div>
+<div id="the-working-directory" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> The Working Directory</h3>
+<p>Any time you work in R (or RStudio), you are working from a “working directory.” That is, whenever R needs to locate a file to load it or save it, it looks in the working directory.</p>
+<p>For example, I’m writing a paper now. I named the project directory <code>wilks/</code> (which I placed in a folder called <code>projects/</code> in my Dropbox folder.) If I open this project by double-clicking <code>wilks.Rproj</code> in the <code>wilks/</code> project directory, I have opened that project in RStudio.</p>
+<p>If I run <code>getwd()</code> (“get the working directory”), R prints the following:</p>
+<pre><code>&gt; getwd()
+[1] &quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;</code></pre>
+<p>Notice that the working directory is the project directory. This happens because with use <code>.Rproj</code> files to manage the way that RStudio interacts with our projects.</p>
+<p>If I did not have a project open in RStudio, then I get the following:</p>
+<pre><code>&gt; getwd()
+[1] &quot;/Users/carlislerainey&quot;</code></pre>
+<p>Of course, any files we want to access or save are in the project directory, which is three levels deeper in the file system than <code>carlislerainey/</code>.</p>
+<p>If I didn’t use an <code>.Rproj</code> file to manage the project, then I could set the working directory whereever I wanted with <code>setwd()</code>. See below:</p>
+<pre><code>&gt; setwd(&quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;)
+&gt; getwd()
+[1] &quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;</code></pre>
+<p>But we use an <code>.Rproj</code> file to manage our projects, so our working directory is always the project directory. I’ll say it louder for the people in the back.</p>
+<blockquote>
+<p><strong>We use an <code>.Rproj</code> file to manage our projects, so our working directory is always the project directory.</strong></p>
+</blockquote>
+<p>We don’t (or rarely) need to change or choose the working directory, just realize that it’s the project directory.</p>
+</div>
+<div id="the-path" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> The Path</h3>
+<p>Suppose we want to read the Stata data set <code>ddrevisited_data_v1.dta</code>.</p>
+<p>We know the following:</p>
+<ol style="list-style-type: decimal">
+<li>The filetype is dta. We’ll use <code>haven::read_dta()</code>.</li>
+<li>The working directory is the project directory, as always.</li>
+</ol>
+<p>Now we just need the file path; that’s the only argument that <code>haven::read_dta()</code> requires.</p>
+<div id="organizing-your-project-directories" class="section level4">
+<h4><span class="header-section-number">3.1.4.1</span> Organizing Your Project Directories</h4>
+<p>Any data set that you want to read into R should be in the project folder. You could put it in the main project directory, but you probably want to put it in a sub-directory (or perhaps even deeper).</p>
+<p>The diagram below outlines how I organized the files in <code>cool-project/</code>. I have an <code>R/</code> subdirectory for R scripts. I have a <code>data/</code> subdirectory for data sets. I put the raw data sets in <code>data/raw/</code> (i.e., a subsubdirectory) to help protect them. I put the manuscript in <code>doc/</code> and the subsubdirectories <code>doc/fig/</code> for figures and <code>doc/tab/</code> for tables. I have the <code>output</code> subdirectory for intermediate files I create along the way.</p>
+<pre><code>cool-project/
+├── R/
+│   ├── clean-data.R
+│   ├── fit-models.R
+│   ├── make-table.R
+│   └── plot-data.R
+├── data/
+│   ├── raw/
+│   │   ├── ddrevisited_data_v1.dta
+│   │   └── p4v2018.xls
+│   ├── clean-data.csv
+│   └── clean-data.rds
+├── doc/
+│   ├── fig/
+│   │   └── plot1.png
+│   ├── tab/
+│   │   └── table.tex
+│   ├── cool-project.pdf
+│   └── cool-project.tex
+├── output/
+│   ├── model-fit.csv
+│   ├── model-fit.rds
+│   ├── model-pred.csv
+│   └── model-pred.rds
+├── README.md
+└── cool-project.Rproj</code></pre>
+<p>Below is a screenshot from Finder on macOS that shows the same organization.</p>
+<p><img src="03-notes-computing-figures/directory.png" /></p>
+</div>
+<div id="an-aside-on-formats" class="section level4">
+<h4><span class="header-section-number">3.1.4.2</span> An Aside on Formats</h4>
+<p>If you’re reading carefully, you’ll notice that I keep both csv and rds versions of the data sets I create. I do this for the following reasons:</p>
+<ol style="list-style-type: decimal">
+<li>rds data sets are the most convenient to compute with because preserve factors. I want this.</li>
+<li>csv data sets are the easiest to share and inspect, both locally (Finder even shows me the file!) and on GitHub (which renders a nice table). I want this.</li>
+<li>It’s easy to create both and keep them in sync.</li>
+</ol>
+<p>To create both, I just run <code>write_rds()</code> and <code>write_csv()</code> on consecutive lines.</p>
+</div>
+</div>
+<div id="determining-the-path" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> Determining the Path</h3>
+<p>Because we know the working directory is the project directory, we only need to provide the reading function the path <em>relative to thet project directory.</em></p>
+<p>The path is just directions from the working/project directory to the file you want to read.</p>
+<p>For example, if we wanted to find <code>ddrevisited_data_v1.dta</code>, we would do the follwing (from the working/project directory):</p>
+<ol style="list-style-type: decimal">
+<li>Go into <code>data/</code>.</li>
+<li>Go into <code>raw/</code>.</li>
+<li>Find <code>ddrevisited_data_v1.dta</code>.</li>
+</ol>
+<p>That’s it. To create the path, we just put these pieces together: <code>data/raw/ddrevisited_data_v1.dta</code>.</p>
+<p>Now we just give the path to <code>haven::read_dta()</code>. We get: <code>read_dta("data/raw/ddrevisited_data_v1.dta")</code>. We need to assign the data set to an object, we want something the following:</p>
+<pre><code># load packages
+library(haven)
+
+# load raw data set
+raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
+<p>This loads the data set into R.</p>
+<p><strong>Review Exercises</strong></p>
+<p>There are 8 total data sets in <code>cool-project/</code> (all the files in <code>data/</code> and <code>output/</code>). Answer the following questions for each data set:</p>
+<ol style="list-style-type: decimal">
+<li>What function should you use to read that file?</li>
+<li>What’s the working directory?</li>
+<li>What’s the path (relative to the working directory)?</li>
+<li>Given the above, what’s the code to read the data (and store it as an object)?</li>
+</ol>
+<p>When you think you know, check your work by trying your commands. I put <code>cool-project</code> <a href="https://github.com/pos5737/cool-project">on Github</a>. Clone it and see if you can load the data sets.</p>
+<p><em>Solution for <code>ddrevisited_data_v1.dta</code></em></p>
+<ol style="list-style-type: decimal">
+<li>The extension is <code>.dta</code>, so I know this is a Stata data set and that I need to use <code>haven::read_dta()</code>.</li>
+<li>The working directory is <code>cool-project/</code> because the working directory is always the project directory since I use an <code>.Rproj</code> file to manage my projects.</li>
+<li>The path is <code>data/raw/ddrevisited_data_v1.dta</code>. I can see this in the directory tree above, or by inspecting the directory on my computer.</li>
+<li>Below:</li>
+</ol>
+<pre><code># load packages
+library(haven)
+
+# load raw data sets
+raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
+</div>
+<div id="rio" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> <code>rio</code></h3>
+<p>Loading data into R is a little bit tricky and tedious. One reason is finding a function to handle the data format. If the data is <code>.Rds</code>, <code>.csv</code>, or <code>.dta.</code> formats, we already know what to do. But what if the data is in a format such as <code>.tsv</code> (tab separated), <code>.xlsx</code> (Microsoft Excel), <code>.ods</code> (OpenDocument spreadsheet), or any number of other formats?</p>
+<p>The R package <code>rio</code> contains the fuction <code>import()</code> that automatically adapts to the different formats according to the filename extension. It’s just one function—you simply need to point it to the data set.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="loading-data-into-r.html#cb104-1"></a><span class="co"># load packages</span></span>
+<span id="cb104-2"><a href="loading-data-into-r.html#cb104-2"></a><span class="kw">library</span>(rio)  <span class="co"># for generic import() function</span></span>
+<span id="cb104-3"><a href="loading-data-into-r.html#cb104-3"></a></span>
+<span id="cb104-4"><a href="loading-data-into-r.html#cb104-4"></a><span class="co"># read same data stored in three different formats</span></span>
+<span id="cb104-5"><a href="loading-data-into-r.html#cb104-5"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.csv&quot;</span>)</span>
+<span id="cb104-6"><a href="loading-data-into-r.html#cb104-6"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
+<span id="cb104-7"><a href="loading-data-into-r.html#cb104-7"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.dta&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="data-frames" class="section level2">
+<h2><span class="header-section-number">3.2</span> Data Frames</h2>
+<p>Almost the statistical computation we do in this class revolves around data sets. In R, it usually makes sense to store data sets as specific objects known as data frames. Data frames are simply a set of vectors that all contain the same number of elements. These might be numeric, character, factor, or logical vectors, or some mixture of types.</p>
+<p>When you read a data set into R using <code>readr::read_csv</code>, <code>readr::read_rds()</code>, <code>haven::read_dta()</code>, or some other method, it creates a data frame. A data frame is a special R object that holds a set of vectors that all have the name number of elements. If you think of the data set as an Excel spreadsheet, then you can think of the columns of the spreadsheet as the vectors held by the data frame. These vectors or variables can be numeric, character, factor, or logical. As a reminder, here are the variable types:</p>
+<ul>
+<li><code>numeric</code>: numbers, such as 1.1, 2.4, and 3.4. Sometimes numeric variables are subdivided into <code>integer</code> (whole numbers, e.g., 1, 2, 3, etc.) and <code>double</code> (fractions, e.g., 1.47, 3.35462, etc.).</li>
+<li><code>character</code>: text strings, such as <code>"Republican"</code> or <code>"Argentina (2001)"</code>.</li>
+<li><code>factor</code>: cateogories, such as <code>"Very Liberal"</code>, <code>"Weak Republican"</code>, or <code>"Female"</code>. Similar to <code>character</code>, except the entire set of possible levels is defined. A <code>factor</code> variable may be ordered or unordered.</li>
+<li><code>logical</code>: true or false, such as <code>TRUE</code> or <code>FALSE</code>.</li>
+</ul>
+<p>For the <code>.csv</code> files we will usually use, R cannot distinguish between <code>character</code> and <code>factor</code> variables. By default, <code>readr::read_csv()</code> will load these as <code>character</code> variables–there’s no way for R to know the entire set of levels from the <code>.csv</code> file anyway. Sometimes, though, it will be useful to work with <code>factor</code> variables. This is straightforward to change.</p>
+<div id="working-with-variables-in-data-frames" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Working with Variables in Data Frames</h3>
+<p>A data frame holds the variables, but it also hides the vectors. For example, the data frame <code>nominate</code>, which we loaded above, has a numeric variable <code>ideology</code>, but if we try to sum it, we get an error.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="loading-data-into-r.html#cb105-1"></a><span class="kw">sum</span>(ideology)  <span class="co"># fails because the variable ideology is hidden in a data frame</span></span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;ideology&#39; not found</code></pre>
+<p>We’ve loaded the data set, but R can’t seem to find the variable. That’s because the variable <code>ideology</code> is hidden in the data frame <code>nominate</code>.</p>
+<p>In order to access variables in data frames, we need to do one of two things.</p>
+<ol style="list-style-type: decimal">
+<li>Use the <code>$</code> operator.</li>
+<li>Use the <code>data</code> argument.</li>
+</ol>
+<p>Some functions, such as <code>exp()</code> are designed to work with <em>vectors</em>, not data frames. This will be the case for most functions we use (with the notable exceptions of plotting in with <code>ggplot()</code> and estimating liner model with <code>lm()</code>). To use the functions on variables stored in data frames, we need to use the <code>$</code> operator.</p>
+<p>Suppose we have a data set loaded and given to the object <code>my_data</code>. If <code>my_data</code> contains the variable of interest <code>my_variable</code>, then we can access <code>my_variable</code> using the syntax <code>my_data$my_varible</code>. That is, the syntax <code>data$var</code> means “get the variable <code>var</code> from the data set <code>data</code>.” We’ll use this often, so make sure it’s clear.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="loading-data-into-r.html#cb107-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology) <span class="co"># example of the $ operator</span></span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="loading-data-into-r.html#cb109-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># example of the $ operator</span></span></code></pre></div>
+<pre><code>## [1] 164.457</code></pre>
+<p>But some functions are designed to work with data frames. For example, the <code>qplot()</code> function in the ggplot2 package is designed to work with data sets. If you open the help file for <code>qplot()</code> (i.e., <code>help(qplot)</code> after <code>library(ggplot2)</code>), you’ll see that one of the arguments is <code>data</code>. If you use this argument to point <code>qplot()</code> to the data frame, it will know where to find your variables.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="loading-data-into-r.html#cb111-1"></a><span class="co"># load ggplot2 package, which contains the qplot function</span></span>
+<span id="cb111-2"><a href="loading-data-into-r.html#cb111-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb111-3"><a href="loading-data-into-r.html#cb111-3"></a></span>
+<span id="cb111-4"><a href="loading-data-into-r.html#cb111-4"></a><span class="co"># example of a function with a data argument</span></span>
+<span id="cb111-5"><a href="loading-data-into-r.html#cb111-5"></a><span class="kw">qplot</span>(ideology, <span class="dt">data =</span> nominate)  <span class="co"># using the data argument</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Many of the functions we use take a data argument. If they do not, though, we’ll need to use the <code>$</code> operator. Because we’ll almost always use data stored in data frames, you need to be sure to use one approach or the other. If the function has a data argument, use it. In other cases, use the <code>$</code> operator.</p>
+</div>
+</div>
+<div id="how-well-always-use-r" class="section level2">
+<h2><span class="header-section-number">3.3</span> How We’ll Always Use R</h2>
+<ol style="list-style-type: decimal">
+<li>Open RStudio by clicking the <code>.Rproj</code> file for the project. (If you haven’t created the <code>.Rproj</code> file yet, then open RStudio and click <em>File</em> &gt; <em>New Project…</em>).</li>
+<li>Open a new R script to do something new <em>OR</em> open a previously saved script to continue making progress.</li>
+</ol>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Download the nominate data sets from the <a href="data.html">data page</a> and put them in the <code>data/</code> subdirectory.</li>
+<li>Start a new R script that loads the tidyverse package.</li>
+<li>In the same script, load the each version of the nominate data set using the appropriate function (note that tidyverse automatically loads readr but not haven). Assign each data set to a different object name.</li>
+<li>Use the <code>glimpse()</code> (part of tidyverse) function to get a quick look at each data set.</li>
+<li>Repeat using <code>import()</code> (load the rio package first!).</li>
+<li>Try to use five different functions (<code>mean()</code>, <code>sum()</code>, etc.) on the data frames or variables in the data frames. Using <code>#</code> comments, explain what each function is doing.</li>
+</ol>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistical-computing-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="location-and-scale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["concepts-and-computation.pdf", "concepts-and-computation.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
