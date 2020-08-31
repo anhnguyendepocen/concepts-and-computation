@@ -24,15 +24,15 @@ In political science, our data sets are usually one of four types:
 
 Data can be stored in a wide range of formats. One popular format, for example, is Stata's proprietary `.dta` format. I typically use (and encourage you to use) the comma-separated values `.csv` format. The `.csv` format is excellent because it is open and simple. This means that anyone can use it without acess to proprietary software. It will also be useble by anyone into the foreseeable future. We can see why `.csv` files are easy to work with if we open it up the file `nominate.csv` with a text editor. You'll see that you--with your eyes--can read the file directly. You don't really need software at all!
 
-![`.csv` in a Text Editor](03-notes-computing-figures/csv-text-editor.png)
+![`.csv` in a Text Editor](img/computing/csv-text-editor.png)
 
 I tried the same thing for a similar `.dta` file. With your eyes, it looks like nonsense. You'll definitely need Stata (or other speciallized software) to work with this file.
 
-![`.dta` in a Text Editor](03-notes-computing-figures/dta-text-editor.png)
+![`.dta` in a Text Editor](img/computing/dta-text-editor.png)
 
 Also, `.csv` files are easy to support, so they work in almost all data analysis software. For example, we can open up `nominate.csv` in Excel. You can see that we have six variables in the columns and many cases in the rows (we don't know how many because they overflow the screen). In this case, each row represents a particular Congressperson from a particular Congress (with Presidents as well. The second row, for example, is for Rep. Callahan (R) from the 1st Congressional District of Alabama. During the 100th Congress, Rep. Calahan has a ideology score of 0.358, which means he's conservative, but not as conservative as Pres. Reagan, who has a score of 0.747. We'll work with these data a lot thoughout the semester, so we'll have plenty of time for closer examination.
 
-![`.csv` in Excel](03-notes-computing-figures/csv-excel.png)
+![`.csv` in Excel](img/computing/csv-excel.png)
 
 ### The Working Directory
 
@@ -120,7 +120,7 @@ cool-project/
 
 Below is a screenshot from Finder on macOS that shows the same organization.
 
-![](03-notes-computing-figures/directory.png)
+![](img/computing/directory.png)
 
 #### An Aside on Formats
 
