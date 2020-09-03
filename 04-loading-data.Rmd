@@ -256,7 +256,7 @@ Many of the functions we use take a data argument. If they do not, though, we'll
 
 **Review Exercises**
 
-1. Download the nominate data sets from the [data page](data.html) and put them in the `data/` subdirectory.
+1. Download the nominate data sets from the course website and put them in the `data/` subdirectory.
 1. Start a new R script that loads the tidyverse package.
 1. In the same script, load the each version of the nominate data set using the appropriate function (note that tidyverse automatically loads readr but not haven). Assign each data set to a different object name.
 1. Use the `glimpse()` (part of tidyverse) function to get a quick look at each data set.
