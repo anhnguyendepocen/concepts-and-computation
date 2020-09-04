@@ -167,7 +167,7 @@ There are 8 total data sets in `cool-project/` (all the files in `data/` and `ou
 1. What's the path (relative to the working directory)?
 1. Given the above, what's the code to read the data (and store it as an object)?
 
-When you think you know, check your work by trying your commands. I put `cool-project` [on Github](https://github.com/pos5737/cool-project). Clone it and see if you can load the data sets.
+When you think you know, check your work by trying your commands. I put `cool-project` [on Github](https://github.com/pos5737/cool-project). Clone it (or click *Code* > *Download ZIP* to download the directory) and see if you can load the data sets.
 
 *Solution for `ddrevisited_data_v1.dta`*
 
