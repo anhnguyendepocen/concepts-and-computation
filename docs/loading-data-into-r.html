@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-09-04" />
+<meta name="date" content="2020-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="statistical-computing-with-r.html"/>
-<link rel="next" href="location-and-scale.html"/>
+<link rel="next" href="histograms.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,14 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <script>
     $(document).ready(function () {
         process_solutions();
@@ -191,72 +199,92 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#how-well-always-use-r"><i class="fa fa-check"></i><b>3.3</b> How We’ll Always Use R</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="histograms.html"><a href="histograms.html"><i class="fa fa-check"></i><b>4</b> Histograms</a><ul>
+<li class="chapter" data-level="4.1" data-path="histograms.html"><a href="histograms.html#nominate-data"><i class="fa fa-check"></i><b>4.1</b> NOMINATE Data</a></li>
+<li class="chapter" data-level="4.2" data-path="histograms.html"><a href="histograms.html#histograms-geom_histogram"><i class="fa fa-check"></i><b>4.2</b> Histograms: <code>geom_histogram()</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="histograms.html"><a href="histograms.html#the-three-critical-components"><i class="fa fa-check"></i><b>4.2.1</b> The Three Critical Components</a></li>
+<li class="chapter" data-level="4.2.2" data-path="histograms.html"><a href="histograms.html#drawing-a-histogram"><i class="fa fa-check"></i><b>4.2.2</b> Drawing a Histogram</a></li>
+<li class="chapter" data-level="4.2.3" data-path="histograms.html"><a href="histograms.html#but-geom_histogram-uses-counts"><i class="fa fa-check"></i><b>4.2.3</b> But <code>geom_histogram()</code> uses counts!</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="histograms.html"><a href="histograms.html#filtering-filter"><i class="fa fa-check"></i><b>4.3</b> Filtering: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="histograms.html"><a href="histograms.html#faceting-facet_wrap"><i class="fa fa-check"></i><b>4.4</b> Faceting: <code>facet_wrap()</code></a></li>
+<li class="chapter" data-level="4.5" data-path="histograms.html"><a href="histograms.html#density-plots-geom_density"><i class="fa fa-check"></i><b>4.5</b> Density Plots: <code>geom_density()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="histograms.html"><a href="histograms.html#color-and-fill"><i class="fa fa-check"></i><b>4.6</b> Color and Fill</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="histograms.html"><a href="histograms.html#color"><i class="fa fa-check"></i><b>4.6.1</b> Color</a></li>
+<li class="chapter" data-level="4.6.2" data-path="histograms.html"><a href="histograms.html#fill"><i class="fa fa-check"></i><b>4.6.2</b> Fill</a></li>
+<li class="chapter" data-level="4.6.3" data-path="histograms.html"><a href="histograms.html#alpha"><i class="fa fa-check"></i><b>4.6.3</b> Alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="histograms.html"><a href="histograms.html#labels-labs"><i class="fa fa-check"></i><b>4.7</b> Labels: <code>labs()</code></a></li>
+<li class="chapter" data-level="4.8" data-path="histograms.html"><a href="histograms.html#themes-theme_bw-and-others"><i class="fa fa-check"></i><b>4.8</b> Themes: <code>theme_bw()</code> and Others</a></li>
+<li class="chapter" data-level="4.9" data-path="histograms.html"><a href="histograms.html#putting-it-all-together"><i class="fa fa-check"></i><b>4.9</b> Putting It All Together</a></li>
+<li class="chapter" data-level="4.10" data-path="histograms.html"><a href="histograms.html#saving-plots-ggsave"><i class="fa fa-check"></i><b>4.10</b> Saving Plots: <code>ggsave()</code></a></li>
+</ul></li>
 <li class="part"><span><b>I Data Reduction</b></span></li>
-<li class="chapter" data-level="4" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>4</b> Location and Scale</a><ul>
-<li class="chapter" data-level="4.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>4.1</b> The Intuition</a></li>
-<li class="chapter" data-level="4.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>4.2</b> The Usual Measures</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>4.2.1</b> The Average</a></li>
-<li class="chapter" data-level="4.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>4.2.2</b> The Standard Deviation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>4.3</b> Robust Alternatives</a></li>
-<li class="chapter" data-level="4.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>4.4</b> Computation in R</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>5</b> The Normal Model</a><ul>
+<li class="chapter" data-level="5" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>5</b> Location and Scale</a><ul>
 <li class="chapter" data-level="5.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>5.1</b> The Intuition</a></li>
-<li class="chapter" data-level="5.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>5.2</b> The Normal Curve(s)</a></li>
-<li class="chapter" data-level="5.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>5.3</b> The Empirical Rule</a></li>
-<li class="chapter" data-level="5.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>5.4</b> The Normal Approximation</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>5.4.1</b> Normal Table</a></li>
-<li class="chapter" data-level="5.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>5.4.2</b> <code>pnorm()</code></a></li>
-<li class="chapter" data-level="5.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>5.4.3</b> Exactly Percentages</a></li>
+<li class="chapter" data-level="5.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>5.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>5.2.1</b> The Average</a></li>
+<li class="chapter" data-level="5.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>5.2.2</b> The Standard Deviation</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>5.5</b> Review Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>5.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="5.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>5.4</b> Computation in R</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>6</b> The X-Y Space</a><ul>
-<li class="chapter" data-level="6.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>6.1</b> Points</a></li>
-<li class="chapter" data-level="6.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>6.2</b> Lines</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>6.2.1</b> The Intercept</a></li>
-<li class="chapter" data-level="6.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>6.2.2</b> Slope</a></li>
+<li class="chapter" data-level="6" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>6</b> The Normal Model</a><ul>
+<li class="chapter" data-level="6.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>6.1</b> The Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>6.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="6.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>6.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="6.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>6.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>6.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="6.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>6.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>6.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>7</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>7.1</b> Points</a></li>
+<li class="chapter" data-level="7.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>7.2</b> Lines</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>7.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="7.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>7.2.2</b> Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>7</b> The Scatterplot</a><ul>
-<li class="chapter" data-level="7.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>7.1</b> <code>geom_point()</code></a></li>
-<li class="chapter" data-level="7.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>7.2</b> Example: <code>gapminder</code></a></li>
-<li class="chapter" data-level="7.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>7.3</b> Example: <code>voteincome</code></a></li>
-<li class="chapter" data-level="7.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>7.4</b> Resources</a></li>
+<li class="chapter" data-level="8" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>8</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="8.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>8.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>8.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="8.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>8.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="8.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>8.4</b> Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>8</b> Correlation Coefficient</a><ul>
-<li class="chapter" data-level="8.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>8.1</b> Intuition</a></li>
-<li class="chapter" data-level="8.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>8.2</b> Computing</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>8.2.1</b> By Hand</a></li>
-<li class="chapter" data-level="8.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>8.2.2</b> With R</a></li>
+<li class="chapter" data-level="9" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>9</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="9.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>9.1</b> Intuition</a></li>
+<li class="chapter" data-level="9.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>9.2</b> Computing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>9.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="9.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>9.2.2</b> With R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>8.3</b> Interpreting</a></li>
-<li class="chapter" data-level="8.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>8.4</b> Example: Clark and Golder (2006)</a></li>
-<li class="chapter" data-level="8.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>8.5</b> Example: Feeling Thermometers</a></li>
+<li class="chapter" data-level="9.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>9.3</b> Interpreting</a></li>
+<li class="chapter" data-level="9.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>9.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="9.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>9.5</b> Example: Feeling Thermometers</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>9.1</b> Review</a></li>
-<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>9.2</b> The Equation</a></li>
-<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>9.3</b> The Conditional Average</a></li>
-<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>9.4</b> The Best Line</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>9.4.1</b> Grid Search</a></li>
-<li class="chapter" data-level="9.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>9.4.2</b> Numerical Optimization</a></li>
-<li class="chapter" data-level="9.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>9.4.3</b> Analytical Optimization</a></li>
+<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>10.1</b> Review</a></li>
+<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>10.2</b> The Equation</a></li>
+<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>10.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>10.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>10.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="10.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>10.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="10.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>10.4.3</b> Analytical Optimization</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>9.5</b> The RMS of the Residuals</a></li>
-<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>9.6</b> <span class="math inline">\(R^2\)</span></a><ul>
-<li class="chapter" data-level="9.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>9.6.1</b> Adequacy of a Line</a></li>
+<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>10.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="10.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>10.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="10.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>10.6.1</b> Adequacy of a Line</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>9.7</b> Fitting Regression Models</a><ul>
-<li class="chapter" data-level="9.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>9.7.1</b> <code>geom_smooth()</code></a></li>
-<li class="chapter" data-level="9.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>9.7.2</b> <code>lm()</code></a></li>
-<li class="chapter" data-level="9.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>9.7.3</b> Quick Look at the Fit</a></li>
-<li class="chapter" data-level="9.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>9.7.4</b> Post-Processing</a></li>
+<li class="chapter" data-level="10.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>10.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>10.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="10.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>10.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="10.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>10.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="10.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>10.7.4</b> Post-Processing</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>9.8</b> Standard Errors and <em>p</em>-Values</a></li>
-<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>9.9</b> A Warning</a></li>
-<li class="chapter" data-level="9.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>9.10</b> Review Exercises</a></li>
+<li class="chapter" data-level="10.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>10.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="10.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>10.9</b> A Warning</a></li>
+<li class="chapter" data-level="10.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>10.10</b> Review Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -437,13 +465,13 @@ raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
 <h3><span class="header-section-number">3.1.6</span> <code>rio</code></h3>
 <p>Loading data into R is a little bit tricky and tedious. One reason is finding a function to handle the data format. If the data is <code>.Rds</code>, <code>.csv</code>, or <code>.dta.</code> formats, we already know what to do. But what if the data is in a format such as <code>.tsv</code> (tab separated), <code>.xlsx</code> (Microsoft Excel), <code>.ods</code> (OpenDocument spreadsheet), or any number of other formats?</p>
 <p>The R package <code>rio</code> contains the fuction <code>import()</code> that automatically adapts to the different formats according to the filename extension. It’s just one function—you simply need to point it to the data set.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="loading-data-into-r.html#cb7-1"></a><span class="co"># load packages</span></span>
-<span id="cb7-2"><a href="loading-data-into-r.html#cb7-2"></a><span class="kw">library</span>(rio)  <span class="co"># for generic import() function</span></span>
-<span id="cb7-3"><a href="loading-data-into-r.html#cb7-3"></a></span>
-<span id="cb7-4"><a href="loading-data-into-r.html#cb7-4"></a><span class="co"># read same data stored in three different formats</span></span>
-<span id="cb7-5"><a href="loading-data-into-r.html#cb7-5"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.csv&quot;</span>)</span>
-<span id="cb7-6"><a href="loading-data-into-r.html#cb7-6"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
-<span id="cb7-7"><a href="loading-data-into-r.html#cb7-7"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="loading-data-into-r.html#cb104-1"></a><span class="co"># load packages</span></span>
+<span id="cb104-2"><a href="loading-data-into-r.html#cb104-2"></a><span class="kw">library</span>(rio)  <span class="co"># for generic import() function</span></span>
+<span id="cb104-3"><a href="loading-data-into-r.html#cb104-3"></a></span>
+<span id="cb104-4"><a href="loading-data-into-r.html#cb104-4"></a><span class="co"># read same data stored in three different formats</span></span>
+<span id="cb104-5"><a href="loading-data-into-r.html#cb104-5"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.csv&quot;</span>)</span>
+<span id="cb104-6"><a href="loading-data-into-r.html#cb104-6"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
+<span id="cb104-7"><a href="loading-data-into-r.html#cb104-7"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.dta&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="data-frames" class="section level2">
@@ -460,7 +488,7 @@ raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
 <div id="working-with-variables-in-data-frames" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Working with Variables in Data Frames</h3>
 <p>A data frame holds the variables, but it also hides the vectors. For example, the data frame <code>nominate</code>, which we loaded above, has a numeric variable <code>ideology</code>, but if we try to sum it, we get an error.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loading-data-into-r.html#cb8-1"></a><span class="kw">sum</span>(ideology)  <span class="co"># fails because the variable ideology is hidden in a data frame</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="loading-data-into-r.html#cb105-1"></a><span class="kw">sum</span>(ideology)  <span class="co"># fails because the variable ideology is hidden in a data frame</span></span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;ideology&#39; not found</code></pre>
 <p>We’ve loaded the data set, but R can’t seem to find the variable. That’s because the variable <code>ideology</code> is hidden in the data frame <code>nominate</code>.</p>
 <p>In order to access variables in data frames, we need to do one of two things.</p>
@@ -470,19 +498,19 @@ raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
 </ol>
 <p>Some functions, such as <code>exp()</code> are designed to work with <em>vectors</em>, not data frames. This will be the case for most functions we use (with the notable exceptions of plotting in with <code>ggplot()</code> and estimating liner model with <code>lm()</code>). To use the functions on variables stored in data frames, we need to use the <code>$</code> operator.</p>
 <p>Suppose we have a data set loaded and given to the object <code>my_data</code>. If <code>my_data</code> contains the variable of interest <code>my_variable</code>, then we can access <code>my_variable</code> using the syntax <code>my_data$my_varible</code>. That is, the syntax <code>data$var</code> means “get the variable <code>var</code> from the data set <code>data</code>.” We’ll use this often, so make sure it’s clear.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="loading-data-into-r.html#cb10-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology) <span class="co"># example of the $ operator</span></span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="loading-data-into-r.html#cb107-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology) <span class="co"># example of the $ operator</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="loading-data-into-r.html#cb12-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># example of the $ operator</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="loading-data-into-r.html#cb109-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># example of the $ operator</span></span></code></pre></div>
 <pre><code>## [1] 164.457</code></pre>
 <p>But some functions are designed to work with data frames. For example, the <code>qplot()</code> function in the ggplot2 package is designed to work with data sets. If you open the help file for <code>qplot()</code> (i.e., <code>help(qplot)</code> after <code>library(ggplot2)</code>), you’ll see that one of the arguments is <code>data</code>. If you use this argument to point <code>qplot()</code> to the data frame, it will know where to find your variables.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="loading-data-into-r.html#cb14-1"></a><span class="co"># load ggplot2 package, which contains the qplot function</span></span>
-<span id="cb14-2"><a href="loading-data-into-r.html#cb14-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb14-3"><a href="loading-data-into-r.html#cb14-3"></a></span>
-<span id="cb14-4"><a href="loading-data-into-r.html#cb14-4"></a><span class="co"># example of a function with a data argument</span></span>
-<span id="cb14-5"><a href="loading-data-into-r.html#cb14-5"></a><span class="kw">qplot</span>(ideology, <span class="dt">data =</span> nominate)  <span class="co"># using the data argument</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="loading-data-into-r.html#cb111-1"></a><span class="co"># load ggplot2 package, which contains the qplot function</span></span>
+<span id="cb111-2"><a href="loading-data-into-r.html#cb111-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb111-3"><a href="loading-data-into-r.html#cb111-3"></a></span>
+<span id="cb111-4"><a href="loading-data-into-r.html#cb111-4"></a><span class="co"># example of a function with a data argument</span></span>
+<span id="cb111-5"><a href="loading-data-into-r.html#cb111-5"></a><span class="kw">qplot</span>(ideology, <span class="dt">data =</span> nominate)  <span class="co"># using the data argument</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Many of the functions we use take a data argument. If they do not, though, we’ll need to use the <code>$</code> operator. Because we’ll almost always use data stored in data frames, you need to be sure to use one approach or the other. If the function has a data argument, use it. In other cases, use the <code>$</code> operator.</p>
 </div>
 </div>
@@ -504,16 +532,13 @@ raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
 <a href="statistical-computing-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="location-and-scale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="histograms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

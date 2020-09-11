@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 The Normal Model | Concepts and Computation: An Introduction to Political Methodology</title>
+  <title>Chapter 6 The Normal Model | Concepts and Computation: An Introduction to Political Methodology</title>
   <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 The Normal Model | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:title" content="Chapter 6 The Normal Model | Concepts and Computation: An Introduction to Political Methodology" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 The Normal Model | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta name="twitter:title" content="Chapter 6 The Normal Model | Concepts and Computation: An Introduction to Political Methodology" />
   
   <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-08-31" />
+<meta name="date" content="2020-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,72 +199,92 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#how-well-always-use-r"><i class="fa fa-check"></i><b>3.3</b> How We’ll Always Use R</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="histograms.html"><a href="histograms.html"><i class="fa fa-check"></i><b>4</b> Histograms</a><ul>
+<li class="chapter" data-level="4.1" data-path="histograms.html"><a href="histograms.html#nominate-data"><i class="fa fa-check"></i><b>4.1</b> NOMINATE Data</a></li>
+<li class="chapter" data-level="4.2" data-path="histograms.html"><a href="histograms.html#histograms-geom_histogram"><i class="fa fa-check"></i><b>4.2</b> Histograms: <code>geom_histogram()</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="histograms.html"><a href="histograms.html#the-three-critical-components"><i class="fa fa-check"></i><b>4.2.1</b> The Three Critical Components</a></li>
+<li class="chapter" data-level="4.2.2" data-path="histograms.html"><a href="histograms.html#drawing-a-histogram"><i class="fa fa-check"></i><b>4.2.2</b> Drawing a Histogram</a></li>
+<li class="chapter" data-level="4.2.3" data-path="histograms.html"><a href="histograms.html#but-geom_histogram-uses-counts"><i class="fa fa-check"></i><b>4.2.3</b> But <code>geom_histogram()</code> uses counts!</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="histograms.html"><a href="histograms.html#filtering-filter"><i class="fa fa-check"></i><b>4.3</b> Filtering: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="histograms.html"><a href="histograms.html#faceting-facet_wrap"><i class="fa fa-check"></i><b>4.4</b> Faceting: <code>facet_wrap()</code></a></li>
+<li class="chapter" data-level="4.5" data-path="histograms.html"><a href="histograms.html#density-plots-geom_density"><i class="fa fa-check"></i><b>4.5</b> Density Plots: <code>geom_density()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="histograms.html"><a href="histograms.html#color-and-fill"><i class="fa fa-check"></i><b>4.6</b> Color and Fill</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="histograms.html"><a href="histograms.html#color"><i class="fa fa-check"></i><b>4.6.1</b> Color</a></li>
+<li class="chapter" data-level="4.6.2" data-path="histograms.html"><a href="histograms.html#fill"><i class="fa fa-check"></i><b>4.6.2</b> Fill</a></li>
+<li class="chapter" data-level="4.6.3" data-path="histograms.html"><a href="histograms.html#alpha"><i class="fa fa-check"></i><b>4.6.3</b> Alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="histograms.html"><a href="histograms.html#labels-labs"><i class="fa fa-check"></i><b>4.7</b> Labels: <code>labs()</code></a></li>
+<li class="chapter" data-level="4.8" data-path="histograms.html"><a href="histograms.html#themes-theme_bw-and-others"><i class="fa fa-check"></i><b>4.8</b> Themes: <code>theme_bw()</code> and Others</a></li>
+<li class="chapter" data-level="4.9" data-path="histograms.html"><a href="histograms.html#putting-it-all-together"><i class="fa fa-check"></i><b>4.9</b> Putting It All Together</a></li>
+<li class="chapter" data-level="4.10" data-path="histograms.html"><a href="histograms.html#saving-plots-ggsave"><i class="fa fa-check"></i><b>4.10</b> Saving Plots: <code>ggsave()</code></a></li>
+</ul></li>
 <li class="part"><span><b>I Data Reduction</b></span></li>
-<li class="chapter" data-level="4" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>4</b> Location and Scale</a><ul>
-<li class="chapter" data-level="4.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>4.1</b> The Intuition</a></li>
-<li class="chapter" data-level="4.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>4.2</b> The Usual Measures</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>4.2.1</b> The Average</a></li>
-<li class="chapter" data-level="4.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>4.2.2</b> The Standard Deviation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>4.3</b> Robust Alternatives</a></li>
-<li class="chapter" data-level="4.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>4.4</b> Computation in R</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>5</b> The Normal Model</a><ul>
+<li class="chapter" data-level="5" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>5</b> Location and Scale</a><ul>
 <li class="chapter" data-level="5.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>5.1</b> The Intuition</a></li>
-<li class="chapter" data-level="5.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>5.2</b> The Normal Curve(s)</a></li>
-<li class="chapter" data-level="5.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>5.3</b> The Empirical Rule</a></li>
-<li class="chapter" data-level="5.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>5.4</b> The Normal Approximation</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>5.4.1</b> Normal Table</a></li>
-<li class="chapter" data-level="5.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>5.4.2</b> <code>pnorm()</code></a></li>
-<li class="chapter" data-level="5.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>5.4.3</b> Exactly Percentages</a></li>
+<li class="chapter" data-level="5.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>5.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>5.2.1</b> The Average</a></li>
+<li class="chapter" data-level="5.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>5.2.2</b> The Standard Deviation</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>5.5</b> Review Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>5.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="5.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>5.4</b> Computation in R</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>6</b> The X-Y Space</a><ul>
-<li class="chapter" data-level="6.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>6.1</b> Points</a></li>
-<li class="chapter" data-level="6.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>6.2</b> Lines</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>6.2.1</b> The Intercept</a></li>
-<li class="chapter" data-level="6.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>6.2.2</b> Slope</a></li>
+<li class="chapter" data-level="6" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>6</b> The Normal Model</a><ul>
+<li class="chapter" data-level="6.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>6.1</b> The Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>6.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="6.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>6.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="6.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>6.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>6.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="6.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>6.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>6.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>7</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>7.1</b> Points</a></li>
+<li class="chapter" data-level="7.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>7.2</b> Lines</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>7.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="7.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>7.2.2</b> Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>7</b> The Scatterplot</a><ul>
-<li class="chapter" data-level="7.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>7.1</b> <code>geom_point()</code></a></li>
-<li class="chapter" data-level="7.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>7.2</b> Example: <code>gapminder</code></a></li>
-<li class="chapter" data-level="7.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>7.3</b> Example: <code>voteincome</code></a></li>
-<li class="chapter" data-level="7.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>7.4</b> Resources</a></li>
+<li class="chapter" data-level="8" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>8</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="8.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>8.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>8.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="8.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>8.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="8.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>8.4</b> Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>8</b> Correlation Coefficient</a><ul>
-<li class="chapter" data-level="8.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>8.1</b> Intuition</a></li>
-<li class="chapter" data-level="8.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>8.2</b> Computing</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>8.2.1</b> By Hand</a></li>
-<li class="chapter" data-level="8.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>8.2.2</b> With R</a></li>
+<li class="chapter" data-level="9" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>9</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="9.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>9.1</b> Intuition</a></li>
+<li class="chapter" data-level="9.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>9.2</b> Computing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>9.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="9.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>9.2.2</b> With R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>8.3</b> Interpreting</a></li>
-<li class="chapter" data-level="8.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>8.4</b> Example: Clark and Golder (2006)</a></li>
-<li class="chapter" data-level="8.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>8.5</b> Example: Feeling Thermometers</a></li>
+<li class="chapter" data-level="9.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>9.3</b> Interpreting</a></li>
+<li class="chapter" data-level="9.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>9.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="9.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>9.5</b> Example: Feeling Thermometers</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>9.1</b> Review</a></li>
-<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>9.2</b> The Equation</a></li>
-<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>9.3</b> The Conditional Average</a></li>
-<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>9.4</b> The Best Line</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>9.4.1</b> Grid Search</a></li>
-<li class="chapter" data-level="9.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>9.4.2</b> Numerical Optimization</a></li>
-<li class="chapter" data-level="9.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>9.4.3</b> Analytical Optimization</a></li>
+<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>10.1</b> Review</a></li>
+<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>10.2</b> The Equation</a></li>
+<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>10.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>10.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>10.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="10.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>10.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="10.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>10.4.3</b> Analytical Optimization</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>9.5</b> The RMS of the Residuals</a></li>
-<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>9.6</b> <span class="math inline">\(R^2\)</span></a><ul>
-<li class="chapter" data-level="9.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>9.6.1</b> Adequacy of a Line</a></li>
+<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>10.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="10.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>10.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="10.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>10.6.1</b> Adequacy of a Line</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>9.7</b> Fitting Regression Models</a><ul>
-<li class="chapter" data-level="9.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>9.7.1</b> <code>geom_smooth()</code></a></li>
-<li class="chapter" data-level="9.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>9.7.2</b> <code>lm()</code></a></li>
-<li class="chapter" data-level="9.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>9.7.3</b> Quick Look at the Fit</a></li>
-<li class="chapter" data-level="9.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>9.7.4</b> Post-Processing</a></li>
+<li class="chapter" data-level="10.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>10.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>10.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="10.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>10.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="10.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>10.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="10.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>10.7.4</b> Post-Processing</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>9.8</b> Standard Errors and <em>p</em>-Values</a></li>
-<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>9.9</b> A Warning</a></li>
-<li class="chapter" data-level="9.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>9.10</b> Review Exercises</a></li>
+<li class="chapter" data-level="10.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>10.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="10.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>10.9</b> A Warning</a></li>
+<li class="chapter" data-level="10.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>10.10</b> Review Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -288,38 +308,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="the-normal-model" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> The Normal Model</h1>
+<h1><span class="header-section-number">Chapter 6</span> The Normal Model</h1>
 <div id="the-intuition" class="section level2">
-<h2><span class="header-section-number">5.1</span> The Intuition</h2>
+<h2><span class="header-section-number">6.1</span> The Intuition</h2>
 <p>Last week, we used the average and SD to reduce and entire variable to two summaries. We use the average and SD to fill in the following sentence: “The values are about ________, give or take ________ or so.”</p>
 <p>This week, we add an additional assumption. This week, we also say that the histogram of the variable follows the normal curve. The normal curve is a bell-shaped curve with a particular equation. There are two varieties. There is a general, parameterized normal distibution that can move left and right (i.e., change location) and grow wider or taller (i.e., change scale)</p>
 </div>
 <div id="the-normal-curves" class="section level2">
-<h2><span class="header-section-number">5.2</span> The Normal Curve(s)</h2>
+<h2><span class="header-section-number">6.2</span> The Normal Curve(s)</h2>
 <p>There are two particular normal curves that we care about</p>
 <ol style="list-style-type: decimal">
 <li><strong>the normal curve</strong>, which has a location and scale parameter that we can specify: <span class="math inline">\(f(x | \mu, \sigma) = \phi(x | \mu, \sigma) = \frac{1}{{\sigma \sqrt {2\pi } }}e^\frac{{ - \left( {x - \mu } \right)^2 }}{2\sigma ^2 }\)</span></li>
 <li><strong>the <em>standard</em> normal curve</strong>, with the location and scale parameters fixed: <span class="math inline">\(f(x | \mu = 0, \sigma = 1) = \phi(x | \mu = 0, \sigma = 1) = \frac{1}{{\sqrt {2\pi } }}e^\frac{{ - x ^2 }}{2}\)</span></li>
 </ol>
 <p>These equations are complicated. Instead of memorizing them or working carefully through the math, just understand (for now) that the normal curve has an equation that exactly characterizes it. The figure below shows the <em>standard</em> normal curve (<span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span>) and several other paramaterizations.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-37-1.png" width="576" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-53-1.png" width="576" /></p>
 </div>
 <div id="the-empirical-rule" class="section level2">
-<h2><span class="header-section-number">5.3</span> The Empirical Rule</h2>
+<h2><span class="header-section-number">6.3</span> The Empirical Rule</h2>
 <p>It turns out that many variable’s have a histogram that resembles the normal curve. Because of this, the normal curve can sometimes serve as an effective model for these variables.</p>
 <p>For example, NOMINATE ideology scores for Republicans in the 115th Congress roughly follow the normal curve.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="the-normal-model.html#cb136-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb136-2"><a href="the-normal-model.html#cb136-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
-<span id="cb136-3"><a href="the-normal-model.html#cb136-3"></a></span>
-<span id="cb136-4"><a href="the-normal-model.html#cb136-4"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb136-5"><a href="the-normal-model.html#cb136-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-38-1.png" width="576" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="the-normal-model.html#cb158-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb158-2"><a href="the-normal-model.html#cb158-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
+<span id="cb158-3"><a href="the-normal-model.html#cb158-3"></a></span>
+<span id="cb158-4"><a href="the-normal-model.html#cb158-4"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb158-5"><a href="the-normal-model.html#cb158-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-54-1.png" width="576" /></p>
 <p>However, the ideology scores for both Republicans and Democrats together does not follow a normal curve.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="the-normal-model.html#cb137-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
-<span id="cb137-2"><a href="the-normal-model.html#cb137-2"></a></span>
-<span id="cb137-3"><a href="the-normal-model.html#cb137-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb137-4"><a href="the-normal-model.html#cb137-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-39-1.png" width="576" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="the-normal-model.html#cb159-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
+<span id="cb159-2"><a href="the-normal-model.html#cb159-2"></a></span>
+<span id="cb159-3"><a href="the-normal-model.html#cb159-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-4"><a href="the-normal-model.html#cb159-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-55-1.png" width="576" /></p>
 <p>The histograms of ENEP by electoral system and social heterogeneity deviate slightly from the normal curve.</p>
 <pre><code>## Rows: 1,161
 ## Columns: 4
@@ -327,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ density              &lt;dbl&gt; 0.02616495, 0.02960818, 0.03338541, 0.03751070, …
 ## $ electoral_system     &lt;fct&gt; Large-Magnitude PR, Large-Magnitude PR, Large-Ma…
 ## $ social_heterogeneity &lt;fct&gt; Bottom 3rd of ENEG, Bottom 3rd of ENEG, Bottom 3…</code></pre>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-40-1.png" width="576" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-56-1.png" width="576" /></p>
 <p>If the variable seems to follow the normal curve, then we have the following rules:</p>
 <ul>
 <li>About <em>68%</em> of the data (i.e., “most”) fall within <strong>1 SD</strong> of the average.</li>
@@ -404,7 +424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="the-normal-approximation" class="section level2">
-<h2><span class="header-section-number">5.4</span> The Normal Approximation</h2>
+<h2><span class="header-section-number">6.4</span> The Normal Approximation</h2>
 <p>If our normal model summarizes a histogram well, then we can use the model to estimate the percent of the observations that fall in a given range. There are two approaches:</p>
 <p>Just like we add up the area of the bars to compute percentages with a histogram, <strong>we add up the area under the normal curve to approximate percentages.</strong></p>
 <ol style="list-style-type: decimal">
@@ -412,7 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Use the <code>pnorm()</code> function in R. Because this function is parameterized with location and scale, we can simple <strong>re-locate and re-scale the curve to fit the data</strong>.</li>
 </ol>
 <div id="normal-table" class="section level3">
-<h3><span class="header-section-number">5.4.1</span> Normal Table</h3>
+<h3><span class="header-section-number">6.4.1</span> Normal Table</h3>
 <p>Normal tables offer an antiquated method to use the normal distribution to approximate percentages. Because we cannot have a normal table for all possible locations and scales, we have one: the standard normal table, which works for a variable with an average of zero and an SD of one.</p>
 <p>This seems limiting, but it turns out that we can easily re-locate and re-scale any value to match the standard normal curve. We simply subtract the average and divide by the SD. We call this new value a <em>z</em>-score.</p>
 <p><span class="math inline">\(z\text{-score} = \dfrac{\text{value} - \text{average}}{\text{SD}}\)</span></p>
@@ -422,8 +442,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Some tables report the percent (or proportion) of the normal curve <strong>below</strong> a particular value <span class="math inline">\(z\)</span>.</li>
 <li>Other tables report the percent (or proportion) of the normal curve <strong>between</strong> a particular value <span class="math inline">\(z\)</span> and <span class="math inline">\(-z\)</span>. (The normal table on p. A-104 of FPP works this way.)</li>
 </ol>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-42-1.png" width="480" /></p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-43-1.png" width="480" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-58-1.png" width="480" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-59-1.png" width="480" /></p>
 <p>Either table works, but you must know what type of table you are working with. Depending on the question, one type might offer a more direct solution.</p>
 <p>Here’s a small normal table for a few values of <span class="math inline">\(z\)</span> that uses both approaches.</p>
 <table>
@@ -524,41 +544,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 <div id="pnorm" class="section level3">
-<h3><span class="header-section-number">5.4.2</span> <code>pnorm()</code></h3>
+<h3><span class="header-section-number">6.4.2</span> <code>pnorm()</code></h3>
 <p>The <code>pnorm()</code> function in R return the area under the normal curve less than <span class="math inline">\(z\)</span>. By default, it uses the standard normal curve, but you can specify a <code>mean</code> and <code>sd</code> if you prefer to re-locate and/or re-scale the curve to fit your values.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="the-normal-model.html#cb139-1"></a><span class="co"># area under the std. normal curve less than 1</span></span>
-<span id="cb139-2"><a href="the-normal-model.html#cb139-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="the-normal-model.html#cb161-1"></a><span class="co"># area under the std. normal curve less than 1</span></span>
+<span id="cb161-2"><a href="the-normal-model.html#cb161-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8413447</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="the-normal-model.html#cb141-1"></a><span class="co"># area under the a normal curve (with average of 1 and SD of 4) less than 1</span></span>
-<span id="cb141-2"><a href="the-normal-model.html#cb141-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="the-normal-model.html#cb163-1"></a><span class="co"># area under the a normal curve (with average of 1 and SD of 4) less than 1</span></span>
+<span id="cb163-2"><a href="the-normal-model.html#cb163-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="the-normal-model.html#cb143-1"></a><span class="co"># area between -1.64 and 1.64</span></span>
-<span id="cb143-2"><a href="the-normal-model.html#cb143-2"></a><span class="kw">pnorm</span>(<span class="fl">1.64</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.64</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="the-normal-model.html#cb165-1"></a><span class="co"># area between -1.64 and 1.64</span></span>
+<span id="cb165-2"><a href="the-normal-model.html#cb165-2"></a><span class="kw">pnorm</span>(<span class="fl">1.64</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.64</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8989948</code></pre>
 </div>
 <div id="exactly-percentages" class="section level3">
-<h3><span class="header-section-number">5.4.3</span> Exactly Percentages</h3>
+<h3><span class="header-section-number">6.4.3</span> Exactly Percentages</h3>
 <p>To actually compute percentages, we can create a function that works just like <code>pnorm()</code>, but it returns the percent <em>of the data</em> that fall below a particular value. The most convenient method is to create an "empirical cumulative distribution function*.</p>
 <p>This function is somewhat confusing. The <code>ecdf()</code> function does not return the proportion below its argument. Instead, it creates a function that returns the percent below its argument. If we have a numeric vector <code>x</code>, then <code>ecdf(x)</code> is a function! Let that settle in… both <code>ecdf</code> and <code>ecdf(x)</code> are function. The function <code>ecdf</code> (I’m dropping the <code>()</code> for clarity) is a function <em>that creates a function</em>, and <code>ecdf(x)()</code> (I’m including the <code>()</code>, as usual, for clarity) is a function that returns the percent below.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="the-normal-model.html#cb145-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb145-2"><a href="the-normal-model.html#cb145-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
-<span id="cb145-3"><a href="the-normal-model.html#cb145-3"></a></span>
-<span id="cb145-4"><a href="the-normal-model.html#cb145-4"></a><span class="co"># normal approximation for % of Democrats less than -0.05</span></span>
-<span id="cb145-5"><a href="the-normal-model.html#cb145-5"></a>avg &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>ideology)</span>
-<span id="cb145-6"><a href="the-normal-model.html#cb145-6"></a>sd &lt;-<span class="st"> </span><span class="kw">sd</span>(df<span class="op">$</span>ideology)</span>
-<span id="cb145-7"><a href="the-normal-model.html#cb145-7"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="dt">mean =</span> avg, <span class="dt">sd =</span> sd)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="the-normal-model.html#cb167-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb167-2"><a href="the-normal-model.html#cb167-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
+<span id="cb167-3"><a href="the-normal-model.html#cb167-3"></a></span>
+<span id="cb167-4"><a href="the-normal-model.html#cb167-4"></a><span class="co"># normal approximation for % of Democrats less than -0.05</span></span>
+<span id="cb167-5"><a href="the-normal-model.html#cb167-5"></a>avg &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>ideology)</span>
+<span id="cb167-6"><a href="the-normal-model.html#cb167-6"></a>sd &lt;-<span class="st"> </span><span class="kw">sd</span>(df<span class="op">$</span>ideology)</span>
+<span id="cb167-7"><a href="the-normal-model.html#cb167-7"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="dt">mean =</span> avg, <span class="dt">sd =</span> sd)</span></code></pre></div>
 <pre><code>## [1] 0.1731597</code></pre>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="the-normal-model.html#cb147-1"></a><span class="co"># exact % of Democrats less than -0.05</span></span>
-<span id="cb147-2"><a href="the-normal-model.html#cb147-2"></a><span class="kw">ecdf</span>(df<span class="op">$</span>ideology)(<span class="op">-</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="the-normal-model.html#cb169-1"></a><span class="co"># exact % of Democrats less than -0.05</span></span>
+<span id="cb169-2"><a href="the-normal-model.html#cb169-2"></a><span class="kw">ecdf</span>(df<span class="op">$</span>ideology)(<span class="op">-</span><span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1479592</code></pre>
 <p>We can also plot the ECDF with ggplot2.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-47-1.png" width="288" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-63-1.png" width="288" /></p>
 </div>
 </div>
 <div id="review-exercises" class="section level2">
-<h2><span class="header-section-number">5.5</span> Review Exercises</h2>
+<h2><span class="header-section-number">6.5</span> Review Exercises</h2>
 <p>The plot below show the histograms for the ideology of legislators in the U.S. House by party.</p>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-48-1.png" width="576" /></p>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-64-1.png" width="576" /></p>
 <p>We can compute the average and SD by party.</p>
 <table>
 <thead>

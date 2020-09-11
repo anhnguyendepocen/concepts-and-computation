@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Histograms | Concepts and Computation: An Introduction to Political Methodology</title>
+  <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Histograms | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Histograms | Concepts and Computation: An Introduction to Political Methodology" />
+  
+  <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
+  
+
+<meta name="author" content="Carlisle Rainey" />
+
+
+<meta name="date" content="2020-09-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="loading-data-into-r.html"/>
+<link rel="next" href="location-and-scale.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<script>
+    $(document).ready(function () {
+        process_solutions();
+    });
+    function process_solutions() {
+        $("div.section[id^='solution']").each(function(i) {
+        var soln_wrapper_id = "cvxr_ex_" + i;
+        var solution_id = $(this).attr('id');
+        var button = $("<button onclick=\"toggle_solution('" + soln_wrapper_id + "')\">Show/Hide</button>");
+        var new_div = $("<div id='" + soln_wrapper_id + "' class='solution' style='display: none;'></div>");
+        var h = $(this).first();
+        var others = $(this).children().slice(1);
+        $(others).each(function() {
+            $(this).appendTo($(new_div));
+        });
+        $(button).insertAfter($(h));
+        $(new_div).insertAfter($(button));
+        })
+    }
+    function toggle_solution(el_id) {
+      $("#" + el_id).toggle();
+    } 
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Concepts and Computation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html"><i class="fa fa-check"></i><b>2</b> Statistical Computing with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R as a Calculator</a></li>
+<li class="chapter" data-level="2.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#scripts"><i class="fa fa-check"></i><b>2.2</b> Scripts</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#importance"><i class="fa fa-check"></i><b>2.2.1</b> Importance</a></li>
+<li class="chapter" data-level="2.2.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#comments"><i class="fa fa-check"></i><b>2.2.2</b> Comments</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#object-oriented-programming"><i class="fa fa-check"></i><b>2.3</b> Object-Oriented Programming</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#scalars"><i class="fa fa-check"></i><b>2.3.1</b> Scalars</a></li>
+<li class="chapter" data-level="2.3.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#functions"><i class="fa fa-check"></i><b>2.3.2</b> Functions</a></li>
+<li class="chapter" data-level="2.3.3" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>2.3.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.3.4" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#more-information"><i class="fa fa-check"></i><b>2.3.4</b> More Information</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#missing-values"><i class="fa fa-check"></i><b>2.4</b> Missing Values</a></li>
+<li class="chapter" data-level="2.5" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#logical-operators"><i class="fa fa-check"></i><b>2.5</b> Logical Operators</a></li>
+<li class="chapter" data-level="2.6" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#installing-packages"><i class="fa fa-check"></i><b>2.6.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.6.2" data-path="statistical-computing-with-r.html"><a href="statistical-computing-with-r.html#loading-packages"><i class="fa fa-check"></i><b>2.6.2</b> Loading Packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html"><i class="fa fa-check"></i><b>3</b> Loading Data into R</a><ul>
+<li class="chapter" data-level="3.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-terms"><i class="fa fa-check"></i><b>3.1</b> The Terms</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#file-types"><i class="fa fa-check"></i><b>3.1.1</b> File Types</a></li>
+<li class="chapter" data-level="3.1.2" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#comma-separated-value-format-.csv"><i class="fa fa-check"></i><b>3.1.2</b> Comma-Separated Value Format (<code>.csv</code>)</a></li>
+<li class="chapter" data-level="3.1.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.3</b> The Working Directory</a></li>
+<li class="chapter" data-level="3.1.4" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#the-path"><i class="fa fa-check"></i><b>3.1.4</b> The Path</a></li>
+<li class="chapter" data-level="3.1.5" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#determining-the-path"><i class="fa fa-check"></i><b>3.1.5</b> Determining the Path</a></li>
+<li class="chapter" data-level="3.1.6" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#rio"><i class="fa fa-check"></i><b>3.1.6</b> <code>rio</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#data-frames"><i class="fa fa-check"></i><b>3.2</b> Data Frames</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#working-with-variables-in-data-frames"><i class="fa fa-check"></i><b>3.2.1</b> Working with Variables in Data Frames</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="loading-data-into-r.html"><a href="loading-data-into-r.html#how-well-always-use-r"><i class="fa fa-check"></i><b>3.3</b> How We’ll Always Use R</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="histograms.html"><a href="histograms.html"><i class="fa fa-check"></i><b>4</b> Histograms</a><ul>
+<li class="chapter" data-level="4.1" data-path="histograms.html"><a href="histograms.html#nominate-data"><i class="fa fa-check"></i><b>4.1</b> NOMINATE Data</a></li>
+<li class="chapter" data-level="4.2" data-path="histograms.html"><a href="histograms.html#histograms-geom_histogram"><i class="fa fa-check"></i><b>4.2</b> Histograms: <code>geom_histogram()</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="histograms.html"><a href="histograms.html#the-three-critical-components"><i class="fa fa-check"></i><b>4.2.1</b> The Three Critical Components</a></li>
+<li class="chapter" data-level="4.2.2" data-path="histograms.html"><a href="histograms.html#drawing-a-histogram"><i class="fa fa-check"></i><b>4.2.2</b> Drawing a Histogram</a></li>
+<li class="chapter" data-level="4.2.3" data-path="histograms.html"><a href="histograms.html#but-geom_histogram-uses-counts"><i class="fa fa-check"></i><b>4.2.3</b> But <code>geom_histogram()</code> uses counts!</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="histograms.html"><a href="histograms.html#filtering-filter"><i class="fa fa-check"></i><b>4.3</b> Filtering: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="histograms.html"><a href="histograms.html#faceting-facet_wrap"><i class="fa fa-check"></i><b>4.4</b> Faceting: <code>facet_wrap()</code></a></li>
+<li class="chapter" data-level="4.5" data-path="histograms.html"><a href="histograms.html#density-plots-geom_density"><i class="fa fa-check"></i><b>4.5</b> Density Plots: <code>geom_density()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="histograms.html"><a href="histograms.html#color-and-fill"><i class="fa fa-check"></i><b>4.6</b> Color and Fill</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="histograms.html"><a href="histograms.html#color"><i class="fa fa-check"></i><b>4.6.1</b> Color</a></li>
+<li class="chapter" data-level="4.6.2" data-path="histograms.html"><a href="histograms.html#fill"><i class="fa fa-check"></i><b>4.6.2</b> Fill</a></li>
+<li class="chapter" data-level="4.6.3" data-path="histograms.html"><a href="histograms.html#alpha"><i class="fa fa-check"></i><b>4.6.3</b> Alpha</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="histograms.html"><a href="histograms.html#labels-labs"><i class="fa fa-check"></i><b>4.7</b> Labels: <code>labs()</code></a></li>
+<li class="chapter" data-level="4.8" data-path="histograms.html"><a href="histograms.html#themes-theme_bw-and-others"><i class="fa fa-check"></i><b>4.8</b> Themes: <code>theme_bw()</code> and Others</a></li>
+<li class="chapter" data-level="4.9" data-path="histograms.html"><a href="histograms.html#putting-it-all-together"><i class="fa fa-check"></i><b>4.9</b> Putting It All Together</a></li>
+<li class="chapter" data-level="4.10" data-path="histograms.html"><a href="histograms.html#saving-plots-ggsave"><i class="fa fa-check"></i><b>4.10</b> Saving Plots: <code>ggsave()</code></a></li>
+</ul></li>
+<li class="part"><span><b>I Data Reduction</b></span></li>
+<li class="chapter" data-level="5" data-path="location-and-scale.html"><a href="location-and-scale.html"><i class="fa fa-check"></i><b>5</b> Location and Scale</a><ul>
+<li class="chapter" data-level="5.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>5.1</b> The Intuition</a></li>
+<li class="chapter" data-level="5.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-usual-measures"><i class="fa fa-check"></i><b>5.2</b> The Usual Measures</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-average"><i class="fa fa-check"></i><b>5.2.1</b> The Average</a></li>
+<li class="chapter" data-level="5.2.2" data-path="location-and-scale.html"><a href="location-and-scale.html#the-standard-deviation"><i class="fa fa-check"></i><b>5.2.2</b> The Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="location-and-scale.html"><a href="location-and-scale.html#robust-alternatives"><i class="fa fa-check"></i><b>5.3</b> Robust Alternatives</a></li>
+<li class="chapter" data-level="5.4" data-path="location-and-scale.html"><a href="location-and-scale.html#computation-in-r"><i class="fa fa-check"></i><b>5.4</b> Computation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="the-normal-model.html"><a href="the-normal-model.html"><i class="fa fa-check"></i><b>6</b> The Normal Model</a><ul>
+<li class="chapter" data-level="6.1" data-path="location-and-scale.html"><a href="location-and-scale.html#the-intuition"><i class="fa fa-check"></i><b>6.1</b> The Intuition</a></li>
+<li class="chapter" data-level="6.2" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-curves"><i class="fa fa-check"></i><b>6.2</b> The Normal Curve(s)</a></li>
+<li class="chapter" data-level="6.3" data-path="the-normal-model.html"><a href="the-normal-model.html#the-empirical-rule"><i class="fa fa-check"></i><b>6.3</b> The Empirical Rule</a></li>
+<li class="chapter" data-level="6.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>6.4</b> The Normal Approximation</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>6.4.1</b> Normal Table</a></li>
+<li class="chapter" data-level="6.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>6.4.2</b> <code>pnorm()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exactly Percentages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>6.5</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="the-x-y-space.html"><a href="the-x-y-space.html"><i class="fa fa-check"></i><b>7</b> The X-Y Space</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#points"><i class="fa fa-check"></i><b>7.1</b> Points</a></li>
+<li class="chapter" data-level="7.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#lines"><i class="fa fa-check"></i><b>7.2</b> Lines</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="the-x-y-space.html"><a href="the-x-y-space.html#the-intercept"><i class="fa fa-check"></i><b>7.2.1</b> The Intercept</a></li>
+<li class="chapter" data-level="7.2.2" data-path="the-x-y-space.html"><a href="the-x-y-space.html#slope"><i class="fa fa-check"></i><b>7.2.2</b> Slope</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="the-scatterplot.html"><a href="the-scatterplot.html"><i class="fa fa-check"></i><b>8</b> The Scatterplot</a><ul>
+<li class="chapter" data-level="8.1" data-path="the-scatterplot.html"><a href="the-scatterplot.html#geom_point"><i class="fa fa-check"></i><b>8.1</b> <code>geom_point()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-gapminder"><i class="fa fa-check"></i><b>8.2</b> Example: <code>gapminder</code></a></li>
+<li class="chapter" data-level="8.3" data-path="the-scatterplot.html"><a href="the-scatterplot.html#example-voteincome"><i class="fa fa-check"></i><b>8.3</b> Example: <code>voteincome</code></a></li>
+<li class="chapter" data-level="8.4" data-path="the-scatterplot.html"><a href="the-scatterplot.html#resources"><i class="fa fa-check"></i><b>8.4</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>9</b> Correlation Coefficient</a><ul>
+<li class="chapter" data-level="9.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#intuition"><i class="fa fa-check"></i><b>9.1</b> Intuition</a></li>
+<li class="chapter" data-level="9.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#computing"><i class="fa fa-check"></i><b>9.2</b> Computing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#by-hand"><i class="fa fa-check"></i><b>9.2.1</b> By Hand</a></li>
+<li class="chapter" data-level="9.2.2" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#with-r"><i class="fa fa-check"></i><b>9.2.2</b> With R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#interpreting"><i class="fa fa-check"></i><b>9.3</b> Interpreting</a></li>
+<li class="chapter" data-level="9.4" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-clark-and-golder-2006"><i class="fa fa-check"></i><b>9.4</b> Example: Clark and Golder (2006)</a></li>
+<li class="chapter" data-level="9.5" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html#example-feeling-thermometers"><i class="fa fa-check"></i><b>9.5</b> Example: Feeling Thermometers</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#review"><i class="fa fa-check"></i><b>10.1</b> Review</a></li>
+<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#the-equation"><i class="fa fa-check"></i><b>10.2</b> The Equation</a></li>
+<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#the-conditional-average"><i class="fa fa-check"></i><b>10.3</b> The Conditional Average</a></li>
+<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#the-best-line"><i class="fa fa-check"></i><b>10.4</b> The Best Line</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="regression.html"><a href="regression.html#grid-search"><i class="fa fa-check"></i><b>10.4.1</b> Grid Search</a></li>
+<li class="chapter" data-level="10.4.2" data-path="regression.html"><a href="regression.html#numerical-optimization"><i class="fa fa-check"></i><b>10.4.2</b> Numerical Optimization</a></li>
+<li class="chapter" data-level="10.4.3" data-path="regression.html"><a href="regression.html#analytical-optimization"><i class="fa fa-check"></i><b>10.4.3</b> Analytical Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#the-rms-of-the-residuals"><i class="fa fa-check"></i><b>10.5</b> The RMS of the Residuals</a></li>
+<li class="chapter" data-level="10.6" data-path="regression.html"><a href="regression.html#r2"><i class="fa fa-check"></i><b>10.6</b> <span class="math inline">\(R^2\)</span></a><ul>
+<li class="chapter" data-level="10.6.1" data-path="regression.html"><a href="regression.html#adequacy-of-a-line"><i class="fa fa-check"></i><b>10.6.1</b> Adequacy of a Line</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="regression.html"><a href="regression.html#fitting-regression-models"><i class="fa fa-check"></i><b>10.7</b> Fitting Regression Models</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="regression.html"><a href="regression.html#geom_smooth"><i class="fa fa-check"></i><b>10.7.1</b> <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="10.7.2" data-path="regression.html"><a href="regression.html#lm"><i class="fa fa-check"></i><b>10.7.2</b> <code>lm()</code></a></li>
+<li class="chapter" data-level="10.7.3" data-path="regression.html"><a href="regression.html#quick-look-at-the-fit"><i class="fa fa-check"></i><b>10.7.3</b> Quick Look at the Fit</a></li>
+<li class="chapter" data-level="10.7.4" data-path="regression.html"><a href="regression.html#post-processing"><i class="fa fa-check"></i><b>10.7.4</b> Post-Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="regression.html"><a href="regression.html#standard-errors-and-p-values"><i class="fa fa-check"></i><b>10.8</b> Standard Errors and <em>p</em>-Values</a></li>
+<li class="chapter" data-level="10.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>10.9</b> A Warning</a></li>
+<li class="chapter" data-level="10.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>10.10</b> Review Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Concepts and Computation: An Introduction to Political Methodology</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="histograms" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Histograms</h1>
+<p>Histograms (and their variants, such as density plots and dot plots) serve as a useful tool for understanding the distribution of a single, variable. For a histogram to work well, the variable of interest should take on enough values to require “binning” or lumping several values into the same column of the figure. This usually works for variables that we think of as continuous, such as income, age, effective number of political parties, GDP, number of casualties, etc.</p>
+<div id="nominate-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> NOMINATE Data</h2>
+<p>To see how histograms work, let’s work with estimates of the ideology of the U.S. House of Representatives. These data are called DW-NOMINATE Scores and are available at <a href="http://voteview.com/dwnl.htm">voteview.com</a>. The cleaned data set <code>nominate.csv</code> includes the 100th through the 114th Congresses and contains a variable called <code>ideology</code> that captures a representative’s ideology.</p>
+<p>These data are at the legislator-Congress level, so that each row in the data set represents an individual legislator in a particular Congress. More negative values indicate a more liberal representative. More positive values indicate a more conservative representative. For example, Ron Paul is one of the most conservative representatives in the data set with a score of about 0.86. Dennis Kucinich is among the most liberal and has a score of about -0.58.</p>
+<p>To get started, let’s load the cleaned data.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="histograms.html#cb114-1"></a><span class="co"># load packages</span></span>
+<span id="cb114-2"><a href="histograms.html#cb114-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb114-3"><a href="histograms.html#cb114-3"></a></span>
+<span id="cb114-4"><a href="histograms.html#cb114-4"></a><span class="co"># load data</span></span>
+<span id="cb114-5"><a href="histograms.html#cb114-5"></a>nominate &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/nominate.csv&quot;</span>)</span>
+<span id="cb114-6"><a href="histograms.html#cb114-6"></a><span class="co"># note: make sure the file &#39;nominate.csv&#39; is in the &#39;data&#39; subdirectory</span></span></code></pre></div>
+<p>We can use the <code>glimpse()</code> function (part of tidyverse) to check that we properly load the data and get a quick overview. It shows us the variable names, the types of variables we’re working with (e.g., character, integer, double), and the first few values.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="histograms.html#cb115-1"></a><span class="co"># quick look at the data</span></span>
+<span id="cb115-2"><a href="histograms.html#cb115-2"></a><span class="kw">glimpse</span>(nominate)</span></code></pre></div>
+<pre><code>## Rows: 7,080
+## Columns: 7
+## $ congress &lt;dbl&gt; 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, …
+## $ chamber  &lt;chr&gt; &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House…
+## $ state    &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AK&quot;, &quot;AZ&quot;, &quot;AZ&quot;, …
+## $ district &lt;dbl&gt; 2, 4, 3, 5, 6, 1, 7, 1, 2, 3, 5, 4, 1, 3, 1, 4, 2, 36, 10, 2…
+## $ party    &lt;chr&gt; &quot;Republican&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;…
+## $ name     &lt;chr&gt; &quot;DICKINSON, William Louis&quot;, &quot;BEVILL, Tom&quot;, &quot;NICHOLS, William…
+## $ ideology &lt;dbl&gt; 0.398, -0.213, -0.042, -0.175, -0.060, 0.373, -0.085, 0.279,…</code></pre>
+<p>I’ve given the variables very descriptive names, but if you need more information, look in <a href="data/nominate-codebook.html">my codebook</a>.</p>
+</div>
+<div id="histograms-geom_histogram" class="section level2">
+<h2><span class="header-section-number">4.2</span> Histograms: <code>geom_histogram()</code></h2>
+<p>Now let’s try a histogram.</p>
+<p>To do this, we’ll use R package ggplot2, which is part of tidyverse. When we ran <code>library(tidyverse)</code>, it automatically loaded ggplot2. If we hadn’t already run <code>library(tidyverse)</code>, we could run <code>library(ggplot2)</code>.</p>
+<p>Though ggplot2 is a complex package, we’ll get some sense of how it works this semester. It is <a href="https://ggplot2.tidyverse.org">well-documented online</a>, so feel free to read about it as much as you want or need.</p>
+<div id="the-three-critical-components" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> The Three Critical Components</h3>
+<p>There are three critical components to each plot created using ggplot2, which we’ll refer to as a “ggplot.”</p>
+<ol style="list-style-type: decimal">
+<li><strong>the data</strong>: a formal data frame in R.</li>
+<li><strong>the aesthetics</strong>: the relationship between the variables in the data set and the aesthetics of the plotted objects–location, color, size, shape, etc.</li>
+<li><strong>the geometry</strong>: the type of plot.</li>
+</ol>
+<p>There are other components, such as scales, statistics, and coordinate systems, but these the three critical components usually provide what we need.</p>
+</div>
+<div id="drawing-a-histogram" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Drawing a Histogram</h3>
+<ol style="list-style-type: decimal">
+<li>data: the first argument to <code>ggplot()</code>. Because the variable we want to plot, <code>ideology</code> is contained in the data frame <code>nominate</code>, we use <code>nominate</code> as the first argument.</li>
+<li>aesthetic: the second argument to <code>ggplot()</code>. Because we want to create a histogram, we want <code>ideology</code> to correspond to the location along the horizontal-axis. To create this correspondence, we use <code>aes(x = ideology)</code> as the second argument.</li>
+<li>geometry: added to <code>ggplot()</code> with <code>+</code>. Because we want a histogram, we use <code>geom_histogram()</code>. (It’s weird to add a function to another function with <code>+</code>. And it is unusual. Nothing else in R works quite like this. It’s how ggplot2 works, though.)</li>
+</ol>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="histograms.html#cb117-1"></a><span class="co"># specify data and aesthetic, then add the geometry</span></span>
+<span id="cb117-2"><a href="histograms.html#cb117-2"></a><span class="kw">ggplot</span>(nominate, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-25-1.png" width="288" /></p>
+<p>This histogram makes sense. We have a grouping of Democrats (presumably) on the left and a grouping of Republicans (again, presumably) on the right. You could probably come up with a model that explains why there are few politicians in the center.</p>
+<p>There are three subtle points that I should emphasize about the line <code>ggplot(nominate, aes(x = ideology)) + geom_histogram()</code>.</p>
+<ol style="list-style-type: decimal">
+<li>The first argument supplied to <code>ggplot()</code> is the data. The second argument is the aesthetics.</li>
+<li>The second argument, <code>aes(...)</code> is itself a function. This function just creates the “aesthetic mapping,” a link between the variables in the data set and space, color, size, shape, etc, in the chart.</li>
+<li><code>geom_histogram()</code> is also a function, but it is added to the plot using <code>+</code>. We’ll see several other functions that can be added to the plot.</li>
+</ol>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>List and describe the three critical components of a ggplot.</li>
+<li>In the following snippet of code, label the data, the aesthetics, and the geometry: <code>ggplot(nominate, aes(x = ideology)) + geom_histogram()</code>.</li>
+<li>In this section, we’ve seen three new functions: <code>ggplot()</code>, <code>aes()</code>, and <code>geom_histogram()</code>. Describe what each one does and how to use it.</li>
+</ol>
+</div>
+<div id="but-geom_histogram-uses-counts" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> But <code>geom_histogram()</code> uses counts!</h3>
+<p>FPP uses density on the vertical-axis, not counts. <code>geom_histogram()</code> uses counts by default.</p>
+<p>This is important, because if the bin widths of the histograms are not equal, then counts create a misleading histogram. However, if the bin widths are equal, then counts and densities produce identically shaped histograms. (The vertical axis has a different scale, though.)</p>
+<p>Becaue we tend to use equal bin widths in practice, it often doesn’t matter whether we use counts or densities.</p>
+<p>If you want to change the default behavior, add <code>y = ..density..</code> to the aesthetics. (By default, <code>geom_histogram()</code> sets <code>y = ..count..</code>.)</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="histograms.html#cb118-1"></a><span class="co"># specify data and aesthetic, then add the geometry</span></span>
+<span id="cb118-2"><a href="histograms.html#cb118-2"></a><span class="kw">ggplot</span>(nominate, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">y =</span> ..density..)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-26-1.png" width="288" /></p>
+</div>
+</div>
+<div id="filtering-filter" class="section level2">
+<h2><span class="header-section-number">4.3</span> Filtering: <code>filter()</code></h2>
+<p>Above, I plot the distribution of ideology scores for 15 different Congresses (the 100th through the 114th) in the same histogram.</p>
+<p>Let’s create a histogram for the 100th Congress only.</p>
+<p>To do this, first create a data set that contains only cases from the 100th Congress</p>
+<p>To create a subset of <code>nominate</code> that only contains the 100th Congress, use the <code>filter()</code> function (part of tidyverse). The first argument to <code>filter()</code> is the data frame to be filtered and the second argument is a logical statement that identifies the cases <em>to keep</em>.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="histograms.html#cb119-1"></a><span class="co"># filter the 100th congress</span></span>
+<span id="cb119-2"><a href="histograms.html#cb119-2"></a>nominate100 &lt;-<span class="st"> </span><span class="kw">filter</span>(nominate, congress <span class="op">==</span><span class="st"> </span><span class="dv">100</span>)</span>
+<span id="cb119-3"><a href="histograms.html#cb119-3"></a></span>
+<span id="cb119-4"><a href="histograms.html#cb119-4"></a><span class="co"># quick look</span></span>
+<span id="cb119-5"><a href="histograms.html#cb119-5"></a><span class="kw">glimpse</span>(nominate100)</span></code></pre></div>
+<pre><code>## Rows: 441
+## Columns: 7
+## $ congress &lt;dbl&gt; 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, …
+## $ chamber  &lt;chr&gt; &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House…
+## $ state    &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AK&quot;, &quot;AZ&quot;, &quot;AZ&quot;, …
+## $ district &lt;dbl&gt; 2, 4, 3, 5, 6, 1, 7, 1, 2, 3, 5, 4, 1, 3, 1, 4, 2, 36, 10, 2…
+## $ party    &lt;chr&gt; &quot;Republican&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;, &quot;Democrat&quot;…
+## $ name     &lt;chr&gt; &quot;DICKINSON, William Louis&quot;, &quot;BEVILL, Tom&quot;, &quot;NICHOLS, William…
+## $ ideology &lt;dbl&gt; 0.398, -0.213, -0.042, -0.175, -0.060, 0.373, -0.085, 0.279,…</code></pre>
+<p>Use this new data frame to draw the histgram.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="histograms.html#cb121-1"></a><span class="co"># create histogram for 100th congress</span></span>
+<span id="cb121-2"><a href="histograms.html#cb121-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-28-1.png" width="288" /></p>
+<p>Repeat that process, but for the 114th Congress.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="histograms.html#cb122-1"></a><span class="co"># subset data to only 114th congress</span></span>
+<span id="cb122-2"><a href="histograms.html#cb122-2"></a>nominate114 &lt;-<span class="st"> </span><span class="kw">filter</span>(nominate, congress <span class="op">==</span><span class="st"> </span><span class="dv">114</span>)</span>
+<span id="cb122-3"><a href="histograms.html#cb122-3"></a></span>
+<span id="cb122-4"><a href="histograms.html#cb122-4"></a><span class="co"># quick look</span></span>
+<span id="cb122-5"><a href="histograms.html#cb122-5"></a><span class="kw">glimpse</span>(nominate114)</span></code></pre></div>
+<pre><code>## Rows: 441
+## Columns: 7
+## $ congress &lt;dbl&gt; 114, 114, 114, 114, 114, 114, 114, 114, 114, 114, 114, 114, …
+## $ chamber  &lt;chr&gt; &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House&quot;, &quot;House…
+## $ state    &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AK&quot;, &quot;AZ&quot;, &quot;AZ&quot;, …
+## $ district &lt;dbl&gt; 3, 7, 2, 5, 1, 6, 4, 1, 8, 3, 1, 4, 6, 9, 2, 7, 5, 1, 3, 2, …
+## $ party    &lt;chr&gt; &quot;Republican&quot;, &quot;Democrat&quot;, &quot;Republican&quot;, &quot;Republican&quot;, &quot;Repub…
+## $ name     &lt;chr&gt; &quot;ROGERS, Mike Dennis&quot;, &quot;SEWELL, Terri&quot;, &quot;ROBY, Martha&quot;, &quot;BRO…
+## $ ideology &lt;dbl&gt; 0.338, -0.390, 0.367, 0.600, 0.544, 0.779, 0.361, 0.279, 0.7…</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="histograms.html#cb124-1"></a><span class="co"># create histogram</span></span>
+<span id="cb124-2"><a href="histograms.html#cb124-2"></a><span class="kw">ggplot</span>(nominate114, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-29-1.png" width="288" /></p>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Explain what the <code>filter()</code> function does and how to use it. What are the first and second arguments? What type of object does it return? Use <code>help(filter)</code> for the details.</li>
+</ol>
+</div>
+<div id="faceting-facet_wrap" class="section level2">
+<h2><span class="header-section-number">4.4</span> Faceting: <code>facet_wrap()</code></h2>
+<p>Let’s investigate this divergence in the parties more carefully.</p>
+<p>Is the left hump actually Democrats? Is the right hump actually Republicans?</p>
+<p>Apply a facet to the histogram. A facet simply breaks the data frame into subsets and draws one histogram per subset.</p>
+<p>Create a facet by adding the function <code>facet_wrap()</code> to the plot. You’ll have to specify the faceting variable as an argument to the <code>facet_wrap()</code> function. In this case, we’ll do it by <code>party</code>, adding <code>+ facet_wrap(vars(party))</code> (i.e., “create a facet by the variable party”) to the ggplot we’ve been using.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="histograms.html#cb125-1"></a><span class="co"># build histogram</span></span>
+<span id="cb125-2"><a href="histograms.html#cb125-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb125-3"><a href="histograms.html#cb125-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb125-4"><a href="histograms.html#cb125-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(party))</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-30-1.png" width="576" /></p>
+<p>Indeed, the left hump is Democrats and the right hump is Republicans.</p>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>What does a facet do to a plot?</li>
+<li>Explain what the <code>facet_wrap()</code> function does and how to use it.</li>
+<li>Suppose I added <code>+ facet_wrap(party)</code>. Would that work? What is missing?</li>
+<li>Suppose you <code>+ facet_wrap(vars(state))</code> to <code>ggplot(nominate100, aes(x = ideology)) + geom_histogram()</code>. What would happen?</li>
+<li><code>facet_grid()</code> offers an alternative method to faceting. How is it different from <code>facet_wrap()</code>? You might find <a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">this</a> documentation helpful. With an example, show how to use <code>facet_grid()</code>.</li>
+</ol>
+</div>
+<div id="density-plots-geom_density" class="section level2">
+<h2><span class="header-section-number">4.5</span> Density Plots: <code>geom_density()</code></h2>
+<p>FPP sometimes uses a rough sketch of a histogram using a smooth curve rather than a complete histograms with vertical bars.</p>
+<p>For our purposes, a density plot is a smooth curve that approximates a histogram.</p>
+<p>We can easily create a density plot rather than a histogram by using <code>geom_density()</code> as the geometry rather than <code>geom_histogram()</code>.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="histograms.html#cb126-1"></a><span class="co"># create density plot</span></span>
+<span id="cb126-2"><a href="histograms.html#cb126-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb126-3"><a href="histograms.html#cb126-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-31-1.png" width="288" /></p>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>How is a density plot similar to and different from a histogram? The proceedure for estimating the density is actually complicated and there are several ways to do it. I care about the intuition.</li>
+<li>What does the function <code>geom_density()</code> do and how do you use it?</li>
+</ol>
+</div>
+<div id="color-and-fill" class="section level2">
+<h2><span class="header-section-number">4.6</span> Color and Fill</h2>
+<div id="color" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Color</h3>
+<p>A density plot has the advantage it uses less ink. Because of this, we could use color rather than faceting to distinguish Republicans and Democrats.</p>
+<p>To distinguish Republicans and Democrats with color, add <code>color = party</code> to the aesthetics.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="histograms.html#cb127-1"></a><span class="co"># build density plot</span></span>
+<span id="cb127-2"><a href="histograms.html#cb127-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">color =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb127-3"><a href="histograms.html#cb127-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-32-1.png" width="384" /></p>
+<p>This look really good! Since we are most interested in the overlap between the parties, I think this density plot makes more sense for us, so let’s stick with it.</p>
+</div>
+<div id="fill" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Fill</h3>
+<p>Instead of coloring the lines differently, you can “fill” the density with different colors. While the color aesthetic represents the color of the line itself, the fill aesthetic represents the fill inside the line.</p>
+<p>To distinguish between the parties using fill, add <code>fill = party</code> to the aesthetics.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="histograms.html#cb128-1"></a><span class="co"># build density plot</span></span>
+<span id="cb128-2"><a href="histograms.html#cb128-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb128-3"><a href="histograms.html#cb128-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-33-1.png" width="384" /></p>
+</div>
+<div id="alpha" class="section level3">
+<h3><span class="header-section-number">4.6.3</span> Alpha</h3>
+<p>Notice that the Republican fill (blue-green) completely covers the Democrat fill (orange-red). But here’s a hint. The <code>alpha</code> argument to <code>geom_density()</code> controls the transparency. <code>alpha = 0</code> is completely transparent. <code>alpha = 1</code> is not transparent at all.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="histograms.html#cb129-1"></a><span class="co"># build density plot</span></span>
+<span id="cb129-2"><a href="histograms.html#cb129-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb129-3"><a href="histograms.html#cb129-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-34-1.png" width="384" /></p>
+<p>This slight transparency makes both distributions visible, even when the two overlap.</p>
+<p><strong>Review Questions</strong></p>
+<ol style="list-style-type: decimal">
+<li>Explain the difference between the color and fill aesthetics for density plots.</li>
+<li>Use color to show the separate distributions of ideology scores for all 15 Congresses. It this useful?</li>
+<li>Explain how alpha transparency works and why you might use it. Suppose I used <code>alpha = 0.1</code> instead of <code>alpha = 0.5</code> in the plot above. How would the plot change?</li>
+</ol>
+</div>
+</div>
+<div id="labels-labs" class="section level2">
+<h2><span class="header-section-number">4.7</span> Labels: <code>labs()</code></h2>
+<p>By default, <code>ggplot()</code> uses the variable names to label the axes and legend. By default, there is no title, subtitle, or caption.</p>
+<p>You will usually want to improve the axis labels and legends. You will sometimes want to add a title, subtitle, and/or caption. Make these changes by adding the <code>labs()</code> function to the plot.</p>
+<p>To the <code>labs()</code> function, supply one argument per aesthetic, such as <code>x</code>, <code>y</code>, <code>color</code>, or <code>fill</code>. You can also supply arguments for <code>title</code>, <code>subtitle</code>, or <code>caption</code> if you wish. These argument are character strings (surrounded by quotes), such as <code>"Ideology Score"</code> or <code>"A Density Plot of Ideology Scores for the 100th Congress"</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="histograms.html#cb130-1"></a><span class="co"># build density plot</span></span>
+<span id="cb130-2"><a href="histograms.html#cb130-2"></a><span class="kw">ggplot</span>(nominate, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb130-3"><a href="histograms.html#cb130-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb130-4"><a href="histograms.html#cb130-4"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Ideology Score&quot;</span>,</span>
+<span id="cb130-5"><a href="histograms.html#cb130-5"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>,</span>
+<span id="cb130-6"><a href="histograms.html#cb130-6"></a>       <span class="dt">fill =</span> <span class="st">&quot;Party&quot;</span>,</span>
+<span id="cb130-7"><a href="histograms.html#cb130-7"></a>       <span class="dt">title =</span> <span class="st">&quot;A Density Plot of Ideology Scores for the 100th Congress&quot;</span>,</span>
+<span id="cb130-8"><a href="histograms.html#cb130-8"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;There Are Few Moderates in Congress&quot;</span>,</span>
+<span id="cb130-9"><a href="histograms.html#cb130-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Data Source: DW-NOMINATE from voteview.com&quot;</span>)</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-35-1.png" width="576" /></p>
+<p>This plot looks pretty nice.</p>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>By default, how does <code>ggplot()</code> label the axes and legends?</li>
+<li>How can you change the default labels? How can you add a title, subtitle, or caption?</li>
+<li>Explain what the <code>labs()</code> function does and how to use it.</li>
+<li>Explain, in as much detail as you can, what each part the last block of code above does.</li>
+</ol>
+</div>
+<div id="themes-theme_bw-and-others" class="section level2">
+<h2><span class="header-section-number">4.8</span> Themes: <code>theme_bw()</code> and Others</h2>
+<p>Use themes to control the overall look of our ggplots. The theme controls elements such as the color of the background, the font family and size, the color and size of the grid, etc.</p>
+<p>There are the six themes provided with ggplot2.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Theme</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>theme_grey()</code></td>
+<td>The signature ggplot2 theme with a grey background and white gridlines, designed to put the data forward yet make comparisons easy.</td>
+</tr>
+<tr class="even">
+<td><code>theme_bw()</code></td>
+<td>The classic dark-on-light ggplot2 theme. May work better for presentations displayed with a projector.</td>
+</tr>
+<tr class="odd">
+<td><code>theme_linedraw()</code></td>
+<td>A theme with only black lines of various widths on white backgrounds, reminiscent of a line drawings. Serves a purpose similar to <code>theme_bw()</code>.</td>
+</tr>
+<tr class="even">
+<td><code>theme_light()</code></td>
+<td>A theme similar to <code>theme_linedraw()</code> but with light grey lines and axes, to direct more attention towards the data.</td>
+</tr>
+<tr class="odd">
+<td><code>theme_minimal()</code></td>
+<td>A minimalist theme with no background annotations.</td>
+</tr>
+<tr class="even">
+<td><code>theme_classic()</code></td>
+<td>A classic-looking theme, with x and y axis lines and no gridlines.</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what happens when you add <code>theme_bw()</code> (my favorite!) to the plot.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="histograms.html#cb131-1"></a><span class="co"># build density plot</span></span>
+<span id="cb131-2"><a href="histograms.html#cb131-2"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb131-3"><a href="histograms.html#cb131-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb131-4"><a href="histograms.html#cb131-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-36-1.png" width="384" /></p>
+<p>If you are interested, the <code>ggthemes</code> package includes several other themes.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Theme</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>theme_economist()</code></td>
+<td>based on the Economist</td>
+</tr>
+<tr class="even">
+<td><code>theme_economist_white()</code></td>
+<td>based on the Economist</td>
+</tr>
+<tr class="odd">
+<td><code>theme_excel()</code></td>
+<td>based on Excel</td>
+</tr>
+<tr class="even">
+<td><code>theme_few()</code></td>
+<td>based on Few’s “Practical Rules for Using Color in Charts”</td>
+</tr>
+<tr class="odd">
+<td><code>theme_fivethirtyeight()</code></td>
+<td>based on fivethirtyeight.com plots</td>
+</tr>
+<tr class="even">
+<td><code>theme_gdocs()</code></td>
+<td>based on Google docs</td>
+</tr>
+<tr class="odd">
+<td><code>theme_igray()</code></td>
+<td>inverse grey</td>
+</tr>
+<tr class="even">
+<td><code>theme_pander()</code></td>
+<td>based on the pander package</td>
+</tr>
+<tr class="odd">
+<td><code>theme_solarized()</code></td>
+<td>based on the Solarized palette</td>
+</tr>
+<tr class="even">
+<td><code>theme_solarized_2()</code></td>
+<td>based on the Solarized palette</td>
+</tr>
+<tr class="odd">
+<td><code>theme_stata()</code></td>
+<td>based on default Stata graphics</td>
+</tr>
+<tr class="even">
+<td><code>theme_tufte()</code></td>
+<td>based on Tufte–minimum ink, maximum data</td>
+</tr>
+<tr class="odd">
+<td><code>theme_wsj()</code></td>
+<td>based on Wall Street Journal</td>
+</tr>
+</tbody>
+</table>
+<p>Try the the infamous (famously ugly) Excel theme.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="histograms.html#cb132-1"></a><span class="co"># load packages</span></span>
+<span id="cb132-2"><a href="histograms.html#cb132-2"></a><span class="kw">library</span>(ggthemes)  <span class="co"># for additional themes and even more fun!</span></span>
+<span id="cb132-3"><a href="histograms.html#cb132-3"></a></span>
+<span id="cb132-4"><a href="histograms.html#cb132-4"></a><span class="co"># build density plot</span></span>
+<span id="cb132-5"><a href="histograms.html#cb132-5"></a><span class="kw">ggplot</span>(nominate100, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb132-6"><a href="histograms.html#cb132-6"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb132-7"><a href="histograms.html#cb132-7"></a><span class="st">  </span><span class="kw">theme_excel</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-37-1.png" width="384" /></p>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>What are themes in ggplot2? What do they control/change?</li>
+<li>How do you change the theme of a ggplot?</li>
+<li>What are a few theme options from ggplot2? From ggthemes?</li>
+<li>Try a few different themes from both ggplot2 and ggthemes. What is your favorite and why?</li>
+</ol>
+</div>
+<div id="putting-it-all-together" class="section level2">
+<h2><span class="header-section-number">4.9</span> Putting It All Together</h2>
+<p>We’ll add two things back in. First, we’ll put out nice labels back in. Second, let’s go back to the <code>nominate</code> data frame (we’ve been using <code>nominate100</code>) and facet by Congress.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="histograms.html#cb133-1"></a><span class="co"># build density plot</span></span>
+<span id="cb133-2"><a href="histograms.html#cb133-2"></a><span class="kw">ggplot</span>(nominate, <span class="kw">aes</span>(<span class="dt">x =</span> ideology, <span class="dt">fill =</span> party)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb133-3"><a href="histograms.html#cb133-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb133-4"><a href="histograms.html#cb133-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>congress) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb133-5"><a href="histograms.html#cb133-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Ideology Score&quot;</span>,</span>
+<span id="cb133-6"><a href="histograms.html#cb133-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>,</span>
+<span id="cb133-7"><a href="histograms.html#cb133-7"></a>       <span class="dt">fill =</span> <span class="st">&quot;Party&quot;</span>,</span>
+<span id="cb133-8"><a href="histograms.html#cb133-8"></a>       <span class="dt">title =</span> <span class="st">&quot;A Density Plot of Ideology Scores for the 100th Congress&quot;</span>,</span>
+<span id="cb133-9"><a href="histograms.html#cb133-9"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;There Are Few Moderates in Congress&quot;</span>,</span>
+<span id="cb133-10"><a href="histograms.html#cb133-10"></a>       <span class="dt">caption =</span> <span class="st">&quot;Data Source: DW-NOMINATE from voteview.com&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb133-11"><a href="histograms.html#cb133-11"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-38-1.png" width="768" /></p>
+</div>
+<div id="saving-plots-ggsave" class="section level2">
+<h2><span class="header-section-number">4.10</span> Saving Plots: <code>ggsave()</code></h2>
+<p>It is quite easy to save a ggplot as a <code>.png</code> or some other file. You just use the function <code>ggsave()</code>, which, by default, saves the last plot you created.</p>
+<ol style="list-style-type: decimal">
+<li>Create the plot you want.</li>
+<li>Decide the file type you want to save your figure as. <code>.png</code> is a fine choice for our purposes.</li>
+<li>Choose where you want to save your figure. This should be somewhere in your working directory. I use <code>doc/figs/</code>.</li>
+<li>Choose a compact, descriptive name for your figure. For our final density plot, perhaps use <code>ideology-by-congress.png</code>.</li>
+<li>Use <code>ggsave()</code>.</li>
+</ol>
+<p>There are three important arguments to <code>ggsave()</code>.</p>
+<ol style="list-style-type: decimal">
+<li><code>filename</code>: This is the first argument to <code>ggsave()</code>. This is the file path. Given the choices above, it’s <code>"doc/figs/ideology-density-by-congress.png"</code>.</li>
+<li><code>height</code>: Explicitly name this argument. It controls the height of the figure (in inches, by default). <code>height = 4</code> is a good starting point, but experiment.</li>
+<li><code>width</code>: Explicitly name this argument. It controls the width of the figure (in inches, by default). <code>width = 5</code> is a good starting point, but experiment.</li>
+</ol>
+<pre><code># save last plot as png
+ggsave(&quot;doc/figs/ideology-density-by-congress.pdf&quot;, height = 5, width = 8)</code></pre>
+<p>Just to review and wrap up, here is the fill R script that I might use to create and save this figure.</p>
+<pre><code># load packages
+library(tidyverse)  # loads readr, ggplot2, and others
+
+# load data
+nominate &lt;- read_csv(&quot;data/nominate.csv&quot;)  # data are in the data/ subdirectory
+
+# quick look at the data
+glimpse(nominate)
+
+# build plot
+ggplot(nominate, aes(x = ideology, fill = party)) + 
+  geom_density(alpha = 0.5) + 
+  facet_wrap(vars(congress)) + 
+  labs(x = &quot;Ideology Score&quot;,
+       y = &quot;Density&quot;,
+       fill = &quot;Party&quot;,
+       title = &quot;A Density Plot of Ideology Scores for the 100th Congress&quot;,
+       subtitle = &quot;There Are Few Moderates in Congress&quot;,
+       caption = &quot;Data Source: DW-NOMINATE from voteview.com&quot;) + 
+  theme_bw()
+
+# save last plot as png to the figs subfolder of the doc subfolder
+ggsave(&quot;doc/figs/ideology-density-by-congress.pdf&quot;, height = 5, width = 8)</code></pre>
+<p><strong>Review Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Explain how to save a ggplot. Be sure to discuss each of the five steps.</li>
+<li>Identify and describe each of the three arguments we usually supply to <code>ggsave()</code>.</li>
+<li>Explain, in as much detail as you can, what each part the last block of code above does.</li>
+</ol>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="loading-data-into-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="location-and-scale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["concepts-and-computation.pdf", "concepts-and-computation.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
