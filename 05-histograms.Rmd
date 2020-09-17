@@ -320,7 +320,7 @@ We'll add two things back in. First, we'll put out nice labels back in. Second, 
 # build density plot
 ggplot(nominate, aes(x = ideology, fill = party)) + 
   geom_density(alpha = 0.5) + 
-  facet_wrap(~congress) + 
+  facet_wrap(vars(congress)) + 
   labs(x = "Ideology Score",
        y = "Density",
        fill = "Party",
