@@ -211,7 +211,7 @@ pnorm(1, mean = 1, sd = 4)
 pnorm(1.64) - pnorm(-1.64)
 ```
 
-### Exactly Percentages
+### Exact Percentages
 
 To actually compute percentages, we can create a function that works just like `pnorm()`, but it returns the percent *of the data* that fall below a particular value. The most convenient method is to create an "empirical cumulative distribution function*. 
 

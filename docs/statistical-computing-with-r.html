@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2020-10-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,7 @@
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -236,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>6.4</b> The Normal Approximation</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>6.4.1</b> Normal Table</a></li>
 <li class="chapter" data-level="6.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>6.4.2</b> <code>pnorm()</code></a></li>
-<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exactly Percentages</a></li>
+<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exact-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exact Percentages</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>6.5</b> Review Exercises</a></li>
 </ul></li>
@@ -286,6 +287,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>10.9</b> A Warning</a></li>
 <li class="chapter" data-level="10.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>10.10</b> Review Exercises</a></li>
 </ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendix-a-normal-table.html"><a href="appendix-a-normal-table.html"><i class="fa fa-check"></i><b>A</b> Appendix: A Normal Table</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -754,11 +757,12 @@ install.packages(&quot;ggthemes&quot;)</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="statistical-computing-with-r.html#cb93-1"></a><span class="kw">qplot</span>(x, y)</span></code></pre></div>
 <pre><code>## Error in qplot(x, y): could not find function &quot;qplot&quot;</code></pre>
 <p>You’ll notice that the <code>qplot()</code> function cannot be found. That’s because while ggplot2 is <em>installed</em> (i.e., present in the library), it is not loaded (i.e., off the shelf). If you want to use a function from the ggplot2 package, you need to load the package using the <code>library()</code> function. You need to load the package each time you start a new session (e.g., restart RStudio), so be sure to include this in your script. Notice that you do not need to use quotes around the name of the package when using the <code>library()</code> function.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="statistical-computing-with-r.html#cb95-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb95-2"><a href="statistical-computing-with-r.html#cb95-2"></a><span class="kw">qplot</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="statistical-computing-with-r.html#cb95-1"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.2</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="statistical-computing-with-r.html#cb97-1"></a><span class="kw">qplot</span>(x, y)</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>When we use <code>library()</code>, it loads the entire set of functions in the package into our workspace, making them all accessible to us. There are literally hundreds of functions in the ggplot2 package. If we prefer to avoid loading all the functions, we can use the syntax <code>package::function()</code> to tell R where to find the function in the library without loading all the functions into the workspace.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="statistical-computing-with-r.html#cb96-1"></a>ggplot2<span class="op">::</span><span class="kw">qplot</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="statistical-computing-with-r.html#cb98-1"></a>ggplot2<span class="op">::</span><span class="kw">qplot</span>(x, y)</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p><code>ggplot2::qplot(x, y)</code> will work whether or not ggplot2 is loaded.</p>
 <p>I don’t have strong feelings about which approach is better–it depends on the context. If you only need to use one function from package one time, then perhaps it makes more sense to use the <code>package::function()</code> approach. If you’ll be using many functions many times, then it makes sense to use <code>library()</code>. Use whichever makes most sense to you. However, I’ll tend to use <code>package::function()</code> a lot, because it makes it clear where the function is coming from.</p>

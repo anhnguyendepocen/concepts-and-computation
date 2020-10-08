@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology</title>
+  <title>A Appendix: A Normal Table | Concepts and Computation: An Introduction to Political Methodology</title>
   <meta name="description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta property="og:title" content="A Appendix: A Normal Table | Concepts and Computation: An Introduction to Political Methodology" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Loading Data into R | Concepts and Computation: An Introduction to Political Methodology" />
+  <meta name="twitter:title" content="A Appendix: A Normal Table | Concepts and Computation: An Introduction to Political Methodology" />
   
   <meta name="twitter:description" content="These are my notes for my class introducing the fundamental conceptual and computational tools to first-year PhD students in politial science." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-computing-with-r.html"/>
-<link rel="next" href="histograms.html"/>
+<link rel="prev" href="regression.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -310,238 +310,804 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-data-into-r" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Loading Data into R</h1>
-<p>Rather than manually entering data using <code>c()</code> or something else, we’ll want to load data in stored in a data file.</p>
-<div id="the-terms" class="section level2">
-<h2><span class="header-section-number">3.1</span> The Terms</h2>
-<p>There are three important ingredients in loading a data set into R.</p>
-<ol style="list-style-type: decimal">
-<li>The file type, usually indicated by the extension (<code>.rds</code>, <code>.csv</code>, <code>.dta</code>, <code>.xlsx</code>).</li>
-<li>The current working directory.</li>
-<li>The file path (relative to the working directory).</li>
-</ol>
-<div id="file-types" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> File Types</h3>
-<p>In political science, our data sets are usually one of four types:</p>
-<ol style="list-style-type: decimal">
-<li>R data or <code>.rds</code> files. This is the easiest format because it stores factors as factors and all the related information. Read with <code>readr::read_rds()</code>. Note that readr is part of the tidyverse, so <code>library(tidyverse)</code> loads readr. (I explain a “data frame” below, but realize that an <code>.rds</code> file can contain any R object, not just a data frame.)</li>
-<li>comma-separated value or <code>.csv</code> files. This is a common, sharable, robust data file type. You can open these files with any statistical software. GitHub renders these nicely. However, the csv format does not distinguish between factors as character strings, and treats variables as numbers or characters. Read with <code>readr::read_csv()</code>.</li>
-<li>Stata or <code>.dta</code> files. Another common data format because many political scientists use Stata. Read these files into R with <code>haven::read_dta()</code>.</li>
-<li>Excel or <code>.xlsx</code> files. Another common data format because data are easy to enter into spreadsheets like Excel. Read these files into R with <code>readxl::read_excel()</code>.</li>
-</ol>
-</div>
-<div id="comma-separated-value-format-.csv" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Comma-Separated Value Format (<code>.csv</code>)</h3>
-<p>Data can be stored in a wide range of formats. One popular format, for example, is Stata’s proprietary <code>.dta</code> format. I typically use (and encourage you to use) the comma-separated values <code>.csv</code> format. The <code>.csv</code> format is excellent because it is open and simple. This means that anyone can use it without acess to proprietary software. It will also be useble by anyone into the foreseeable future. We can see why <code>.csv</code> files are easy to work with if we open it up the file <code>nominate.csv</code> with a text editor. You’ll see that you–with your eyes–can read the file directly. You don’t really need software at all!</p>
-<div class="figure">
-<img src="img/computing/csv-text-editor.png" alt="" />
-<p class="caption"><code>.csv</code> in a Text Editor</p>
-</div>
-<p>I tried the same thing for a similar <code>.dta</code> file. With your eyes, it looks like nonsense. You’ll definitely need Stata (or other speciallized software) to work with this file.</p>
-<div class="figure">
-<img src="img/computing/dta-text-editor.png" alt="" />
-<p class="caption"><code>.dta</code> in a Text Editor</p>
-</div>
-<p>Also, <code>.csv</code> files are easy to support, so they work in almost all data analysis software. For example, we can open up <code>nominate.csv</code> in Excel. You can see that we have six variables in the columns and many cases in the rows (we don’t know how many because they overflow the screen). In this case, each row represents a particular Congressperson from a particular Congress (with Presidents as well. The second row, for example, is for Rep. Callahan (R) from the 1st Congressional District of Alabama. During the 100th Congress, Rep. Calahan has a ideology score of 0.358, which means he’s conservative, but not as conservative as Pres. Reagan, who has a score of 0.747. We’ll work with these data a lot thoughout the semester, so we’ll have plenty of time for closer examination.</p>
-<div class="figure">
-<img src="img/computing/csv-excel.png" alt="" />
-<p class="caption"><code>.csv</code> in Excel</p>
-</div>
-</div>
-<div id="the-working-directory" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> The Working Directory</h3>
-<p>Any time you work in R (or RStudio), you are working from a “working directory.” That is, whenever R needs to locate a file to load it or save it, it looks in the working directory.</p>
-<p>For example, I’m writing a paper now. I named the project directory <code>wilks/</code> (which I placed in a folder called <code>projects/</code> in my Dropbox folder.) If I open this project by double-clicking <code>wilks.Rproj</code> in the <code>wilks/</code> project directory, I have opened that project in RStudio.</p>
-<p>If I run <code>getwd()</code> (“get the working directory”), R prints the following:</p>
-<pre><code>&gt; getwd()
-[1] &quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;</code></pre>
-<p>Notice that the working directory is the project directory. This happens because with use <code>.Rproj</code> files to manage the way that RStudio interacts with our projects.</p>
-<p>If I did not have a project open in RStudio, then I get the following:</p>
-<pre><code>&gt; getwd()
-[1] &quot;/Users/carlislerainey&quot;</code></pre>
-<p>Of course, any files we want to access or save are in the project directory, which is three levels deeper in the file system than <code>carlislerainey/</code>.</p>
-<p>If I didn’t use an <code>.Rproj</code> file to manage the project, then I could set the working directory whereever I wanted with <code>setwd()</code>. See below:</p>
-<pre><code>&gt; setwd(&quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;)
-&gt; getwd()
-[1] &quot;/Users/carlislerainey/Dropbox/projects/wilks&quot;</code></pre>
-<p>But we use an <code>.Rproj</code> file to manage our projects, so our working directory is always the project directory. I’ll say it louder for the people in the back.</p>
-<blockquote>
-<p><strong>We use an <code>.Rproj</code> file to manage our projects, so our working directory is always the project directory.</strong></p>
-</blockquote>
-<p>We don’t (or rarely) need to change or choose the working directory, just realize that it’s the project directory.</p>
-</div>
-<div id="the-path" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> The Path</h3>
-<p>Suppose we want to read the Stata data set <code>ddrevisited_data_v1.dta</code>.</p>
-<p>We know the following:</p>
-<ol style="list-style-type: decimal">
-<li>The filetype is dta. We’ll use <code>haven::read_dta()</code>.</li>
-<li>The working directory is the project directory, as always.</li>
-</ol>
-<p>Now we just need the file path; that’s the only argument that <code>haven::read_dta()</code> requires.</p>
-<div id="organizing-your-project-directories" class="section level4">
-<h4><span class="header-section-number">3.1.4.1</span> Organizing Your Project Directories</h4>
-<p>Any data set that you want to read into R should be in the project folder. You could put it in the main project directory, but you probably want to put it in a sub-directory (or perhaps even deeper).</p>
-<p>The diagram below outlines how I organized the files in <code>cool-project/</code>. I have an <code>R/</code> subdirectory for R scripts. I have a <code>data/</code> subdirectory for data sets. I put the raw data sets in <code>data/raw/</code> (i.e., a subsubdirectory) to help protect them. I put the manuscript in <code>doc/</code> and the subsubdirectories <code>doc/fig/</code> for figures and <code>doc/tab/</code> for tables. I have the <code>output</code> subdirectory for intermediate files I create along the way.</p>
-<pre><code>cool-project/
-├── R/
-│   ├── clean-data.R
-│   ├── fit-models.R
-│   ├── make-table.R
-│   └── plot-data.R
-├── data/
-│   ├── raw/
-│   │   ├── ddrevisited_data_v1.dta
-│   │   └── p4v2018.xls
-│   ├── clean-data.csv
-│   └── clean-data.rds
-├── doc/
-│   ├── fig/
-│   │   └── plot1.png
-│   ├── tab/
-│   │   └── table.tex
-│   ├── cool-project.pdf
-│   └── cool-project.tex
-├── output/
-│   ├── model-fit.csv
-│   ├── model-fit.rds
-│   ├── model-pred.csv
-│   └── model-pred.rds
-├── README.md
-└── cool-project.Rproj</code></pre>
-<p>Below is a screenshot from Finder on macOS that shows the same organization.</p>
-<p><img src="img/computing/directory.png" /></p>
-</div>
-<div id="an-aside-on-formats" class="section level4">
-<h4><span class="header-section-number">3.1.4.2</span> An Aside on Formats</h4>
-<p>If you’re reading carefully, you’ll notice that I keep both csv and rds versions of the data sets I create. I do this for the following reasons:</p>
-<ol style="list-style-type: decimal">
-<li>rds data sets are the most convenient to compute with because preserve factors. I want this.</li>
-<li>csv data sets are the easiest to share and inspect, both locally (Finder even shows me the file!) and on GitHub (which renders a nice table). I want this.</li>
-<li>It’s easy to create both and keep them in sync.</li>
-</ol>
-<p>To create both, I just run <code>write_rds()</code> and <code>write_csv()</code> on consecutive lines.</p>
-</div>
-</div>
-<div id="determining-the-path" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> Determining the Path</h3>
-<p>Because we know the working directory is the project directory, we only need to provide the reading function the path <em>relative to thet project directory.</em></p>
-<p>The path is just directions from the working/project directory to the file you want to read.</p>
-<p>For example, if we wanted to find <code>ddrevisited_data_v1.dta</code>, we would do the follwing (from the working/project directory):</p>
-<ol style="list-style-type: decimal">
-<li>Go into <code>data/</code>.</li>
-<li>Go into <code>raw/</code>.</li>
-<li>Find <code>ddrevisited_data_v1.dta</code>.</li>
-</ol>
-<p>That’s it. To create the path, we just put these pieces together: <code>data/raw/ddrevisited_data_v1.dta</code>.</p>
-<p>Now we just give the path to <code>haven::read_dta()</code>. We get: <code>read_dta("data/raw/ddrevisited_data_v1.dta")</code>. We need to assign the data set to an object, we want something the following:</p>
-<pre><code># load packages
-library(haven)
+<div id="appendix-a-normal-table" class="section level1">
+<h1><span class="header-section-number">A</span> Appendix: A Normal Table</h1>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<em>z</em>
+</th>
+<th style="text-align:left;">
+proportion between <em>-z</em> and <em>z</em>
+</th>
+<th style="text-align:left;">
+percent between <em>-z</em> and <em>z</em>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:left;">
+0.008
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:left;">
+0.016
+</td>
+<td style="text-align:left;">
+2%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:left;">
+0.024
+</td>
+<td style="text-align:left;">
+2%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:left;">
+0.032
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+0.04
+</td>
+<td style="text-align:left;">
+4%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:left;">
+0.048
+</td>
+<td style="text-align:left;">
+5%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:left;">
+0.056
+</td>
+<td style="text-align:left;">
+6%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:left;">
+0.064
+</td>
+<td style="text-align:left;">
+6%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:left;">
+0.072
+</td>
+<td style="text-align:left;">
+7%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+<td style="text-align:left;">
+8%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+<td style="text-align:left;">
+8%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:left;">
+0.12
+</td>
+<td style="text-align:left;">
+12%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:left;">
+0.16
+</td>
+<td style="text-align:left;">
+16%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:left;">
+0.2
+</td>
+<td style="text-align:left;">
+20%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:left;">
+0.24
+</td>
+<td style="text-align:left;">
+24%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:left;">
+0.27
+</td>
+<td style="text-align:left;">
+27%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:left;">
+0.31
+</td>
+<td style="text-align:left;">
+31%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:left;">
+0.35
+</td>
+<td style="text-align:left;">
+35%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+38%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:left;">
+0.42
+</td>
+<td style="text-align:left;">
+42%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:left;">
+0.45
+</td>
+<td style="text-align:left;">
+45%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:left;">
+0.48
+</td>
+<td style="text-align:left;">
+48%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:left;">
+0.52
+</td>
+<td style="text-align:left;">
+52%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:left;">
+0.55
+</td>
+<td style="text-align:left;">
+55%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:left;">
+0.58
+</td>
+<td style="text-align:left;">
+58%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.85
+</td>
+<td style="text-align:left;">
+0.6
+</td>
+<td style="text-align:left;">
+60%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:left;">
+0.63
+</td>
+<td style="text-align:left;">
+63%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:left;">
+0.66
+</td>
+<td style="text-align:left;">
+66%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+0.68
+</td>
+<td style="text-align:left;">
+68%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.05
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+71%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:left;">
+0.73
+</td>
+<td style="text-align:left;">
+73%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:left;">
+0.75
+</td>
+<td style="text-align:left;">
+75%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.20
+</td>
+<td style="text-align:left;">
+0.77
+</td>
+<td style="text-align:left;">
+77%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.25
+</td>
+<td style="text-align:left;">
+0.79
+</td>
+<td style="text-align:left;">
+79%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.30
+</td>
+<td style="text-align:left;">
+0.81
+</td>
+<td style="text-align:left;">
+81%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.35
+</td>
+<td style="text-align:left;">
+0.82
+</td>
+<td style="text-align:left;">
+82%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.40
+</td>
+<td style="text-align:left;">
+0.84
+</td>
+<td style="text-align:left;">
+84%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.45
+</td>
+<td style="text-align:left;">
+0.85
+</td>
+<td style="text-align:left;">
+85%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.50
+</td>
+<td style="text-align:left;">
+0.87
+</td>
+<td style="text-align:left;">
+87%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:left;">
+0.88
+</td>
+<td style="text-align:left;">
+88%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:left;">
+0.89
+</td>
+<td style="text-align:left;">
+89%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.65
+</td>
+<td style="text-align:left;">
+0.9
+</td>
+<td style="text-align:left;">
+90%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.70
+</td>
+<td style="text-align:left;">
+0.91
+</td>
+<td style="text-align:left;">
+91%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:left;">
+0.92
+</td>
+<td style="text-align:left;">
+92%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.80
+</td>
+<td style="text-align:left;">
+0.93
+</td>
+<td style="text-align:left;">
+93%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.85
+</td>
+<td style="text-align:left;">
+0.94
+</td>
+<td style="text-align:left;">
+94%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.90
+</td>
+<td style="text-align:left;">
+0.94
+</td>
+<td style="text-align:left;">
+94%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.95
+</td>
+<td style="text-align:left;">
+0.95
+</td>
+<td style="text-align:left;">
+95%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:left;">
+0.95
+</td>
+<td style="text-align:left;">
+95%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.05
+</td>
+<td style="text-align:left;">
+0.96
+</td>
+<td style="text-align:left;">
+96%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.10
+</td>
+<td style="text-align:left;">
+0.96
+</td>
+<td style="text-align:left;">
+96%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.15
+</td>
+<td style="text-align:left;">
+0.97
+</td>
+<td style="text-align:left;">
+97%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.20
+</td>
+<td style="text-align:left;">
+0.97
+</td>
+<td style="text-align:left;">
+97%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.25
+</td>
+<td style="text-align:left;">
+0.98
+</td>
+<td style="text-align:left;">
+98%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.30
+</td>
+<td style="text-align:left;">
+0.98
+</td>
+<td style="text-align:left;">
+98%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.35
+</td>
+<td style="text-align:left;">
+0.98
+</td>
+<td style="text-align:left;">
+98%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.40
+</td>
+<td style="text-align:left;">
+0.98
+</td>
+<td style="text-align:left;">
+98%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.45
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.60
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.65
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.70
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.75
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.80
+</td>
+<td style="text-align:left;">
+0.99
+</td>
+<td style="text-align:left;">
+99%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.85
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+100%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+100%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.95
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+100%
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+100%
+</td>
+</tr>
+</tbody>
+</table>
 
-# load raw data set
-raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
-<p>This loads the data set into R.</p>
-<p><strong>Review Exercises</strong></p>
-<p>There are 8 total data sets in <code>cool-project/</code> (all the files in <code>data/</code> and <code>output/</code>). Answer the following questions for each data set:</p>
-<ol style="list-style-type: decimal">
-<li>What function should you use to read that file?</li>
-<li>What’s the working directory?</li>
-<li>What’s the path (relative to the working directory)?</li>
-<li>Given the above, what’s the code to read the data (and store it as an object)?</li>
-</ol>
-<p>When you think you know, check your work by trying your commands. I put <code>cool-project</code> <a href="https://github.com/pos5737/cool-project">on Github</a>. Clone it (or click <em>Code</em> &gt; <em>Download ZIP</em> to download the directory) and see if you can load the data sets.</p>
-<p><em>Solution for <code>ddrevisited_data_v1.dta</code></em></p>
-<ol style="list-style-type: decimal">
-<li>The extension is <code>.dta</code>, so I know this is a Stata data set and that I need to use <code>haven::read_dta()</code>.</li>
-<li>The working directory is <code>cool-project/</code> because the working directory is always the project directory since I use an <code>.Rproj</code> file to manage my projects.</li>
-<li>The path is <code>data/raw/ddrevisited_data_v1.dta</code>. I can see this in the directory tree above, or by inspecting the directory on my computer.</li>
-<li>Below:</li>
-</ol>
-<pre><code># load packages
-library(haven)
-
-# load raw data sets
-raw_df &lt;- read_dta(&quot;data/raw/ddrevisited_data_v1.dta&quot;)</code></pre>
-</div>
-<div id="rio" class="section level3">
-<h3><span class="header-section-number">3.1.6</span> <code>rio</code></h3>
-<p>Loading data into R is a little bit tricky and tedious. One reason is finding a function to handle the data format. If the data is <code>.Rds</code>, <code>.csv</code>, or <code>.dta.</code> formats, we already know what to do. But what if the data is in a format such as <code>.tsv</code> (tab separated), <code>.xlsx</code> (Microsoft Excel), <code>.ods</code> (OpenDocument spreadsheet), or any number of other formats?</p>
-<p>The R package <code>rio</code> contains the fuction <code>import()</code> that automatically adapts to the different formats according to the filename extension. It’s just one function—you simply need to point it to the data set.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="loading-data-into-r.html#cb106-1"></a><span class="co"># load packages</span></span>
-<span id="cb106-2"><a href="loading-data-into-r.html#cb106-2"></a><span class="kw">library</span>(rio)  <span class="co"># for generic import() function</span></span>
-<span id="cb106-3"><a href="loading-data-into-r.html#cb106-3"></a></span>
-<span id="cb106-4"><a href="loading-data-into-r.html#cb106-4"></a><span class="co"># read same data stored in three different formats</span></span>
-<span id="cb106-5"><a href="loading-data-into-r.html#cb106-5"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.csv&quot;</span>)</span>
-<span id="cb106-6"><a href="loading-data-into-r.html#cb106-6"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
-<span id="cb106-7"><a href="loading-data-into-r.html#cb106-7"></a>nominate &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/nominate.dta&quot;</span>)</span></code></pre></div>
-</div>
-</div>
-<div id="data-frames" class="section level2">
-<h2><span class="header-section-number">3.2</span> Data Frames</h2>
-<p>Almost the statistical computation we do in this class revolves around data sets. In R, it usually makes sense to store data sets as specific objects known as data frames. Data frames are simply a set of vectors that all contain the same number of elements. These might be numeric, character, factor, or logical vectors, or some mixture of types.</p>
-<p>When you read a data set into R using <code>readr::read_csv</code>, <code>readr::read_rds()</code>, <code>haven::read_dta()</code>, or some other method, it creates a data frame. A data frame is a special R object that holds a set of vectors that all have the name number of elements. If you think of the data set as an Excel spreadsheet, then you can think of the columns of the spreadsheet as the vectors held by the data frame. These vectors or variables can be numeric, character, factor, or logical. As a reminder, here are the variable types:</p>
-<ul>
-<li><code>numeric</code>: numbers, such as 1.1, 2.4, and 3.4. Sometimes numeric variables are subdivided into <code>integer</code> (whole numbers, e.g., 1, 2, 3, etc.) and <code>double</code> (fractions, e.g., 1.47, 3.35462, etc.).</li>
-<li><code>character</code>: text strings, such as <code>"Republican"</code> or <code>"Argentina (2001)"</code>.</li>
-<li><code>factor</code>: cateogories, such as <code>"Very Liberal"</code>, <code>"Weak Republican"</code>, or <code>"Female"</code>. Similar to <code>character</code>, except the entire set of possible levels is defined. A <code>factor</code> variable may be ordered or unordered.</li>
-<li><code>logical</code>: true or false, such as <code>TRUE</code> or <code>FALSE</code>.</li>
-</ul>
-<p>For the <code>.csv</code> files we will usually use, R cannot distinguish between <code>character</code> and <code>factor</code> variables. By default, <code>readr::read_csv()</code> will load these as <code>character</code> variables–there’s no way for R to know the entire set of levels from the <code>.csv</code> file anyway. Sometimes, though, it will be useful to work with <code>factor</code> variables. This is straightforward to change.</p>
-<div id="working-with-variables-in-data-frames" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Working with Variables in Data Frames</h3>
-<p>A data frame holds the variables, but it also hides the vectors. For example, the data frame <code>nominate</code>, which we loaded above, has a numeric variable <code>ideology</code>, but if we try to sum it, we get an error.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="loading-data-into-r.html#cb107-1"></a><span class="kw">sum</span>(ideology)  <span class="co"># fails because the variable ideology is hidden in a data frame</span></span></code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;ideology&#39; not found</code></pre>
-<p>We’ve loaded the data set, but R can’t seem to find the variable. That’s because the variable <code>ideology</code> is hidden in the data frame <code>nominate</code>.</p>
-<p>In order to access variables in data frames, we need to do one of two things.</p>
-<ol style="list-style-type: decimal">
-<li>Use the <code>$</code> operator.</li>
-<li>Use the <code>data</code> argument.</li>
-</ol>
-<p>Some functions, such as <code>exp()</code> are designed to work with <em>vectors</em>, not data frames. This will be the case for most functions we use (with the notable exceptions of plotting in with <code>ggplot()</code> and estimating liner model with <code>lm()</code>). To use the functions on variables stored in data frames, we need to use the <code>$</code> operator.</p>
-<p>Suppose we have a data set loaded and given to the object <code>my_data</code>. If <code>my_data</code> contains the variable of interest <code>my_variable</code>, then we can access <code>my_variable</code> using the syntax <code>my_data$my_varible</code>. That is, the syntax <code>data$var</code> means “get the variable <code>var</code> from the data set <code>data</code>.” We’ll use this often, so make sure it’s clear.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="loading-data-into-r.html#cb109-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology) <span class="co"># example of the $ operator</span></span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="loading-data-into-r.html#cb111-1"></a><span class="kw">sum</span>(nominate<span class="op">$</span>ideology, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># example of the $ operator</span></span></code></pre></div>
-<pre><code>## [1] 164.457</code></pre>
-<p>But some functions are designed to work with data frames. For example, the <code>qplot()</code> function in the ggplot2 package is designed to work with data sets. If you open the help file for <code>qplot()</code> (i.e., <code>help(qplot)</code> after <code>library(ggplot2)</code>), you’ll see that one of the arguments is <code>data</code>. If you use this argument to point <code>qplot()</code> to the data frame, it will know where to find your variables.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="loading-data-into-r.html#cb113-1"></a><span class="co"># load ggplot2 package, which contains the qplot function</span></span>
-<span id="cb113-2"><a href="loading-data-into-r.html#cb113-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb113-3"><a href="loading-data-into-r.html#cb113-3"></a></span>
-<span id="cb113-4"><a href="loading-data-into-r.html#cb113-4"></a><span class="co"># example of a function with a data argument</span></span>
-<span id="cb113-5"><a href="loading-data-into-r.html#cb113-5"></a><span class="kw">qplot</span>(ideology, <span class="dt">data =</span> nominate)  <span class="co"># using the data argument</span></span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>Many of the functions we use take a data argument. If they do not, though, we’ll need to use the <code>$</code> operator. Because we’ll almost always use data stored in data frames, you need to be sure to use one approach or the other. If the function has a data argument, use it. In other cases, use the <code>$</code> operator.</p>
-</div>
-</div>
-<div id="how-well-always-use-r" class="section level2">
-<h2><span class="header-section-number">3.3</span> How We’ll Always Use R</h2>
-<ol style="list-style-type: decimal">
-<li>Open RStudio by clicking the <code>.Rproj</code> file for the project. (If you haven’t created the <code>.Rproj</code> file yet, then open RStudio and click <em>File</em> &gt; <em>New Project…</em>).</li>
-<li>Open a new R script to do something new <em>OR</em> open a previously saved script to continue making progress.</li>
-</ol>
-<p><strong>Review Exercises</strong></p>
-<ol style="list-style-type: decimal">
-<li>Download the nominate data sets from the course website and put them in the <code>data/</code> subdirectory.</li>
-<li>Start a new R script that loads the tidyverse package.</li>
-<li>In the same script, load the each version of the nominate data set using the appropriate function (note that tidyverse automatically loads readr but not haven). Assign each data set to a different object name.</li>
-<li>Use the <code>glimpse()</code> (part of tidyverse) function to get a quick look at each data set.</li>
-<li>Repeat using <code>import()</code> (load the rio package first!).</li>
-<li>Try to use five different functions (<code>mean()</code>, <code>sum()</code>, etc.) on the data frames or variables in the data frames. Using <code>#</code> comments, explain what each function is doing.</li>
-</ol>
-
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="statistical-computing-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="histograms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

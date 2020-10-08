@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2020-10-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,7 @@
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -236,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="the-normal-model.html"><a href="the-normal-model.html#the-normal-approximation"><i class="fa fa-check"></i><b>6.4</b> The Normal Approximation</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="the-normal-model.html"><a href="the-normal-model.html#normal-table"><i class="fa fa-check"></i><b>6.4.1</b> Normal Table</a></li>
 <li class="chapter" data-level="6.4.2" data-path="the-normal-model.html"><a href="the-normal-model.html#pnorm"><i class="fa fa-check"></i><b>6.4.2</b> <code>pnorm()</code></a></li>
-<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exactly-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exactly Percentages</a></li>
+<li class="chapter" data-level="6.4.3" data-path="the-normal-model.html"><a href="the-normal-model.html#exact-percentages"><i class="fa fa-check"></i><b>6.4.3</b> Exact Percentages</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>6.5</b> Review Exercises</a></li>
 </ul></li>
@@ -286,6 +287,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.9" data-path="regression.html"><a href="regression.html#a-warning"><i class="fa fa-check"></i><b>10.9</b> A Warning</a></li>
 <li class="chapter" data-level="10.10" data-path="the-normal-model.html"><a href="the-normal-model.html#review-exercises"><i class="fa fa-check"></i><b>10.10</b> Review Exercises</a></li>
 </ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendix-a-normal-table.html"><a href="appendix-a-normal-table.html"><i class="fa fa-check"></i><b>A</b> Appendix: A Normal Table</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -328,17 +331,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.3</span> The Empirical Rule</h2>
 <p>It turns out that many variable’s have a histogram that resembles the normal curve. Because of this, the normal curve can sometimes serve as an effective model for these variables.</p>
 <p>For example, NOMINATE ideology scores for Republicans in the 115th Congress roughly follow the normal curve.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="the-normal-model.html#cb158-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb158-2"><a href="the-normal-model.html#cb158-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
-<span id="cb158-3"><a href="the-normal-model.html#cb158-3"></a></span>
-<span id="cb158-4"><a href="the-normal-model.html#cb158-4"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-5"><a href="the-normal-model.html#cb158-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="the-normal-model.html#cb165-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb165-2"><a href="the-normal-model.html#cb165-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
+<span id="cb165-3"><a href="the-normal-model.html#cb165-3"></a></span>
+<span id="cb165-4"><a href="the-normal-model.html#cb165-4"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb165-5"><a href="the-normal-model.html#cb165-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-54-1.png" width="576" /></p>
 <p>However, the ideology scores for both Republicans and Democrats together does not follow a normal curve.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="the-normal-model.html#cb159-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
-<span id="cb159-2"><a href="the-normal-model.html#cb159-2"></a></span>
-<span id="cb159-3"><a href="the-normal-model.html#cb159-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb159-4"><a href="the-normal-model.html#cb159-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="the-normal-model.html#cb166-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>)</span>
+<span id="cb166-2"><a href="the-normal-model.html#cb166-2"></a></span>
+<span id="cb166-3"><a href="the-normal-model.html#cb166-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ideology)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb166-4"><a href="the-normal-model.html#cb166-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>() </span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-55-1.png" width="576" /></p>
 <p>The histograms of ENEP by electoral system and social heterogeneity deviate slightly from the normal curve.</p>
 <pre><code>## Rows: 1,161
@@ -546,30 +549,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pnorm" class="section level3">
 <h3><span class="header-section-number">6.4.2</span> <code>pnorm()</code></h3>
 <p>The <code>pnorm()</code> function in R return the area under the normal curve less than <span class="math inline">\(z\)</span>. By default, it uses the standard normal curve, but you can specify a <code>mean</code> and <code>sd</code> if you prefer to re-locate and/or re-scale the curve to fit your values.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="the-normal-model.html#cb161-1"></a><span class="co"># area under the std. normal curve less than 1</span></span>
-<span id="cb161-2"><a href="the-normal-model.html#cb161-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="the-normal-model.html#cb168-1"></a><span class="co"># area under the std. normal curve less than 1</span></span>
+<span id="cb168-2"><a href="the-normal-model.html#cb168-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8413447</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="the-normal-model.html#cb163-1"></a><span class="co"># area under the a normal curve (with average of 1 and SD of 4) less than 1</span></span>
-<span id="cb163-2"><a href="the-normal-model.html#cb163-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="the-normal-model.html#cb170-1"></a><span class="co"># area under the a normal curve (with average of 1 and SD of 4) less than 1</span></span>
+<span id="cb170-2"><a href="the-normal-model.html#cb170-2"></a><span class="kw">pnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5</code></pre>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="the-normal-model.html#cb165-1"></a><span class="co"># area between -1.64 and 1.64</span></span>
-<span id="cb165-2"><a href="the-normal-model.html#cb165-2"></a><span class="kw">pnorm</span>(<span class="fl">1.64</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.64</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="the-normal-model.html#cb172-1"></a><span class="co"># area between -1.64 and 1.64</span></span>
+<span id="cb172-2"><a href="the-normal-model.html#cb172-2"></a><span class="kw">pnorm</span>(<span class="fl">1.64</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.64</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8989948</code></pre>
 </div>
-<div id="exactly-percentages" class="section level3">
-<h3><span class="header-section-number">6.4.3</span> Exactly Percentages</h3>
+<div id="exact-percentages" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Exact Percentages</h3>
 <p>To actually compute percentages, we can create a function that works just like <code>pnorm()</code>, but it returns the percent <em>of the data</em> that fall below a particular value. The most convenient method is to create an "empirical cumulative distribution function*.</p>
 <p>This function is somewhat confusing. The <code>ecdf()</code> function does not return the proportion below its argument. Instead, it creates a function that returns the percent below its argument. If we have a numeric vector <code>x</code>, then <code>ecdf(x)</code> is a function! Let that settle in… both <code>ecdf</code> and <code>ecdf(x)</code> are function. The function <code>ecdf</code> (I’m dropping the <code>()</code> for clarity) is a function <em>that creates a function</em>, and <code>ecdf(x)()</code> (I’m including the <code>()</code>, as usual, for clarity) is a function that returns the percent below.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="the-normal-model.html#cb167-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb167-2"><a href="the-normal-model.html#cb167-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
-<span id="cb167-3"><a href="the-normal-model.html#cb167-3"></a></span>
-<span id="cb167-4"><a href="the-normal-model.html#cb167-4"></a><span class="co"># normal approximation for % of Democrats less than -0.05</span></span>
-<span id="cb167-5"><a href="the-normal-model.html#cb167-5"></a>avg &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>ideology)</span>
-<span id="cb167-6"><a href="the-normal-model.html#cb167-6"></a>sd &lt;-<span class="st"> </span><span class="kw">sd</span>(df<span class="op">$</span>ideology)</span>
-<span id="cb167-7"><a href="the-normal-model.html#cb167-7"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="dt">mean =</span> avg, <span class="dt">sd =</span> sd)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="the-normal-model.html#cb174-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/nominate.rds&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb174-2"><a href="the-normal-model.html#cb174-2"></a><span class="st">  </span><span class="kw">filter</span>(party <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>, congress <span class="op">==</span><span class="st"> </span><span class="dv">115</span>) </span>
+<span id="cb174-3"><a href="the-normal-model.html#cb174-3"></a></span>
+<span id="cb174-4"><a href="the-normal-model.html#cb174-4"></a><span class="co"># normal approximation for % of Democrats less than -0.05</span></span>
+<span id="cb174-5"><a href="the-normal-model.html#cb174-5"></a>avg &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>ideology)</span>
+<span id="cb174-6"><a href="the-normal-model.html#cb174-6"></a>sd &lt;-<span class="st"> </span><span class="kw">sd</span>(df<span class="op">$</span>ideology)</span>
+<span id="cb174-7"><a href="the-normal-model.html#cb174-7"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="dt">mean =</span> avg, <span class="dt">sd =</span> sd)</span></code></pre></div>
 <pre><code>## [1] 0.1731597</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="the-normal-model.html#cb169-1"></a><span class="co"># exact % of Democrats less than -0.05</span></span>
-<span id="cb169-2"><a href="the-normal-model.html#cb169-2"></a><span class="kw">ecdf</span>(df<span class="op">$</span>ideology)(<span class="op">-</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="the-normal-model.html#cb176-1"></a><span class="co"># exact % of Democrats less than -0.05</span></span>
+<span id="cb176-2"><a href="the-normal-model.html#cb176-2"></a><span class="kw">ecdf</span>(df<span class="op">$</span>ideology)(<span class="op">-</span><span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1479592</code></pre>
 <p>We can also plot the ECDF with ggplot2.</p>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-63-1.png" width="288" /></p>
