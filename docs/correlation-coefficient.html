@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-10-08" />
+<meta name="date" content="2020-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -643,10 +643,10 @@ product
 <p>In R, we can compute the corrlation between <code>x</code> and <code>y</code> using <code>cor(x, y)</code>.</p>
 <p>Note that dropping missing values is more complicated for pairs of data. If you want to drop missing values from the calculations, then <code>cor(x, y, use = pairwise.complete.obs")</code> is a good choice.</p>
 <p>We can use the code below to find the correlation in the example above.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="correlation-coefficient.html#cb196-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb196-2"><a href="correlation-coefficient.html#cb196-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">18</span>)</span>
-<span id="cb196-3"><a href="correlation-coefficient.html#cb196-3"></a></span>
-<span id="cb196-4"><a href="correlation-coefficient.html#cb196-4"></a><span class="kw">cor</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="correlation-coefficient.html#cb189-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb189-2"><a href="correlation-coefficient.html#cb189-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">18</span>)</span>
+<span id="cb189-3"><a href="correlation-coefficient.html#cb189-3"></a></span>
+<span id="cb189-4"><a href="correlation-coefficient.html#cb189-4"></a><span class="kw">cor</span>(x, y)</span></code></pre></div>
 <pre><code>[1] 0.8814089</code></pre>
 
 <div class="exercise">
@@ -751,13 +751,13 @@ z
 <div id="example-clark-and-golder-2006" class="section level2">
 <h2><span class="header-section-number">9.4</span> Example: Clark and Golder (2006)</h2>
 <p>For a substantive example, consider Clark and Golder’s data.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="correlation-coefficient.html#cb198-1"></a><span class="co"># load parties dataset</span></span>
-<span id="cb198-2"><a href="correlation-coefficient.html#cb198-2"></a>parties_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/parties.rds&quot;</span>) </span>
-<span id="cb198-3"><a href="correlation-coefficient.html#cb198-3"></a></span>
-<span id="cb198-4"><a href="correlation-coefficient.html#cb198-4"></a><span class="co"># compute correlation between enep and eneg for each electoral system</span></span>
-<span id="cb198-5"><a href="correlation-coefficient.html#cb198-5"></a>cor_df &lt;-<span class="st"> </span>parties_df <span class="op">%&gt;%</span></span>
-<span id="cb198-6"><a href="correlation-coefficient.html#cb198-6"></a><span class="st">  </span><span class="kw">group_by</span>(electoral_system) <span class="op">%&gt;%</span></span>
-<span id="cb198-7"><a href="correlation-coefficient.html#cb198-7"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cor =</span> <span class="kw">cor</span>(enep, eneg))</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="correlation-coefficient.html#cb191-1"></a><span class="co"># load parties dataset</span></span>
+<span id="cb191-2"><a href="correlation-coefficient.html#cb191-2"></a>parties_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/parties.rds&quot;</span>) </span>
+<span id="cb191-3"><a href="correlation-coefficient.html#cb191-3"></a></span>
+<span id="cb191-4"><a href="correlation-coefficient.html#cb191-4"></a><span class="co"># compute correlation between enep and eneg for each electoral system</span></span>
+<span id="cb191-5"><a href="correlation-coefficient.html#cb191-5"></a>cor_df &lt;-<span class="st"> </span>parties_df <span class="op">%&gt;%</span></span>
+<span id="cb191-6"><a href="correlation-coefficient.html#cb191-6"></a><span class="st">  </span><span class="kw">group_by</span>(electoral_system) <span class="op">%&gt;%</span></span>
+<span id="cb191-7"><a href="correlation-coefficient.html#cb191-7"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cor =</span> <span class="kw">cor</span>(enep, eneg))</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -796,12 +796,12 @@ Large-Magnitude PR
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="correlation-coefficient.html#cb199-1"></a><span class="kw">ggplot</span>(parties_df, <span class="kw">aes</span>(<span class="dt">x =</span> eneg, <span class="dt">y =</span> enep)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb199-2"><a href="correlation-coefficient.html#cb199-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb199-3"><a href="correlation-coefficient.html#cb199-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(electoral_system)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb199-4"><a href="correlation-coefficient.html#cb199-4"></a><span class="st">  </span><span class="kw">geom_label</span>(<span class="dt">data =</span> cor_df, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="ot">Inf</span>, <span class="dt">y =</span> <span class="ot">Inf</span>, <span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cor = &quot;</span>, <span class="kw">round</span>(cor, <span class="dv">2</span>))),</span>
-<span id="cb199-5"><a href="correlation-coefficient.html#cb199-5"></a>             <span class="dt">hjust =</span> <span class="fl">1.1</span>, <span class="dt">vjust =</span> <span class="fl">1.1</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb199-6"><a href="correlation-coefficient.html#cb199-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="correlation-coefficient.html#cb192-1"></a><span class="kw">ggplot</span>(parties_df, <span class="kw">aes</span>(<span class="dt">x =</span> eneg, <span class="dt">y =</span> enep)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb192-2"><a href="correlation-coefficient.html#cb192-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb192-3"><a href="correlation-coefficient.html#cb192-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(electoral_system)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb192-4"><a href="correlation-coefficient.html#cb192-4"></a><span class="st">  </span><span class="kw">geom_label</span>(<span class="dt">data =</span> cor_df, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="ot">Inf</span>, <span class="dt">y =</span> <span class="ot">Inf</span>, <span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cor = &quot;</span>, <span class="kw">round</span>(cor, <span class="dv">2</span>))),</span>
+<span id="cb192-5"><a href="correlation-coefficient.html#cb192-5"></a>             <span class="dt">hjust =</span> <span class="fl">1.1</span>, <span class="dt">vjust =</span> <span class="fl">1.1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb192-6"><a href="correlation-coefficient.html#cb192-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-117-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>As Clark and Golder expect, we get a correlation coefficient near zero in SMD systems. But contrary to their expectation, we also get a correlation coefficient near zero in large-magnitude PR systems.</p>
 <hr />
@@ -823,38 +823,38 @@ How many units is one SD for ENEG? What about for ENEP? Going from SDs to the or
 <h2><span class="header-section-number">9.5</span> Example: Feeling Thermometers</h2>
 <p>Below, I compute the correlation between feelings toward the Democratic and Republican parties. It makes sense that this correlation should be negative. As respondents’ feelings toward the Democratic party grow warmer, their feelings toward the Republican party should grow cooler. We might also expect this correlation to be stronger among more educated respondents and change over time.</p>
 <p>The example below uses the therms dataset in the pos5737data package available on GitHub.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="correlation-coefficient.html#cb200-1"></a><span class="co"># get pos5737data (if updated)</span></span>
-<span id="cb200-2"><a href="correlation-coefficient.html#cb200-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;pos5737/pos5737data&quot;</span>)</span>
-<span id="cb200-3"><a href="correlation-coefficient.html#cb200-3"></a></span>
-<span id="cb200-4"><a href="correlation-coefficient.html#cb200-4"></a><span class="co"># load data</span></span>
-<span id="cb200-5"><a href="correlation-coefficient.html#cb200-5"></a><span class="kw">data</span>(therms, <span class="dt">package =</span> <span class="st">&quot;pos5737data&quot;</span>)</span>
-<span id="cb200-6"><a href="correlation-coefficient.html#cb200-6"></a></span>
-<span id="cb200-7"><a href="correlation-coefficient.html#cb200-7"></a><span class="co"># quick look</span></span>
-<span id="cb200-8"><a href="correlation-coefficient.html#cb200-8"></a><span class="kw">glimpse</span>(therms)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="correlation-coefficient.html#cb193-1"></a><span class="co"># get pos5737data (if updated)</span></span>
+<span id="cb193-2"><a href="correlation-coefficient.html#cb193-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;pos5737/pos5737data&quot;</span>)</span>
+<span id="cb193-3"><a href="correlation-coefficient.html#cb193-3"></a></span>
+<span id="cb193-4"><a href="correlation-coefficient.html#cb193-4"></a><span class="co"># load data</span></span>
+<span id="cb193-5"><a href="correlation-coefficient.html#cb193-5"></a><span class="kw">data</span>(therms, <span class="dt">package =</span> <span class="st">&quot;pos5737data&quot;</span>)</span>
+<span id="cb193-6"><a href="correlation-coefficient.html#cb193-6"></a></span>
+<span id="cb193-7"><a href="correlation-coefficient.html#cb193-7"></a><span class="co"># quick look</span></span>
+<span id="cb193-8"><a href="correlation-coefficient.html#cb193-8"></a><span class="kw">glimpse</span>(therms)</span></code></pre></div>
 <pre><code>Rows: 38,100
 Columns: 4
 $ year                &lt;dbl&gt; 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1…
 $ ft_democratic_party &lt;dbl&gt; 80, 50, 40, 60, 85, 50, 70, NA, 60, NA, NA, 70, 8…
 $ ft_republican_party &lt;dbl&gt; 50, 50, 60, 60, 60, 50, 40, NA, 60, NA, NA, 40, 8…
 $ education           &lt;fct&gt; High School, 8th Grade or Less, High School, High…</code></pre>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="correlation-coefficient.html#cb202-1"></a><span class="co"># compute correlation between the two feelinging thermometers for </span></span>
-<span id="cb202-2"><a href="correlation-coefficient.html#cb202-2"></a><span class="co">#   each year and education level</span></span>
-<span id="cb202-3"><a href="correlation-coefficient.html#cb202-3"></a>smry_df &lt;-<span class="st"> </span>therms <span class="op">%&gt;%</span></span>
-<span id="cb202-4"><a href="correlation-coefficient.html#cb202-4"></a><span class="st">  </span><span class="co"># drop observations where education is missing</span></span>
-<span id="cb202-5"><a href="correlation-coefficient.html#cb202-5"></a><span class="st">  </span><span class="kw">drop_na</span>(education) <span class="op">%&gt;%</span></span>
-<span id="cb202-6"><a href="correlation-coefficient.html#cb202-6"></a><span class="st">  </span><span class="co"># compute correlation for each year-education subset</span></span>
-<span id="cb202-7"><a href="correlation-coefficient.html#cb202-7"></a><span class="st">  </span><span class="kw">group_by</span>(year, education) <span class="op">%&gt;%</span></span>
-<span id="cb202-8"><a href="correlation-coefficient.html#cb202-8"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cor =</span> <span class="kw">cor</span>(<span class="dt">x =</span> ft_democratic_party, </span>
-<span id="cb202-9"><a href="correlation-coefficient.html#cb202-9"></a>                      <span class="dt">y =</span> ft_republican_party, </span>
-<span id="cb202-10"><a href="correlation-coefficient.html#cb202-10"></a>                      <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb202-11"><a href="correlation-coefficient.html#cb202-11"></a><span class="st">  </span><span class="co"># complete dataset by right-joining a dataset that has all years and all education levels combinations</span></span>
-<span id="cb202-12"><a href="correlation-coefficient.html#cb202-12"></a><span class="st">  </span><span class="kw">right_join</span>(<span class="kw">crossing</span>(<span class="dt">year =</span> <span class="kw">unique</span>(therms<span class="op">$</span>year), </span>
-<span id="cb202-13"><a href="correlation-coefficient.html#cb202-13"></a>                      <span class="dt">education =</span> <span class="kw">unique</span>(therms<span class="op">$</span>education))) <span class="op">%&gt;%</span></span>
-<span id="cb202-14"><a href="correlation-coefficient.html#cb202-14"></a><span class="st">  </span><span class="co"># add a variable for presidential elections--if the year is evenly divisible by 4</span></span>
-<span id="cb202-15"><a href="correlation-coefficient.html#cb202-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">election_type =</span> <span class="kw">ifelse</span>(<span class="dt">test =</span> year <span class="op">%%</span><span class="st"> </span><span class="dv">4</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, </span>
-<span id="cb202-16"><a href="correlation-coefficient.html#cb202-16"></a>                                <span class="dt">yes =</span> <span class="st">&quot;Presidential Election&quot;</span>, </span>
-<span id="cb202-17"><a href="correlation-coefficient.html#cb202-17"></a>                                <span class="dt">no =</span> <span class="st">&quot;Congressional Election&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb202-18"><a href="correlation-coefficient.html#cb202-18"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="correlation-coefficient.html#cb195-1"></a><span class="co"># compute correlation between the two feelinging thermometers for </span></span>
+<span id="cb195-2"><a href="correlation-coefficient.html#cb195-2"></a><span class="co">#   each year and education level</span></span>
+<span id="cb195-3"><a href="correlation-coefficient.html#cb195-3"></a>smry_df &lt;-<span class="st"> </span>therms <span class="op">%&gt;%</span></span>
+<span id="cb195-4"><a href="correlation-coefficient.html#cb195-4"></a><span class="st">  </span><span class="co"># drop observations where education is missing</span></span>
+<span id="cb195-5"><a href="correlation-coefficient.html#cb195-5"></a><span class="st">  </span><span class="kw">drop_na</span>(education) <span class="op">%&gt;%</span></span>
+<span id="cb195-6"><a href="correlation-coefficient.html#cb195-6"></a><span class="st">  </span><span class="co"># compute correlation for each year-education subset</span></span>
+<span id="cb195-7"><a href="correlation-coefficient.html#cb195-7"></a><span class="st">  </span><span class="kw">group_by</span>(year, education) <span class="op">%&gt;%</span></span>
+<span id="cb195-8"><a href="correlation-coefficient.html#cb195-8"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cor =</span> <span class="kw">cor</span>(<span class="dt">x =</span> ft_democratic_party, </span>
+<span id="cb195-9"><a href="correlation-coefficient.html#cb195-9"></a>                      <span class="dt">y =</span> ft_republican_party, </span>
+<span id="cb195-10"><a href="correlation-coefficient.html#cb195-10"></a>                      <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb195-11"><a href="correlation-coefficient.html#cb195-11"></a><span class="st">  </span><span class="co"># complete dataset by right-joining a dataset that has all years and all education levels combinations</span></span>
+<span id="cb195-12"><a href="correlation-coefficient.html#cb195-12"></a><span class="st">  </span><span class="kw">right_join</span>(<span class="kw">crossing</span>(<span class="dt">year =</span> <span class="kw">unique</span>(therms<span class="op">$</span>year), </span>
+<span id="cb195-13"><a href="correlation-coefficient.html#cb195-13"></a>                      <span class="dt">education =</span> <span class="kw">unique</span>(therms<span class="op">$</span>education))) <span class="op">%&gt;%</span></span>
+<span id="cb195-14"><a href="correlation-coefficient.html#cb195-14"></a><span class="st">  </span><span class="co"># add a variable for presidential elections--if the year is evenly divisible by 4</span></span>
+<span id="cb195-15"><a href="correlation-coefficient.html#cb195-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">election_type =</span> <span class="kw">ifelse</span>(<span class="dt">test =</span> year <span class="op">%%</span><span class="st"> </span><span class="dv">4</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, </span>
+<span id="cb195-16"><a href="correlation-coefficient.html#cb195-16"></a>                                <span class="dt">yes =</span> <span class="st">&quot;Presidential Election&quot;</span>, </span>
+<span id="cb195-17"><a href="correlation-coefficient.html#cb195-17"></a>                                <span class="dt">no =</span> <span class="st">&quot;Congressional Election&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb195-18"><a href="correlation-coefficient.html#cb195-18"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>Rows: 102
 Columns: 4
 Groups: year [17]
@@ -862,10 +862,10 @@ $ year          &lt;dbl&gt; 1978, 1978, 1978, 1978, 1978, 1978, 1980, 1980, 1980
 $ education     &lt;fct&gt; 8th Grade or Less, Some High School, High School, High …
 $ cor           &lt;dbl&gt; -0.219932553, -0.153398674, -0.154494861, -0.059715780,…
 $ election_type &lt;chr&gt; &quot;Congressional Election&quot;, &quot;Congressional Election&quot;, &quot;Co…</code></pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="correlation-coefficient.html#cb204-1"></a><span class="co"># plot correlations</span></span>
-<span id="cb204-2"><a href="correlation-coefficient.html#cb204-2"></a><span class="kw">ggplot</span>(smry_df, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cor, <span class="dt">color =</span> election_type)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb204-3"><a href="correlation-coefficient.html#cb204-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb204-4"><a href="correlation-coefficient.html#cb204-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(education))</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="correlation-coefficient.html#cb197-1"></a><span class="co"># plot correlations</span></span>
+<span id="cb197-2"><a href="correlation-coefficient.html#cb197-2"></a><span class="kw">ggplot</span>(smry_df, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cor, <span class="dt">color =</span> election_type)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb197-3"><a href="correlation-coefficient.html#cb197-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb197-4"><a href="correlation-coefficient.html#cb197-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(education))</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-120-1.png" width="960" style="display: block; margin: auto;" /></p>
 
 <div class="exercise">
@@ -874,15 +874,15 @@ $ election_type &lt;chr&gt; &quot;Congressional Election&quot;, &quot;Congressio
 
 <details>
 <p><summary>Solution</summary></p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="correlation-coefficient.html#cb205-1"></a><span class="co"># load data</span></span>
-<span id="cb205-2"><a href="correlation-coefficient.html#cb205-2"></a>gamson_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/gamson.rds&quot;</span>) </span>
-<span id="cb205-3"><a href="correlation-coefficient.html#cb205-3"></a></span>
-<span id="cb205-4"><a href="correlation-coefficient.html#cb205-4"></a><span class="co"># compute correlation coefficient</span></span>
-<span id="cb205-5"><a href="correlation-coefficient.html#cb205-5"></a><span class="kw">cor</span>(<span class="dt">x =</span> gamson_df<span class="op">$</span>seat_share, gamson_df<span class="op">$</span>portfolio_share)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="correlation-coefficient.html#cb198-1"></a><span class="co"># load data</span></span>
+<span id="cb198-2"><a href="correlation-coefficient.html#cb198-2"></a>gamson_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/gamson.rds&quot;</span>) </span>
+<span id="cb198-3"><a href="correlation-coefficient.html#cb198-3"></a></span>
+<span id="cb198-4"><a href="correlation-coefficient.html#cb198-4"></a><span class="co"># compute correlation coefficient</span></span>
+<span id="cb198-5"><a href="correlation-coefficient.html#cb198-5"></a><span class="kw">cor</span>(<span class="dt">x =</span> gamson_df<span class="op">$</span>seat_share, gamson_df<span class="op">$</span>portfolio_share)</span></code></pre></div>
 <pre><code>[1] 0.9423176</code></pre>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="correlation-coefficient.html#cb207-1"></a><span class="co"># create scatterplot</span></span>
-<span id="cb207-2"><a href="correlation-coefficient.html#cb207-2"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb207-3"><a href="correlation-coefficient.html#cb207-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="correlation-coefficient.html#cb200-1"></a><span class="co"># create scatterplot</span></span>
+<span id="cb200-2"><a href="correlation-coefficient.html#cb200-2"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb200-3"><a href="correlation-coefficient.html#cb200-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <img src="concepts-and-computation_files/figure-html/unnamed-chunk-122-1.png" width="672" style="display: block; margin: auto;" />
 </details>
 
@@ -890,7 +890,7 @@ $ election_type &lt;chr&gt; &quot;Congressional Election&quot;, &quot;Congressio
 <p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 9.5  </strong></span>Use <code>devtools::install_github("pos5737/pos5737data")</code> to get the latest version of the pos5737 data package. Load the data set <code>anscombe</code> into R with <code>data(anscombe, package = "pos5737data")</code>. Use <code>glimpse(anscombe)</code> to get a quick look at the data. Realize that this one data frame actually contains four different datasets stacked on top of each other and numbered I, II, III, and IV.</p>
 <ol style="list-style-type: decimal">
 <li>Use a <code>group_by()</code> and <code>summarize()</code> workflow to compute a correlation coefficient for each of the four datasets. How do they compare? What do they suggest about the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>?</li>
-<li>Create a scatterplot of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with separate panels for each dataset. How do they compare? How would you describe the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in each panel? Would you say that the correlation coefficient offered a good summary of each dataset?
+<li>Create a scatterplot of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with separate panels (e.g, <code>facet_wrap()</code>) for each dataset. How do they compare? How would you describe the strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in each panel? Would you say that the correlation coefficient offered a good summary of each dataset?
 </div></li>
 </ol>
 

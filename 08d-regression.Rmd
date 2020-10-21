@@ -34,7 +34,7 @@ One of the simplest democratic mechanims goes like this: If things are going wel
 
 Let's see if incumbents get fewer votes when things go poorly. The dataset below shows incumbent presidents' margins of victory (in the popular vote) and the percent change in the real disposable income from Q2 in the year before the election to Q2 in the year of the election.
 
-Do the following analyses with a pencil-and-paper. (You can use a computer for things like addition and multiplication if that makes it easier, but show your work on the paper.)
+Do the following analyses with "pencil-and-paper." Feel free to use R or Excel to assist with this exercise--I just don't want you using the `sd()` function for example--I just want you computing things manually as a final reminder for how things work. 
 
 1. Use the percent change in the RDI to break incumbents into "good performers" and "bad performers". You may use more than two categories if you want. Draw a histogram of the margin of victory for the good performers and another for the bad performers. Compare and interpret.
 1. Compute the average and SD for each category. Compare and interpret.
@@ -148,11 +148,13 @@ How can we go about finding a *good* line?
 Before we talk about a good *line*, let's talk about a good *point*. Suppose you have a dataset $y = \{y_1, y_2, ... , y_n\}$ and you want to predict these observations with a single point $\theta$. Use calculus to find the $\theta$ that minimizes the r.m.s. of the residuals $r_i = y_i - \theta$ or that minimizes $f(\theta) = \sqrt{\dfrac{\sum_{i = 1}^n(y_i - \theta)^2}{n}}$.
 ```
 <details><summary>Hint</summary>
+
 1. Realize that the $\theta$ that minimizes $f(\theta) = \sqrt{\dfrac{\displaystyle \sum_{i = 1}^n (y_i - \theta)^2}{n}}$ also minimizes $g(\theta) = \dfrac{\displaystyle \sum_{i = 1}^n(y_i - \theta)^2}{n}$. We know this because the square root function is monotonically increase (for positive values, which this must always be) and preserves the order of observations. In other words, the $\theta$ that produces the smallest RMS of the deviations also produces the smallest MS of the deviations.
 1. Realize that the $\theta$ that minimizes $g(\theta) = \dfrac{\displaystyle \sum_{i = 1}^n(y_i - \theta)^2}{n}$ also minimizes $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$. Removing a constant just shifts the curve up or down, but it does not change the $\theta$ that minimizes the curve. So work with $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$.
 1. To make things easier, expand $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i - \theta)^2$ to $h(\theta) = \displaystyle \sum_{i = 1}^n(y_i^2 - 2\theta y_i + \theta^2)$.
 1. Distribute the summation operator to obtain $h(\theta) = \displaystyle \sum_{i = 1}^n y_i^2 - 2 \theta \sum_{i = 1} y_i + n\theta^2$.
 1. Now take the derivative of $h(\theta)$ w.r.t. $\theta$, set that derivative equal to zero, and solve for $\theta$. The result should be familiar. 
+
 </details>
 
 ```{exercise}

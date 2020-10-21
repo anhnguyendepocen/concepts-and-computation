@@ -24,7 +24,7 @@
 <meta name="author" content="Carlisle Rainey" />
 
 
-<meta name="date" content="2020-10-08" />
+<meta name="date" content="2020-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -321,45 +321,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> <code>geom_point()</code></h2>
 <p>To create scatterplots, we simply use <code>geom_point()</code> as the geometry combined with our same approach to data and aesthetics.</p>
 <p>Here’s a simple example with hypothetical data.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="the-scatterplot.html#cb178-1"></a><span class="co"># create a hypothetical dataset with tribble()</span></span>
-<span id="cb178-2"><a href="the-scatterplot.html#cb178-2"></a>df &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb178-3"><a href="the-scatterplot.html#cb178-3"></a>  <span class="op">~</span>x,  <span class="op">~</span><span class="st"> </span>y,</span>
-<span id="cb178-4"><a href="the-scatterplot.html#cb178-4"></a>  <span class="dv">1</span>,   <span class="dv">1</span>,</span>
-<span id="cb178-5"><a href="the-scatterplot.html#cb178-5"></a>  <span class="dv">2</span>,   <span class="dv">2</span>, </span>
-<span id="cb178-6"><a href="the-scatterplot.html#cb178-6"></a>  <span class="dv">3</span>,   <span class="dv">6</span>, </span>
-<span id="cb178-7"><a href="the-scatterplot.html#cb178-7"></a>  <span class="dv">1</span>,   <span class="dv">3</span>,</span>
-<span id="cb178-8"><a href="the-scatterplot.html#cb178-8"></a>  <span class="fl">2.5</span>, <span class="dv">5</span>) <span class="op">%&gt;%</span></span>
-<span id="cb178-9"><a href="the-scatterplot.html#cb178-9"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="the-scatterplot.html#cb171-1"></a><span class="co"># create a hypothetical dataset with tribble()</span></span>
+<span id="cb171-2"><a href="the-scatterplot.html#cb171-2"></a>df &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb171-3"><a href="the-scatterplot.html#cb171-3"></a>  <span class="op">~</span>x,  <span class="op">~</span><span class="st"> </span>y,</span>
+<span id="cb171-4"><a href="the-scatterplot.html#cb171-4"></a>  <span class="dv">1</span>,   <span class="dv">1</span>,</span>
+<span id="cb171-5"><a href="the-scatterplot.html#cb171-5"></a>  <span class="dv">2</span>,   <span class="dv">2</span>, </span>
+<span id="cb171-6"><a href="the-scatterplot.html#cb171-6"></a>  <span class="dv">3</span>,   <span class="dv">6</span>, </span>
+<span id="cb171-7"><a href="the-scatterplot.html#cb171-7"></a>  <span class="dv">1</span>,   <span class="dv">3</span>,</span>
+<span id="cb171-8"><a href="the-scatterplot.html#cb171-8"></a>  <span class="fl">2.5</span>, <span class="dv">5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb171-9"><a href="the-scatterplot.html#cb171-9"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>Rows: 5
 Columns: 2
 $ x &lt;dbl&gt; 1.0, 2.0, 3.0, 1.0, 2.5
 $ y &lt;dbl&gt; 1, 2, 6, 3, 5</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="the-scatterplot.html#cb180-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb180-2"><a href="the-scatterplot.html#cb180-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="the-scatterplot.html#cb173-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb173-2"><a href="the-scatterplot.html#cb173-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-88-1.png" width="288" style="display: block; margin: auto;" /></p>
 <p>Here’s a more realistic example.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="the-scatterplot.html#cb181-1"></a>gamson_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/gamson.rds&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb181-2"><a href="the-scatterplot.html#cb181-2"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="the-scatterplot.html#cb174-1"></a>gamson_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/gamson.rds&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb174-2"><a href="the-scatterplot.html#cb174-2"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>Rows: 826
 Columns: 2
 $ seat_share      &lt;dbl&gt; 0.02424242, 0.46060607, 0.51515150, 0.47204968, 0.527…
 $ portfolio_share &lt;dbl&gt; 0.09090909, 0.36363637, 0.54545456, 0.45454547, 0.545…</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="the-scatterplot.html#cb183-1"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb183-2"><a href="the-scatterplot.html#cb183-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="the-scatterplot.html#cb176-1"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb176-2"><a href="the-scatterplot.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-89-1.png" width="288" style="display: block; margin: auto;" /></p>
 <p>Because the data are so dense, especially in the lower-left corner of the plot, we might use alpha transparency to make the density easier to see.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="the-scatterplot.html#cb184-1"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb184-2"><a href="the-scatterplot.html#cb184-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="the-scatterplot.html#cb177-1"></a><span class="kw">ggplot</span>(gamson_df, <span class="kw">aes</span>(<span class="dt">x =</span> seat_share, <span class="dt">y =</span> portfolio_share)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb177-2"><a href="the-scatterplot.html#cb177-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-90-1.png" width="288" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-gapminder" class="section level2">
 <h2><span class="header-section-number">8.2</span> Example: <code>gapminder</code></h2>
 <p>For a dataset with more variables, we can represent a few other variables using aesthetics other than location in space.</p>
 <p>For this example, we use country-level data from the gapminder package.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="the-scatterplot.html#cb185-1"></a><span class="co"># load gapminder dataset from gapminder package</span></span>
-<span id="cb185-2"><a href="the-scatterplot.html#cb185-2"></a><span class="kw">data</span>(gapminder, <span class="dt">package =</span> <span class="st">&quot;gapminder&quot;</span>)</span>
-<span id="cb185-3"><a href="the-scatterplot.html#cb185-3"></a></span>
-<span id="cb185-4"><a href="the-scatterplot.html#cb185-4"></a><span class="kw">glimpse</span>(gapminder)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="the-scatterplot.html#cb178-1"></a><span class="co"># load gapminder dataset from gapminder package</span></span>
+<span id="cb178-2"><a href="the-scatterplot.html#cb178-2"></a><span class="kw">data</span>(gapminder, <span class="dt">package =</span> <span class="st">&quot;gapminder&quot;</span>)</span>
+<span id="cb178-3"><a href="the-scatterplot.html#cb178-3"></a></span>
+<span id="cb178-4"><a href="the-scatterplot.html#cb178-4"></a><span class="kw">glimpse</span>(gapminder)</span></code></pre></div>
 <pre><code>Rows: 1,704
 Columns: 6
 $ country   &lt;fct&gt; Afghanistan, Afghanistan, Afghanistan, Afghanistan, Afghani…
@@ -368,82 +368,82 @@ $ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 19
 $ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40.…
 $ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 1…
 $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134,…</code></pre>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="the-scatterplot.html#cb187-1"></a><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
-<span id="cb187-2"><a href="the-scatterplot.html#cb187-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
-<span id="cb187-3"><a href="the-scatterplot.html#cb187-3"></a>                      <span class="dt">size =</span> pop, </span>
-<span id="cb187-4"><a href="the-scatterplot.html#cb187-4"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb187-5"><a href="the-scatterplot.html#cb187-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="the-scatterplot.html#cb180-1"></a><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
+<span id="cb180-2"><a href="the-scatterplot.html#cb180-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
+<span id="cb180-3"><a href="the-scatterplot.html#cb180-3"></a>                      <span class="dt">size =</span> pop, </span>
+<span id="cb180-4"><a href="the-scatterplot.html#cb180-4"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb180-5"><a href="the-scatterplot.html#cb180-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-91-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Because GDP per capita is skewed so heavily to the right, we might transform the x-axis from a linear scale (the default) to a log (base-10) scale.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="the-scatterplot.html#cb188-1"></a><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
-<span id="cb188-2"><a href="the-scatterplot.html#cb188-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
-<span id="cb188-3"><a href="the-scatterplot.html#cb188-3"></a>                      <span class="dt">size =</span> pop, </span>
-<span id="cb188-4"><a href="the-scatterplot.html#cb188-4"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb188-5"><a href="the-scatterplot.html#cb188-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb188-6"><a href="the-scatterplot.html#cb188-6"></a><span class="st">  </span><span class="kw">scale_x_log10</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="the-scatterplot.html#cb181-1"></a><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
+<span id="cb181-2"><a href="the-scatterplot.html#cb181-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
+<span id="cb181-3"><a href="the-scatterplot.html#cb181-3"></a>                      <span class="dt">size =</span> pop, </span>
+<span id="cb181-4"><a href="the-scatterplot.html#cb181-4"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb181-5"><a href="the-scatterplot.html#cb181-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb181-6"><a href="the-scatterplot.html#cb181-6"></a><span class="st">  </span><span class="kw">scale_x_log10</span>()</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-92-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Because countries are evolving over time, we can connect the subsequent points using <code>geom_path()</code>. Note that <code>geom_path()</code> connects points <em>as they are arranged in the dataset</em>, so make sure your dataset is arranged properly. Because we want one path per country, we should include the aesthetic <code>aes(group = country)</code> as an argument to <code>geom_path()</code>.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="the-scatterplot.html#cb189-1"></a><span class="co"># arrange data by year</span></span>
-<span id="cb189-2"><a href="the-scatterplot.html#cb189-2"></a>gapminder2 &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span></span>
-<span id="cb189-3"><a href="the-scatterplot.html#cb189-3"></a><span class="st">  </span><span class="kw">arrange</span>(year)</span>
-<span id="cb189-4"><a href="the-scatterplot.html#cb189-4"></a></span>
-<span id="cb189-5"><a href="the-scatterplot.html#cb189-5"></a><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
-<span id="cb189-6"><a href="the-scatterplot.html#cb189-6"></a>                      <span class="dt">y =</span> lifeExp,</span>
-<span id="cb189-7"><a href="the-scatterplot.html#cb189-7"></a>                      <span class="dt">size =</span> pop, </span>
-<span id="cb189-8"><a href="the-scatterplot.html#cb189-8"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb189-9"><a href="the-scatterplot.html#cb189-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb189-10"><a href="the-scatterplot.html#cb189-10"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb189-11"><a href="the-scatterplot.html#cb189-11"></a><span class="st">  </span><span class="kw">scale_x_log10</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="the-scatterplot.html#cb182-1"></a><span class="co"># arrange data by year</span></span>
+<span id="cb182-2"><a href="the-scatterplot.html#cb182-2"></a>gapminder2 &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span></span>
+<span id="cb182-3"><a href="the-scatterplot.html#cb182-3"></a><span class="st">  </span><span class="kw">arrange</span>(year)</span>
+<span id="cb182-4"><a href="the-scatterplot.html#cb182-4"></a></span>
+<span id="cb182-5"><a href="the-scatterplot.html#cb182-5"></a><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
+<span id="cb182-6"><a href="the-scatterplot.html#cb182-6"></a>                      <span class="dt">y =</span> lifeExp,</span>
+<span id="cb182-7"><a href="the-scatterplot.html#cb182-7"></a>                      <span class="dt">size =</span> pop, </span>
+<span id="cb182-8"><a href="the-scatterplot.html#cb182-8"></a>                      <span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb182-9"><a href="the-scatterplot.html#cb182-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb182-10"><a href="the-scatterplot.html#cb182-10"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb182-11"><a href="the-scatterplot.html#cb182-11"></a><span class="st">  </span><span class="kw">scale_x_log10</span>()</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-93-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>This is a little hard to see, so let’s clean it up a bit.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="the-scatterplot.html#cb190-1"></a><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
-<span id="cb190-2"><a href="the-scatterplot.html#cb190-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
-<span id="cb190-3"><a href="the-scatterplot.html#cb190-3"></a>                      <span class="dt">size =</span> pop, </span>
-<span id="cb190-4"><a href="the-scatterplot.html#cb190-4"></a>                      <span class="dt">color =</span> year)) <span class="op">+</span></span>
-<span id="cb190-5"><a href="the-scatterplot.html#cb190-5"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">size =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb190-6"><a href="the-scatterplot.html#cb190-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb190-7"><a href="the-scatterplot.html#cb190-7"></a><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb190-8"><a href="the-scatterplot.html#cb190-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(continent))</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="the-scatterplot.html#cb183-1"></a><span class="kw">ggplot</span>(gapminder2, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, </span>
+<span id="cb183-2"><a href="the-scatterplot.html#cb183-2"></a>                      <span class="dt">y =</span> lifeExp,</span>
+<span id="cb183-3"><a href="the-scatterplot.html#cb183-3"></a>                      <span class="dt">size =</span> pop, </span>
+<span id="cb183-4"><a href="the-scatterplot.html#cb183-4"></a>                      <span class="dt">color =</span> year)) <span class="op">+</span></span>
+<span id="cb183-5"><a href="the-scatterplot.html#cb183-5"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">size =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb183-6"><a href="the-scatterplot.html#cb183-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb183-7"><a href="the-scatterplot.html#cb183-7"></a><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb183-8"><a href="the-scatterplot.html#cb183-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(continent))</span></code></pre></div>
 <p><img src="concepts-and-computation_files/figure-html/unnamed-chunk-94-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-voteincome" class="section level2">
 <h2><span class="header-section-number">8.3</span> Example: <code>voteincome</code></h2>
 <p>[This block is currently not working because the Zelig package is out of commission at the moment.]</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="the-scatterplot.html#cb191-1"></a><span class="co"># load voteincome data from Zelig package</span></span>
-<span id="cb191-2"><a href="the-scatterplot.html#cb191-2"></a><span class="co"># data(voteincome, package = &quot;Zelig&quot;)</span></span>
-<span id="cb191-3"><a href="the-scatterplot.html#cb191-3"></a><span class="co"># </span></span>
-<span id="cb191-4"><a href="the-scatterplot.html#cb191-4"></a><span class="co"># glimpse(voteincome)</span></span>
-<span id="cb191-5"><a href="the-scatterplot.html#cb191-5"></a><span class="co"># </span></span>
-<span id="cb191-6"><a href="the-scatterplot.html#cb191-6"></a><span class="co"># ggplot(voteincome, aes(x = education, </span></span>
-<span id="cb191-7"><a href="the-scatterplot.html#cb191-7"></a><span class="co">#                       y = income)) + </span></span>
-<span id="cb191-8"><a href="the-scatterplot.html#cb191-8"></a><span class="co">#   geom_point()</span></span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="the-scatterplot.html#cb184-1"></a><span class="co"># load voteincome data from Zelig package</span></span>
+<span id="cb184-2"><a href="the-scatterplot.html#cb184-2"></a><span class="co"># data(voteincome, package = &quot;Zelig&quot;)</span></span>
+<span id="cb184-3"><a href="the-scatterplot.html#cb184-3"></a><span class="co"># </span></span>
+<span id="cb184-4"><a href="the-scatterplot.html#cb184-4"></a><span class="co"># glimpse(voteincome)</span></span>
+<span id="cb184-5"><a href="the-scatterplot.html#cb184-5"></a><span class="co"># </span></span>
+<span id="cb184-6"><a href="the-scatterplot.html#cb184-6"></a><span class="co"># ggplot(voteincome, aes(x = education, </span></span>
+<span id="cb184-7"><a href="the-scatterplot.html#cb184-7"></a><span class="co">#                       y = income)) + </span></span>
+<span id="cb184-8"><a href="the-scatterplot.html#cb184-8"></a><span class="co">#   geom_point()</span></span></code></pre></div>
 <p>Notice three things:</p>
 <ol style="list-style-type: decimal">
 <li>The variable <code>education</code> is not under control. To see the codings, use <code>help(voteincome, package = "Zelig")</code>. Ideally, this variable (i) use qualitative labels rather than numeric placeholders and (ii) be a factor with <em>reasonably ordered</em> levels.</li>
 <li>There’s substantial over-plotting. Dozens of points are right on top of each other, so we cannot tell how many points are at each coordiate.</li>
 </ol>
 <p>Let’s fix the first issue for <code>education</code>, so you can see how. (<code>income</code> has many more levels, so let’s just get on with the plotting).</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="the-scatterplot.html#cb192-1"></a><span class="co"># voteincome2 &lt;- voteincome %&gt;%</span></span>
-<span id="cb192-2"><a href="the-scatterplot.html#cb192-2"></a><span class="co">#   mutate(education = fct_recode(as.character(education),</span></span>
-<span id="cb192-3"><a href="the-scatterplot.html#cb192-3"></a><span class="co">#                                 &quot;Less than High School Education&quot; = &quot;1&quot;,</span></span>
-<span id="cb192-4"><a href="the-scatterplot.html#cb192-4"></a><span class="co">#                                 &quot;High School Education&quot; = &quot;2&quot;,</span></span>
-<span id="cb192-5"><a href="the-scatterplot.html#cb192-5"></a><span class="co">#                                 &quot;College Education&quot; = &quot;3&quot;,</span></span>
-<span id="cb192-6"><a href="the-scatterplot.html#cb192-6"></a><span class="co">#                                 &quot;More than a College Education&quot; = &quot;4&quot;)) %&gt;%</span></span>
-<span id="cb192-7"><a href="the-scatterplot.html#cb192-7"></a><span class="co">#   glimpse()</span></span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="the-scatterplot.html#cb185-1"></a><span class="co"># voteincome2 &lt;- voteincome %&gt;%</span></span>
+<span id="cb185-2"><a href="the-scatterplot.html#cb185-2"></a><span class="co">#   mutate(education = fct_recode(as.character(education),</span></span>
+<span id="cb185-3"><a href="the-scatterplot.html#cb185-3"></a><span class="co">#                                 &quot;Less than High School Education&quot; = &quot;1&quot;,</span></span>
+<span id="cb185-4"><a href="the-scatterplot.html#cb185-4"></a><span class="co">#                                 &quot;High School Education&quot; = &quot;2&quot;,</span></span>
+<span id="cb185-5"><a href="the-scatterplot.html#cb185-5"></a><span class="co">#                                 &quot;College Education&quot; = &quot;3&quot;,</span></span>
+<span id="cb185-6"><a href="the-scatterplot.html#cb185-6"></a><span class="co">#                                 &quot;More than a College Education&quot; = &quot;4&quot;)) %&gt;%</span></span>
+<span id="cb185-7"><a href="the-scatterplot.html#cb185-7"></a><span class="co">#   glimpse()</span></span></code></pre></div>
 <p>Now let’s deal with the overplotting. In general, we have two strategies for dealing with overplotting.</p>
 <ol style="list-style-type: decimal">
 <li>alpha transparency</li>
 <li>jittering</li>
 </ol>
 <p>First, let’s try to adjust the alpha transparency.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="the-scatterplot.html#cb193-1"></a><span class="co"># ggplot(voteincome2, aes(x = education, </span></span>
-<span id="cb193-2"><a href="the-scatterplot.html#cb193-2"></a><span class="co">#                         y = income)) + </span></span>
-<span id="cb193-3"><a href="the-scatterplot.html#cb193-3"></a><span class="co">#   geom_point(alpha = 0.2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="the-scatterplot.html#cb186-1"></a><span class="co"># ggplot(voteincome2, aes(x = education, </span></span>
+<span id="cb186-2"><a href="the-scatterplot.html#cb186-2"></a><span class="co">#                         y = income)) + </span></span>
+<span id="cb186-3"><a href="the-scatterplot.html#cb186-3"></a><span class="co">#   geom_point(alpha = 0.2)</span></span></code></pre></div>
 <p>This helps, but <em>only a little</em>. We can we wher we have many points, where we have just a few, and where we have none. But overall, we still don’t have a good sense of the density at each coordinate.</p>
 <p>Let’s try jittering. To jitter the data, we add a small amount of noise to each point. We add enough noise to separate it from the other points, but not so much noise to distort the position along in the space.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="the-scatterplot.html#cb194-1"></a><span class="co"># ggplot(voteincome2, aes(x = education, </span></span>
-<span id="cb194-2"><a href="the-scatterplot.html#cb194-2"></a><span class="co">#                         y = income)) + </span></span>
-<span id="cb194-3"><a href="the-scatterplot.html#cb194-3"></a><span class="co">#   geom_point(position = &quot;jitter&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="the-scatterplot.html#cb187-1"></a><span class="co"># ggplot(voteincome2, aes(x = education, </span></span>
+<span id="cb187-2"><a href="the-scatterplot.html#cb187-2"></a><span class="co">#                         y = income)) + </span></span>
+<span id="cb187-3"><a href="the-scatterplot.html#cb187-3"></a><span class="co">#   geom_point(position = &quot;jitter&quot;)</span></span></code></pre></div>
 <hr />
 
 <div class="exercise">
@@ -459,16 +459,16 @@ Perhaps use the following aesthetics: <code>x = eneg</code> and <code>y = enep</
 </details>
 <details>
 <p><summary>Solution</summary></p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="the-scatterplot.html#cb195-1"></a><span class="co"># load packages</span></span>
-<span id="cb195-2"><a href="the-scatterplot.html#cb195-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb195-3"><a href="the-scatterplot.html#cb195-3"></a></span>
-<span id="cb195-4"><a href="the-scatterplot.html#cb195-4"></a><span class="co"># load data</span></span>
-<span id="cb195-5"><a href="the-scatterplot.html#cb195-5"></a>parties_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/parties.rds&quot;</span>)</span>
-<span id="cb195-6"><a href="the-scatterplot.html#cb195-6"></a></span>
-<span id="cb195-7"><a href="the-scatterplot.html#cb195-7"></a><span class="co"># make scatterplot</span></span>
-<span id="cb195-8"><a href="the-scatterplot.html#cb195-8"></a><span class="kw">ggplot</span>(parties_df, <span class="kw">aes</span>(<span class="dt">x =</span> eneg, <span class="dt">y =</span> enep)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb195-9"><a href="the-scatterplot.html#cb195-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb195-10"><a href="the-scatterplot.html#cb195-10"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(electoral_system))</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="the-scatterplot.html#cb188-1"></a><span class="co"># load packages</span></span>
+<span id="cb188-2"><a href="the-scatterplot.html#cb188-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb188-3"><a href="the-scatterplot.html#cb188-3"></a></span>
+<span id="cb188-4"><a href="the-scatterplot.html#cb188-4"></a><span class="co"># load data</span></span>
+<span id="cb188-5"><a href="the-scatterplot.html#cb188-5"></a>parties_df &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/parties.rds&quot;</span>)</span>
+<span id="cb188-6"><a href="the-scatterplot.html#cb188-6"></a></span>
+<span id="cb188-7"><a href="the-scatterplot.html#cb188-7"></a><span class="co"># make scatterplot</span></span>
+<span id="cb188-8"><a href="the-scatterplot.html#cb188-8"></a><span class="kw">ggplot</span>(parties_df, <span class="kw">aes</span>(<span class="dt">x =</span> eneg, <span class="dt">y =</span> enep)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb188-9"><a href="the-scatterplot.html#cb188-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb188-10"><a href="the-scatterplot.html#cb188-10"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(electoral_system))</span></code></pre></div>
 <img src="concepts-and-computation_files/figure-html/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" />
 </details>
 
